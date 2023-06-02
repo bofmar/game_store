@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -9,9 +9,9 @@ interface IGame {
 	description: string;
 	copies_in_stock: number;
 	price: number;
-	publisher: mongoose.Schema.Types.ObjectId;
-	genres: Array<mongoose.Schema.Types.ObjectId>;
-	consoles: Array<mongoose.Schema.Types.ObjectId>;
+	publisher: Types.ObjectId;
+	genres: Array<Types.ObjectId>;
+	consoles: Array<Types.ObjectId>;
 	url: string;
 	image?: string;
 }
