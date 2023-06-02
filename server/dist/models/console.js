@@ -11,7 +11,7 @@ const ConsoleSchema = new Schema({
 });
 // Virtual for the url
 ConsoleSchema.virtual('url').get(function () {
-    return `/catalog/console/${this.id}`;
+    return `/catalog/console/${this._id}`;
 });
 // Virtual for the formated date of release
 ConsoleSchema.virtual('release_date_formated').get(function () {

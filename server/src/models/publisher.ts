@@ -23,7 +23,7 @@ const PublisherSchema = new Schema<IPublisher>({
 
 // Virtual for the internal url
 PublisherSchema.virtual('url').get(function () {
-	return `/catalog/publisher/${this.id}`;
+	return `/catalog/publisher/${this._id}`;
 });
 
 // Virtual for formated date of founding

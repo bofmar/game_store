@@ -13,7 +13,7 @@ const GenreSchema = new Schema<IGenre>({
 
 // Virtual for URL
 GenreSchema.virtual('url').get(function () {
-	return `/catalog/genre/${this.id}`;
+	return `/catalog/genre/${this._id}`;
 });
 
 const Genre = mongoose.model<IGenre>('Genre', GenreSchema);
