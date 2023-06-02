@@ -8,7 +8,8 @@ import mongoose from 'mongoose';
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const MONGOURI = process.env.MONGOURI;
+const IS_DEV = process.env.DEV;
+const MONGOURI = IS_DEV ? process.env.MONGO_TEST_URI : process.env.MONGO_PROD_URI;
 const runningMessage = `Listening for requests on port ${PORT}`; 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
