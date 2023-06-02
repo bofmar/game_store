@@ -1,7 +1,10 @@
+import ConTest from "./components/ConTest"
+
 function App() {
 
   return (
     <>
+		<ConTest />
     </>
   )
 }

@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import url from 'url';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
 //import mongoose from 'mongoose';
 
 dotenv.config();
@@ -14,9 +16,11 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+app.use(cors());
+
 // Say hi
 app.get('/', (_req: express.Request, res: express.Response) => {
-	res.send('Hello from the server!');
+	res.json({ message: 'Hello from the backend' });
 });
 
 app.listen(PORT, () => console.log(runningMessage, `MONGOURL: ${MONGOURL}`, `filename: ${__filename}`, `dirname: ${__dirname}`));

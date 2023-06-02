@@ -5,9 +5,9 @@
   "type": "module",
   "main": "./dist/server.js",
   "scripts": {
-	  "start": "node dist/server.js",
-	  "build": "tsc -p .",
-	  "dev": "tsc --watch & node --watch dist/server.js"
+    "start": "node dist/server.js",
+    "build": "tsc -p .",
+    "dev": "tsc --watch & node --watch dist/server.js"
   },
   "author": "",
   "license": "MIT",
@@ -18,6 +18,8 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@types/cors": "^2.8.13",
+    "cors": "^2.8.5",
     "dotenv": "^16.1.3",
     "express": "^4.18.2",
     "mongoose": "^7.2.2"
