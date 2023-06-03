@@ -18,8 +18,11 @@ mongoose.connect(MONGOURI).then(_result => {
 }).catch(error => {
     console.log(error);
 });
+// middleware
 app.use(helmet());
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 // Say hi
 app.get('/', (_req, res) => {
     res.json({ message: 'Hello from the backend' });

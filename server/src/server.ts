@@ -23,8 +23,11 @@ mongoose.connect(MONGOURI as string).then(_result => {
 	console.log(error);
 });
 
+// middleware
 app.use(helmet());
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Say hi
 app.get('/', (_req: express.Request, res: express.Response) => {
