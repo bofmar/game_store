@@ -1,10 +1,14 @@
+// Libraries
 import express from 'express';
 import path from 'path';
 import url from 'url';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+
+// Middleware
 import helmet from 'helmet';
 import cors from 'cors';
+import morgan from 'morgan';
 
 dotenv.config();
 
@@ -26,11 +30,15 @@ mongoose.connect(MONGOURI as string).then(_result => {
 // middleware
 app.use(helmet());
 app.use(cors());
+app.use(morgan(IS_DEV ? 'dev' : 'common'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Say hi
-app.get('/', (_req: express.Request, res: express.Response) => {
+app.get('/', (_req: express.Request, res: express.Response): void => {
 	res.json({ message: 'Hello from the backend' });
 });
 
+app.use((_req: express.Request, res: express.Response): void => {
+	res.status(404).send('404 - Page not found');
+});
