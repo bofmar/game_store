@@ -2,8 +2,9 @@ import express from 'express';
 import path from 'path';
 import url from 'url';
 import dotenv from 'dotenv';
-import cors from 'cors';
 import mongoose from 'mongoose';
+import helmet from 'helmet';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ mongoose.connect(MONGOURI as string).then(_result => {
 	console.log(error);
 });
 
+app.use(helmet());
 app.use(cors());
 
 // Say hi

@@ -2,8 +2,9 @@ import express from 'express';
 import path from 'path';
 import url from 'url';
 import dotenv from 'dotenv';
-import cors from 'cors';
 import mongoose from 'mongoose';
+import helmet from 'helmet';
+import cors from 'cors';
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 const IS_DEV = process.env.DEV;
@@ -17,6 +18,7 @@ mongoose.connect(MONGOURI).then(_result => {
 }).catch(error => {
     console.log(error);
 });
+app.use(helmet());
 app.use(cors());
 // Say hi
 app.get('/', (_req, res) => {
