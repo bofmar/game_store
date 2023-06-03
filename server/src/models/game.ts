@@ -29,7 +29,7 @@ const GameSchema = new Schema<IGame>({
 });
 
 // Virtual for the url
-GameSchema.virtual('url').get(function () {
+GameSchema.virtual('url').get(function (): string {
 	return `/catalog/game/${this._id}`;
 });
 

@@ -22,12 +22,12 @@ const PublisherSchema = new Schema<IPublisher>({
 });
 
 // Virtual for the internal url
-PublisherSchema.virtual('url').get(function () {
+PublisherSchema.virtual('url').get(function (): string {
 	return `/catalog/publisher/${this._id}`;
 });
 
 // Virtual for formated date of founding
-PublisherSchema.virtual('date_founded_formated').get(function () {
+PublisherSchema.virtual('date_founded_formated').get(function (): string {
 	return DateTime.fromJSDate(this.date_founded).toLocaleString(DateTime.DATE_MED);
 });
 

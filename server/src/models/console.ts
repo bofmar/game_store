@@ -25,17 +25,17 @@ const ConsoleSchema = new Schema<IConsole>({
 });
 
 // Virtual for the url
-ConsoleSchema.virtual('url').get(function () {
+ConsoleSchema.virtual('url').get(function (): string {
 	return `/catalog/console/${this._id}`;
 });
 
 // Virtual for the formated date of release
-ConsoleSchema.virtual('release_date_formated').get(function () {
+ConsoleSchema.virtual('release_date_formated').get(function (): string {
 	return DateTime.fromJSDate(this.release_date).toLocaleString(DateTime.DATE_MED);
 });
 
 // Virtual for the url
-ConsoleSchema.virtual('discontinued_date_formated').get(function () {
+ConsoleSchema.virtual('discontinued_date_formated').get(function (): string {
 	return this.discontinued_date ? DateTime.fromJSDate(this.discontinued_date).toLocaleString(DateTime.DATE_MED) : '';
 });
 
