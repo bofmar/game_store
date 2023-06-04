@@ -16,7 +16,7 @@ interface IConsole {
 }
 
 const ConsoleSchema = new Schema<IConsole>({
-	name: { type: String, required: true, minLength: 3 },
+	name: { type: String, required: true, minLength: 2 },
 	developer_name: { type: String, required: true, minLength: 1 },
 	description: { type: String, required: true },
 	release_date: { type: Date, required: true },

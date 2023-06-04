@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { DateTime } from "luxon";
 const Schema = mongoose.Schema;
 const ConsoleSchema = new Schema({
-    name: { type: String, required: true, minLength: 3 },
+    name: { type: String, required: true, minLength: 2 },
     developer_name: { type: String, required: true, minLength: 1 },
     description: { type: String, required: true },
     release_date: { type: Date, required: true },
