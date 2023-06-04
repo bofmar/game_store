@@ -5,10 +5,13 @@ import url from 'url';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
+import Game from './models/game.js';
+
 // Middleware
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
+
 
 dotenv.config();
 
@@ -35,8 +38,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Say hi
-app.get('/', (_req: express.Request, res: express.Response): void => {
-	res.json({ message: 'Hello from the backend' });
+app.get('/', async (_req: express.Request, res: express.Response) => {
+	const game = await Game.findOne({ title: 'Test game 1' }).populate('genres').populate('publisher').populate('consoles').exec();
+	console.log(game?.url);
+	console.log(game?.genres);
+	console.log(game?.publisher);
+	console.log(game?.consoles);
+	res.json(game);
 });
 
 app.use((_req: express.Request, res: express.Response): void => {

@@ -4,6 +4,7 @@ import path from 'path';
 import url from 'url';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import Game from './models/game.js';
 // Middleware
 import helmet from 'helmet';
 import cors from 'cors';
@@ -28,8 +29,13 @@ app.use(morgan(IS_DEV ? 'dev' : 'common'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // Say hi
-app.get('/', (_req, res) => {
-    res.json({ message: 'Hello from the backend' });
+app.get('/', async (_req, res) => {
+    const game = await Game.findOne({ title: 'Test game 1' }).populate('genres').populate('publisher').populate('consoles').exec();
+    console.log(game?.url);
+    console.log(game?.genres);
+    console.log(game?.publisher);
+    console.log(game?.consoles);
+    res.json(game);
 });
 app.use((_req, res) => {
     res.status(404).send('404 - Page not found');
