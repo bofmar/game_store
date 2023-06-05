@@ -23,6 +23,7 @@ const MONGOURI = IS_DEV ? process.env.MONGO_TEST_URI : process.env.MONGO_PROD_UR
 const runningMessage = `Listening for requests on port ${PORT}`; 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const ROOT = path.join(__dirname, '..');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use(cors());
 app.use(morgan(IS_DEV ? 'dev' : 'common'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/images', express.static(path.join(ROOT, 'public/images')));
 
 app.use('/catalog', catalogRouter);
 
