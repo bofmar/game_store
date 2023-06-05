@@ -12,7 +12,7 @@ interface IConsole {
 	release_date_formated: string;
 	discontinued_date?: Date;
 	discontinued_date_formated: string;
-	image?: string;
+	image: string;
 }
 
 const ConsoleSchema = new Schema<IConsole>({
@@ -20,13 +20,17 @@ const ConsoleSchema = new Schema<IConsole>({
 	developer_name: { type: String, required: true, minLength: 1 },
 	description: { type: String, required: true },
 	release_date: { type: Date, required: true },
-	discontinued_date: Date,
-	image: String
+	discontinued_date: Date
 });
 
 // Virtual for the url
 ConsoleSchema.virtual('url').get(function (): string {
 	return `/catalog/console/${this._id}`;
+});
+
+// Virtual for image
+ConsoleSchema.virtual('image').get(function (): string {
+	return `${this._id}`;
 });
 
 // Virtual for the formated date of release

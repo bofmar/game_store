@@ -6,12 +6,15 @@ const ConsoleSchema = new Schema({
     developer_name: { type: String, required: true, minLength: 1 },
     description: { type: String, required: true },
     release_date: { type: Date, required: true },
-    discontinued_date: Date,
-    image: String
+    discontinued_date: Date
 });
 // Virtual for the url
 ConsoleSchema.virtual('url').get(function () {
     return `/catalog/console/${this._id}`;
+});
+// Virtual for image
+ConsoleSchema.virtual('image').get(function () {
+    return `${this._id}`;
 });
 // Virtual for the formated date of release
 ConsoleSchema.virtual('release_date_formated').get(function () {
