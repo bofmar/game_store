@@ -26,7 +26,7 @@ mongoose.connect(MONGOURI).then(_result => {
     console.log(error);
 });
 // middleware
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors());
 app.use(morgan(IS_DEV ? 'dev' : 'common'));
 app.use(express.json());
