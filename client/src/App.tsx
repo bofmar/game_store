@@ -1,10 +1,10 @@
-import ConTest from "./components/ConTest"
+import AllGames from "./components/AllGames"
 
 function App() {
 
   return (
     <>
-		<ConTest />
+		<AllGames />
     </>
   )
 }
