@@ -33,12 +33,8 @@ interface IGame {
 	image?: string;
 }
 
-interface IAllGames {
-	games: Array<IGame> 
-}
-
 export default function AllGames() {
-	const [allGames, setAllGames] = useState<IAllGames | null>(null);
+	const [allGames, setAllGames] = useState<Array<IGame> | null>(null);
 
 	useEffect(() => {
 		const abort = new AbortController();
@@ -58,7 +54,7 @@ export default function AllGames() {
 	
 	return (
 		<>
-			<h1>Price: {allGames ? allGames?.games[0].price : 'null'}</h1>
+			<h1>Price: {allGames ? allGames[0].price : 'null'}</h1>
 		</>
 	);
 }
