@@ -1,37 +1,6 @@
 import { useEffect, useState } from "react";
-
-interface IPublisher {
-	name: string;
-    date_founded: Date;
-	bio: string;
-	logo?: string;
-}
-
-interface IGenre {
-	name: string;
-}
-
-interface IConsole {
-	name: string;
-	developer_name: string;
-	description: string;
-	release_date: Date;
-	discontinued_date?: Date;
-	image?: string;
-}
-
-
-interface IGame {
-	title: string;
-	release_date: Date;
-	description: string;
-	copies_in_stock: number;
-	price: number;
-	publisher: IPublisher;
-	genres: Array<IGenre>;
-	consoles: Array<IConsole>;
-	image?: string;
-}
+import { IGame } from '../types/types';
+import GameCard from "./GameCard";
 
 export default function AllGames() {
 	const [allGames, setAllGames] = useState<Array<IGame> | null>(null);
@@ -54,7 +23,7 @@ export default function AllGames() {
 	
 	return (
 		<>
-			<h1>Price: {allGames ? allGames[0].price : 'null'}</h1>
+			{allGames ? allGames.map(game => <GameCard game={game} key={game._id} />) : null}
 		</>
 	);
 }
