@@ -6,7 +6,6 @@ const PublisherSchema = new Schema({
     date_founded: { type: Date, required: true },
     bio: { type: String, required: true },
     external_url: String,
-    logo: String
 });
 // Virtual for the internal url
 PublisherSchema.virtual('url').get(function () {
@@ -15,6 +14,10 @@ PublisherSchema.virtual('url').get(function () {
 // Virtual for formated date of founding
 PublisherSchema.virtual('date_founded_formated').get(function () {
     return DateTime.fromJSDate(this.date_founded).toLocaleString(DateTime.DATE_MED);
+});
+// Virtual for image
+PublisherSchema.virtual('image').get(function () {
+    return `${this._id}`;
 });
 const Publisher = mongoose.model('Publisher', PublisherSchema);
 export default Publisher;

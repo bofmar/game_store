@@ -10,7 +10,7 @@ interface IPublisher {
 	bio: string;
 	url: string;
 	external_url?: string;
-	logo?: string;
+	image: string;
 }
 
 const PublisherSchema = new Schema<IPublisher>({
@@ -18,7 +18,6 @@ const PublisherSchema = new Schema<IPublisher>({
 	date_founded: { type: Date, required: true },
 	bio: { type: String, required: true },
 	external_url: String,
-	logo: String
 });
 
 // Virtual for the internal url
@@ -29,6 +28,11 @@ PublisherSchema.virtual('url').get(function (): string {
 // Virtual for formated date of founding
 PublisherSchema.virtual('date_founded_formated').get(function (): string {
 	return DateTime.fromJSDate(this.date_founded).toLocaleString(DateTime.DATE_MED);
+});
+
+// Virtual for image
+PublisherSchema.virtual('image').get(function (): string {
+	return `${this._id}`;
 });
 
 const Publisher = mongoose.model<IPublisher>('Publisher', PublisherSchema);

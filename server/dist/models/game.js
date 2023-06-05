@@ -11,12 +11,15 @@ const GameSchema = new Schema({
     price: { type: Number, required: true },
     publisher: { type: Schema.Types.ObjectId, ref: Publisher.modelName, required: true },
     genres: [{ type: Schema.Types.ObjectId, ref: Genre.modelName, required: true }],
-    consoles: [{ type: Schema.Types.ObjectId, ref: Console.modelName, required: true }],
-    image: String,
+    consoles: [{ type: Schema.Types.ObjectId, ref: Console.modelName, required: true }]
 });
 // Virtual for the url
 GameSchema.virtual('url').get(function () {
     return `/catalog/game/${this._id}`;
+});
+// Virtual for image
+GameSchema.virtual('image').get(function () {
+    return `${this._id}`;
 });
 const Game = mongoose.model('Game', GameSchema);
 export default Game;
