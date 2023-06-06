@@ -33,7 +33,7 @@ mongoose.connect(MONGOURI as string).then(_result => {
 
 // middleware
 app.use(helmet({ crossOriginResourcePolicy: false }));
-app.use(cors());
+app.use(cors({ origin: process.env.ACCESS_ORIGIN_URI }));
 app.use(morgan(IS_DEV ? 'dev' : 'common'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
