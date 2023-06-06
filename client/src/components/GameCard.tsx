@@ -6,7 +6,7 @@ interface IGameProp {
 }
 
 export default function GameCard({game}: IGameProp) {
-	const imageUrl = `${SERVER_URI}images/647e1b8a88dc8f9b21b026b7.jpeg`
+	const imageUrl = `${SERVER_URI}images/${game._id}.jpeg`
 	return (
 		<div>
 			<h3>{game.title}</h3>

@@ -53,6 +53,10 @@ app.get('/', async (_req: express.Request, res: express.Response) => {
 	res.json(game);
 });
 
+app.use('/images', (_req: express.Request, res: express.Response): void => {
+	res.sendFile(path.join(ROOT, 'public/images/default.jpeg'));
+});
+
 app.use((_req: express.Request, res: express.Response): void => {
 	res.status(404).send('404 - Page not found');
 });
