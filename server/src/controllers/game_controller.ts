@@ -7,6 +7,7 @@ export const game_get_all = async (_req: express.Request, res: express.Response)
 	res.json(allGames);
 }
 
+// Get one game by id
 export const game_get_detailed = async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 	const game = await Game.findById(req.params.id).populate('publisher').populate('genres').populate('consoles').exec();
 	// No game found?
