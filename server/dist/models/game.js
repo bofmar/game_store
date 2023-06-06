@@ -13,10 +13,6 @@ const GameSchema = new Schema({
     genres: [{ type: Schema.Types.ObjectId, ref: Genre.modelName, required: true }],
     consoles: [{ type: Schema.Types.ObjectId, ref: Console.modelName, required: true }]
 });
-// Virtual for the url
-GameSchema.virtual('url').get(function () {
-    return `/catalog/game/${this._id}`;
-});
 const Game = mongoose.model('Game', GameSchema);
 export default Game;
 //# sourceMappingURL=game.js.map
