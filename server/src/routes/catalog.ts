@@ -29,5 +29,7 @@ router.get('/consoles/:id', console_controller.console_get_detailed);
 // Genre routes
 // GET all genres
 router.get('/genres', genre_controller.genre_get_all);
+// GET genre detailed
+router.get('/genres/:id', genre_controller.genre_get_detailed);
 
 export default router;
