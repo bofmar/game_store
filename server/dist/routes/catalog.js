@@ -17,5 +17,7 @@ router.get('/publishers/:id', publisher_controller.publisher_get_detailed);
 // Console routes
 // GET all consoles
 router.get('/consoles', console_controller.console_get_all);
+// GET console detailed
+router.get('/consoles/:id', console_controller.console_get_detailed);
 export default router;
 //# sourceMappingURL=catalog.js.map
