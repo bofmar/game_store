@@ -2,7 +2,6 @@ export interface IPublisher {
 	name: string;
     date_founded: Date;
 	bio: string;
-	logo?: string;
 }
 
 export interface IGenre {
@@ -16,7 +15,6 @@ export interface IConsole {
 	description: string;
 	release_date: Date;
 	discontinued_date?: Date;
-	image?: string;
 }
 
 
@@ -30,6 +28,5 @@ export interface IGame {
 	publisher: IPublisher;
 	genres: Array<IGenre>;
 	consoles: Array<IConsole>;
-	image?: string;
 }
 
