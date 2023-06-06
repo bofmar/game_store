@@ -4,6 +4,7 @@ const router = express.Router();
 import * as game_controller from '../controllers/game_controller.js';
 import * as publisher_controller from '../controllers/publisher_controller.js';
 import * as console_controller from '../controllers/console_controller.js';
+import * as genre_controller from '../controllers/genre_controller.js';
 // Game routes
 // GET all games
 router.get('/games', game_controller.game_get_all);
@@ -19,5 +20,8 @@ router.get('/publishers/:id', publisher_controller.publisher_get_detailed);
 router.get('/consoles', console_controller.console_get_all);
 // GET console detailed
 router.get('/consoles/:id', console_controller.console_get_detailed);
+// Genre routes
+// GET all genres
+router.get('/genres', genre_controller.genre_get_all);
 export default router;
 //# sourceMappingURL=catalog.js.map
