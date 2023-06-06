@@ -15,10 +15,6 @@ PublisherSchema.virtual('url').get(function () {
 PublisherSchema.virtual('date_founded_formated').get(function () {
     return DateTime.fromJSDate(this.date_founded).toLocaleString(DateTime.DATE_MED);
 });
-// Virtual for image
-PublisherSchema.virtual('image').get(function () {
-    return `${this._id}`;
-});
 const Publisher = mongoose.model('Publisher', PublisherSchema);
 export default Publisher;
 //# sourceMappingURL=publisher.js.map

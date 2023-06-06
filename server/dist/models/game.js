@@ -17,10 +17,6 @@ const GameSchema = new Schema({
 GameSchema.virtual('url').get(function () {
     return `/catalog/game/${this._id}`;
 });
-// Virtual for image
-GameSchema.virtual('image').get(function () {
-    return `${this._id}`;
-});
 const Game = mongoose.model('Game', GameSchema);
 export default Game;
 //# sourceMappingURL=game.js.map

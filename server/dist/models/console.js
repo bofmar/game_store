@@ -12,10 +12,6 @@ const ConsoleSchema = new Schema({
 ConsoleSchema.virtual('url').get(function () {
     return `/catalog/console/${this._id}`;
 });
-// Virtual for image
-ConsoleSchema.virtual('image').get(function () {
-    return `${this._id}`;
-});
 // Virtual for the formated date of release
 ConsoleSchema.virtual('release_date_formated').get(function () {
     return DateTime.fromJSDate(this.release_date).toLocaleString(DateTime.DATE_MED);

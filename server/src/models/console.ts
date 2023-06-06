@@ -12,7 +12,6 @@ interface IConsole {
 	release_date_formated: string;
 	discontinued_date?: Date;
 	discontinued_date_formated: string;
-	image: string;
 }
 
 const ConsoleSchema = new Schema<IConsole>({
@@ -26,11 +25,6 @@ const ConsoleSchema = new Schema<IConsole>({
 // Virtual for the url
 ConsoleSchema.virtual('url').get(function (): string {
 	return `/catalog/console/${this._id}`;
-});
-
-// Virtual for image
-ConsoleSchema.virtual('image').get(function (): string {
-	return `${this._id}`;
 });
 
 // Virtual for the formated date of release

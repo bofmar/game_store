@@ -16,7 +16,6 @@ interface IGame {
 	genres: Array<Types.ObjectId>;
 	consoles: Array<Types.ObjectId>;
 	url: string;
-	image: string;
 }
 
 const GameSchema = new Schema<IGame>({
@@ -33,11 +32,6 @@ const GameSchema = new Schema<IGame>({
 // Virtual for the url
 GameSchema.virtual('url').get(function (): string {
 	return `/catalog/game/${this._id}`;
-});
-
-// Virtual for image
-GameSchema.virtual('image').get(function (): string {
-	return `${this._id}`;
 });
 
 const Game = mongoose.model<IGame>('Game', GameSchema);
