@@ -1,4 +1,5 @@
 export interface IPublisher {
+	_id: string;
 	name: string;
     date_founded: Date;
 	bio: string;
@@ -10,6 +11,7 @@ export interface IGenre {
 }
 
 export interface IConsole {
+	_id: string;
 	name: string;
 	developer_name: string;
 	description: string;
