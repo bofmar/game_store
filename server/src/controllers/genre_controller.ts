@@ -19,3 +19,17 @@ export const genre_get_detailed = async (req: express.Request, res: express.Resp
 
 	res.json(genre);
 }
+
+// POST new genre
+export const genre_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
+	console.log(req.body);
+	const genre = new Genre({ name: req.body.name });
+	const genreExists = await Genre.findOne({ name: req.body.name }).exec();
+	if(!genreExists) {
+		await genre.save();
+		res.status(201).json(genre);
+	}
+	else {
+		res.status(400).send('Genre allready exists');
+	}
+}

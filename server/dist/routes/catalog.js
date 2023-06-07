@@ -25,5 +25,7 @@ router.get('/consoles/:id', console_controller.console_get_detailed);
 router.get('/genres', genre_controller.genre_get_all);
 // GET genre detailed
 router.get('/genres/:id', genre_controller.genre_get_detailed);
+// POST new genre
+router.post('/genres', genre_controller.genre_post_new);
 export default router;
 //# sourceMappingURL=catalog.js.map
