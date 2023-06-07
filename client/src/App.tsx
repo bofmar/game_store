@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar"
 import PageNotFound from "./components/PageNotFound"
 import GameDetail from "./components/GameDetail"
 import ControlPanel from "./components/ControlPanel"
+import GamePanel from "./components/GamesPanel"
 
 function App() {
 
@@ -15,6 +16,10 @@ function App() {
 			<Route path='/' element={<Home />} />
 			<Route path='/store' element={<Store />} />
 			<Route path='/store/:gameId' element={<GameDetail />} />
+			<Route path='/control-panel' element={<ControlPanel />} />
+			<Route path='/control-panel/games' element={<GamePanel/>} />
+			<Route path='/control-panel' element={<ControlPanel />} />
+			<Route path='/control-panel' element={<ControlPanel />} />
 			<Route path='/control-panel' element={<ControlPanel />} />
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>

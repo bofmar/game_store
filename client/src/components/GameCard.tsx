@@ -4,9 +4,10 @@ import { SERVER_URI } from "../constats";
 
 interface IGameProp {
 	game: IGame
+	fromPanel: boolean
 }
 
-export default function GameCard({game}: IGameProp) {
+export default function GameCard({game, fromPanel}: IGameProp) {
 	const imageUrl = `${SERVER_URI}images/${game._id}.jpeg`
 	return (
 		<div>
@@ -18,6 +19,10 @@ export default function GameCard({game}: IGameProp) {
 			<section>
 				<p>{game.price}</p>
 			</section>
+			{ fromPanel && <section>
+				<button>Modify</button>
+				<button>Delete</button>
+			</section> }
 		</div>
 	);
 }
