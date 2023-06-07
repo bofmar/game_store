@@ -16,7 +16,6 @@ export const genre_get_detailed = async (req, res, next) => {
 };
 // POST new genre
 export const genre_post_new = async (req, res) => {
-    console.log(req.body);
     const genre = new Genre({ name: req.body.name });
     const genreExists = await Genre.findOne({ name: req.body.name }).exec();
     if (!genreExists) {

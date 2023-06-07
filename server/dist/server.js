@@ -31,7 +31,7 @@ app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: process.env.ACCESS_ORIGIN_URI }));
 app.use(morgan(IS_DEV ? 'dev' : 'common'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use('/images', express.static(path.join(ROOT, 'public/images')));
 app.use('/catalog', catalogRouter);
 // Error fallbacks
