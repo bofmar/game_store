@@ -10,7 +10,7 @@ export default function GenrePanel() {
 	return (
 		<>
 			{loading && <p>'Loading....'</p>}
-			{genres && genres.map(genre => <GenreCard genre={genre} />)}
+			{genres && genres.map(genre => <GenreCard genre={genre} key={genre._id} />)}
 		</>
 	);
 }
