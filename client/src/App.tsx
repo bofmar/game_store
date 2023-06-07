@@ -4,6 +4,7 @@ import Store from "./components/Store"
 import NavBar from "./components/NavBar"
 import PageNotFound from "./components/PageNotFound"
 import GameDetail from "./components/GameDetail"
+import ControlPanel from "./components/ControlPanel"
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
 			<Route path='/' element={<Home />} />
 			<Route path='/store' element={<Store />} />
 			<Route path='/store/:gameId' element={<GameDetail />} />
+			<Route path='/control-panel' element={<ControlPanel />} />
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>
     </>

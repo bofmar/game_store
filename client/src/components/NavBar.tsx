@@ -5,6 +5,7 @@ export default function NavBar() {
 		<nav>
 			<NavLink to='/'>Home</NavLink>
 			<NavLink to='/store'>Store</NavLink>
+			<NavLink to='/control-panel'>Control Panel</NavLink>
 		</nav>
 	);
 }
