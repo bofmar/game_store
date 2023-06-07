@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import AllGames from "./AllGames";
 
 export default function ControlPanel() {
 	return (
