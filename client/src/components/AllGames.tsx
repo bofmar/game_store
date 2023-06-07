@@ -13,7 +13,7 @@ export default function AllGames({ fromPanel }: IAllGames) {
 	
 	return (
 		<>
-			{loading && 'loading....'}
+			{loading && <p>Loading....</p>}
 			{allGames ? allGames.map(game => <GameCard game={game} key={game._id} fromPanel={fromPanel} />) : null}
 			{error && !allGames && <p>An error has occured, please try again later. Error message: {error}</p>}
 		</>

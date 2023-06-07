@@ -9,7 +9,7 @@ export default function PublisherPanel() {
 
 	return (
 		<>
-			{loading && 'Loading....'}
+			{loading && <p>Loading....</p>}
 			{publishers && publishers.map(publisher => <PublisherCard publisher={publisher} key={publisher._id}/>)}
 		</>
 	);
