@@ -1,9 +1,10 @@
 import { SERVER_URI } from "../constats";
+import { handlePost } from "../hooks/handlePost";
 import useFetch from "../hooks/useFetch";
 import { IGenre } from "../types/types";
 import GenreCard from "./GenreCard";
 import { FormEvent, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function GenrePanel() {
@@ -11,32 +12,13 @@ export default function GenrePanel() {
 	const { data: genres, loading } = useFetch<Array<IGenre>>(url);
 	const [formData, setData] = useState({name: ''})
 
-	const handleSubmit = async (e: FormEvent) => {
-		e.preventDefault();
+	const handleSubmit = (event: FormEvent) => {
+		event.preventDefault();
+		// validate data TODO
 
-		const loadToast = toast.loading('Please wait...');
+		const sendData: IGenre = {...formData, kind: 'genre', _id:''};
 
-		const response = await fetch(url, {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(formData),
-		});
-		// TODO: HANDLE THE TOASTS
-		if(response.status === 400){ // The genre already exists
-			toast.update(loadToast, { render: `${formData.name} already exists in the database`, type: 'warning', isLoading: false });
-			console.log('show toast');
-		} else if(response.status === 201) { // The genre was created successfully
-			toast.update(loadToast, { render: `${formData.name} was created`, type: 'success', isLoading: false });
-			console.log('show toast, refresh on closing the toast');
-			setTimeout(() => window.location.reload(), 5000);
-		} else { // something went wrong
-			toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false });
-			console.log('show toast');
-		}
-
+		handlePost(url, sendData);
 	}
 
 	return (
@@ -48,7 +30,7 @@ export default function GenrePanel() {
 			</form>
 			{loading && <p>'Loading....'</p>}
 			{genres && genres.map(genre => <GenreCard genre={genre} key={genre._id} />)}
-			<ToastContainer autoClose={5000} theme="dark"/>
+			<ToastContainer theme="dark"/>
 		</>
 	);
 }
