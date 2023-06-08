@@ -19,3 +19,22 @@ export const console_get_detailed = async (req: express.Request, res: express.Re
 
 	res.json(gameConsole);
 }
+
+// POST new console
+export const console_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
+	const con = new Console({ 
+		name: req.body.name,
+		developer_name: req.body.developer,
+		description : req.body.description,
+		release_data : req.body.releaseDate,
+		discontinued_date : req.body.discontinuedDate || null
+	});
+	const consoleExists = await Console.findOne({ name: req.body.name }).exec();
+	if(!consoleExists) {
+		await con.save();
+		res.status(201).json(con);
+	}
+	else {
+		res.status(400).send('Genre allready exists');
+	}
+}
