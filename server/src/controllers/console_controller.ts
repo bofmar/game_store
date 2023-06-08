@@ -27,8 +27,12 @@ export const console_post_new = async (req: express.Request, res: express.Respon
 		developer_name: req.body.developer,
 		description : req.body.description,
 		release_data : req.body.releaseDate,
-		discontinued_date : req.body.discontinuedDate || null
 	});
+	
+	if(req.body.discontinuedDate) {
+		con.discontinued_date = req.body.discontinuedDate;
+	}
+
 	const consoleExists = await Console.findOne({ name: req.body.name }).exec();
 	if(!consoleExists) {
 		await con.save();
