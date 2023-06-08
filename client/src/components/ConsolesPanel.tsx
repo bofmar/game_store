@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { IConsole } from "../types/types";
 import ConsoleCard from "./ConsoleCard";
 import { FormEvent, useState } from "react";
+import { handlePost } from "../hooks/handlePost";
 
 export default function ConsolesPanel() {
 	const url = `${SERVER_URI}catalog/consoles`;
@@ -12,7 +13,20 @@ export default function ConsolesPanel() {
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		console.log(JSON.stringify(formData));
+		const sendData: IConsole = {
+			...formData,
+			kind: 'console',
+			_id:'',
+			developer_name: formData.developer,
+			release_date: new Date(formData.releaseDate),
+		};
+
+		if(formData.discontinuedDate) {
+			sendData.discontinued_date = new Date(formData.discontinuedDate);
+		}
+		console.log('Send Data: ',JSON.stringify(sendData));
+
+		handlePost(url, sendData);
 	}
 
 	return (

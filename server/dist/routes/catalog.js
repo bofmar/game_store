@@ -21,7 +21,7 @@ router.get('/consoles', console_controller.console_get_all);
 // GET console detailed
 router.get('/consoles/:id', console_controller.console_get_detailed);
 // POST new console
-router.post('consoles', console_controller.console_post_new);
+router.post('/consoles', console_controller.console_post_new);
 // Genre routes
 // GET all genres
 router.get('/genres', genre_controller.genre_get_all);

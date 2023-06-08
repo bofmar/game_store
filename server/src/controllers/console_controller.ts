@@ -24,14 +24,16 @@ export const console_get_detailed = async (req: express.Request, res: express.Re
 export const console_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
 	const con = new Console({ 
 		name: req.body.name,
-		developer_name: req.body.developer,
+		developer_name: req.body.developer_name,
 		description : req.body.description,
-		release_data : req.body.releaseDate,
+		release_date : new Date(req.body.release_date),
 	});
 	
 	if(req.body.discontinuedDate) {
-		con.discontinued_date = req.body.discontinuedDate;
+		con.discontinued_date = new Date(req.body.discontinued_date);
 	}
+
+	console.log(`Console: ${JSON.stringify(con)}`);
 
 	const consoleExists = await Console.findOne({ name: req.body.name }).exec();
 	if(!consoleExists) {
