@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
-import { IConsole, IGame, IGenre, IPublisher } from "../types/types";
+import { IConsole, IGenre, IPublisher } from "../types/types";
 
-type TFormData = IGame | IGenre | IPublisher | IConsole;
+type TFormData = IGenre | IPublisher | IConsole;
 
 export const handlePost = async (url: string, formData: TFormData) => {
 	const loadToast = toast.loading('Please wait...');
@@ -16,9 +16,9 @@ export const handlePost = async (url: string, formData: TFormData) => {
 		body: JSON.stringify(formData),
 	});
 	if(response.status === 400){ // The genre already exists
-		toast.update(loadToast, { render: `${ formData.kind === 'game' ? formData.title : formData.name } already exists in the database`, type: 'warning', isLoading: false, autoClose: delay });
+		toast.update(loadToast, { render: `${ formData.name } already exists in the database`, type: 'warning', isLoading: false, autoClose: delay });
 	} else if(response.status === 201) { // The genre was created successfully
-		toast.update(loadToast, { render: `${ formData.kind === 'game' ? formData.title : formData.name } was created`, type: 'success', isLoading: false, autoClose: delay});
+		toast.update(loadToast, { render: `${ formData.name } was created`, type: 'success', isLoading: false, autoClose: delay});
 		setTimeout(() => window.location.reload(), delay);
 	} else { // something went wrong
 		toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false, autoClose: delay});
