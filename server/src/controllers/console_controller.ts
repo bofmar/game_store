@@ -41,6 +41,6 @@ export const console_post_new = async (req: express.Request, res: express.Respon
 		res.status(201).json(con);
 	}
 	else {
-		res.status(400).send('Genre allready exists');
+		res.status(400).send('Console already exists');
 	}
 }

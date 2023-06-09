@@ -30,6 +30,6 @@ export const genre_post_new = async (req: express.Request, res: express.Response
 		res.status(201).json(genre);
 	}
 	else {
-		res.status(400).send('Genre allready exists');
+		res.status(400).send('Genre already exists');
 	}
 }

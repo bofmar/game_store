@@ -32,7 +32,7 @@ export const console_post_new = async (req, res) => {
         res.status(201).json(con);
     }
     else {
-        res.status(400).send('Genre allready exists');
+        res.status(400).send('Console already exists');
     }
 };
 //# sourceMappingURL=console_controller.js.map
