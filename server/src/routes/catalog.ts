@@ -1,4 +1,7 @@
 import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import url from 'url';
 
 const router = express.Router();
 
@@ -8,11 +11,28 @@ import * as publisher_controller from '../controllers/publisher_controller.js';
 import * as console_controller from '../controllers/console_controller.js';
 import * as genre_controller from '../controllers/genre_controller.js';
 
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT = path.join(__dirname, '../..');
+
+const fileStoreageEngine = multer.diskStorage({
+	destination: (_req, _file, cb) => {
+		cb(null, path.join(ROOT, 'public/images'));
+	},
+	filename: (req, _file, cb) => {
+		cb(null, `${req.body._id}.jpeg`);
+	}
+});
+
+const upload = multer({storage: fileStoreageEngine});
+
 // Game routes
 // GET all games
 router.get('/games', game_controller.game_get_all);
 // GET game detailed
 router.get('/games/:id', game_controller.game_get_detailed);
+// POST new game
+router.post('/games', upload.single('image'), game_controller.game_post_new);
 
 // Publisher routes
 // GET all publishers

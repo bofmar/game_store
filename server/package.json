@@ -17,8 +17,9 @@
     "@types/helmet": "^4.0.0",
     "@types/luxon": "^3.3.0",
     "@types/mongoose": "^5.11.97",
-    "@types/node": "^20.2.5",
     "@types/morgan": "^1.9.4",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^20.2.5",
     "typescript": "^5.0.4"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "helmet": "^7.0.0",
     "luxon": "^3.3.0",
     "mongoose": "^7.2.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1"
   }
 }
