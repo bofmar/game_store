@@ -24,7 +24,7 @@ export default function ConsolesPanel() {
 		if(formData.discontinuedDate) {
 			sendData.discontinued_date = new Date(formData.discontinuedDate);
 		}
-		console.log('Send Data: ',JSON.stringify(sendData));
+		// TODO CLIENT SIDE VALIDATION
 
 		handlePost(url, sendData);
 	}

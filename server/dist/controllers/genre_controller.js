@@ -18,6 +18,7 @@ export const genre_get_detailed = async (req, res, next) => {
 export const genre_post_new = async (req, res) => {
     const genre = new Genre({ name: req.body.name });
     const genreExists = await Genre.findOne({ name: req.body.name }).exec();
+    // TODO SERVER SIDE DATA VALIDATION
     if (!genreExists) {
         await genre.save();
         res.status(201).json(genre);

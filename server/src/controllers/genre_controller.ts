@@ -24,6 +24,7 @@ export const genre_get_detailed = async (req: express.Request, res: express.Resp
 export const genre_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
 	const genre = new Genre({ name: req.body.name});
 	const genreExists = await Genre.findOne({ name: req.body.name }).exec();
+	// TODO SERVER SIDE DATA VALIDATION
 	if(!genreExists) {
 		await genre.save();
 		res.status(201).json(genre);

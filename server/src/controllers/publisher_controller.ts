@@ -6,6 +6,7 @@ export const publisher_get_all = async (_req: express.Request, res: express.Resp
 	const allPublishers = await Publisher.find({}).exec();
 	res.json(allPublishers);
 }
+
 // GET one publisher
 export const publisher_get_detailed = async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 	const publisher = await Publisher.findById(req.params.id).exec();
@@ -17,4 +18,24 @@ export const publisher_get_detailed = async (req: express.Request, res: express.
 	}
 
 	res.json(publisher);
+}
+
+// POST new publisher
+export const publisher_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
+	const publisher = new Publisher({ 
+		name: req.body.name,
+		bio: req.body.bio,
+		date_founded: new Date(req.body.date_founded),
+	});
+
+	// TODO SERVER SIDE DATA VALIDATION
+
+	const publisherExists = await Publisher.findOne({ name: req.body.name }).exec();
+	if(!publisherExists) {
+		await publisher.save();
+		res.status(201).json(publisher);
+	}
+	else {
+		res.status(400).send('Genre allready exists');
+	}
 }

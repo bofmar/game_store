@@ -33,7 +33,7 @@ export const console_post_new = async (req: express.Request, res: express.Respon
 		con.discontinued_date = new Date(req.body.discontinued_date);
 	}
 
-	console.log(`Console: ${JSON.stringify(con)}`);
+	// TODO SERVER SIDE DATA VALIDATION
 
 	const consoleExists = await Console.findOne({ name: req.body.name }).exec();
 	if(!consoleExists) {
