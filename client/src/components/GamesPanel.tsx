@@ -2,15 +2,12 @@ import { FormEvent, useState } from "react";
 import AllGames from "./AllGames";
 import { SERVER_URI } from "../constats";
 import { ToastContainer, toast } from "react-toastify";
+import { IGameForm } from "../types/types";
 
-interface IFormData {
-	title: string;
-	image: '' | File;
-}
 
 export default function GamePanel() {
 	const url = `${SERVER_URI}catalog/games`;
-	const [formData, setData] = useState<IFormData>({title: '', image: '' });
+	const [formData, setData] = useState<IGameForm>({kind: 'game', _id: '', title: '', release_date: '', description: '', copies_in_stock: '0', price: '0', publisher: {_id: ''}, genres: [], consoles: [], image: ''});
 
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
@@ -44,8 +41,24 @@ export default function GamePanel() {
 		<>
 			<form method="POST" action={url} onSubmit={event => handleSubmit(event)}>
 				<div>
-					<label htmlFor="name">Name</label>
-					<input type="text" id="name" name="name" required value={formData.title} onChange={e => setData({...formData, title: e.target.value})}/>
+					<label htmlFor="title">Name</label>
+					<input type="text" id="title" name="title" required value={formData.title} onChange={e => setData({...formData, title: e.target.value})}/>
+				</div>
+				<div>
+					<label htmlFor="description">Description</label>
+					<textarea id="description" name="description" required value={formData.description} onChange={e => setData({...formData, description: e.target.value})}/>
+				</div>
+				<div>
+					<label htmlFor="releaseDate">Release Date</label>
+					<input type="date" id="releaseDate" name="releaseDate" required value={formData.release_date} onChange={e => setData({...formData, release_date: e.target.value})}/>
+				</div>
+				<div>
+					<label htmlFor="copies">Copies in stock </label>
+					<input type="number" id="copies" name="copies" min='0' required value={formData.copies_in_stock} onChange={e => setData({...formData, copies_in_stock: e.target.value})}/>
+				</div>
+				<div>
+					<label htmlFor="price">Price</label>
+					<input type="number" id="price" name="price" step='0.01' min='0' required value={formData.price} onChange={e => setData({...formData, price: e.target.value})}/>
 				</div>
 				<div>
 					<input type="file" id="image" name="image" required accept="image/*" onChange={e => setData({...formData, image: e.target.files![0]})}/>
