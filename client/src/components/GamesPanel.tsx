@@ -2,10 +2,11 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import AllGames from "./AllGames";
 import { SERVER_URI } from "../constats";
 import { ToastContainer, toast } from "react-toastify";
-import { IGameForm, IGenre, IPublisher } from "../types/types";
+import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
 import useFetch from "../hooks/useFetch";
 import GenreCheckbox from "./GenreCheckbox";
+import ConsoleCheckbox from "./ConsoleCheckbox";
 
 
 export default function GamePanel() {
@@ -13,6 +14,7 @@ export default function GamePanel() {
 	const [formData, setData] = useState<IGameForm>({kind: 'game', _id: '', title: '', release_date: '', description: '', copies_in_stock: '0', price: '0', publisher: {_id: ''}, genres: [], consoles: [], image: ''});
 	const {data: allPublishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
 	const {data: allGenres} = useFetch<Array<IGenre>>(`${SERVER_URI}catalog/genres`);
+	const {data: allConsoles} = useFetch<Array<IConsole>>(`${SERVER_URI}catalog/consoles`);
 
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
@@ -59,6 +61,19 @@ export default function GamePanel() {
 		}
 	}
 
+	const handleConsoleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+
+		if(formData.consoles.includes({_id: value})) { // remove the element
+			const newConsoles = formData.consoles.filter(con => con._id !== value);
+			setData({...formData, genres: newConsoles});
+		} else { // add the element
+			const newConsoles = [...formData.consoles];
+			newConsoles.push({_id: value});
+			setData({...formData, genres: newConsoles});
+		}
+	}
+
 	return (
 		<>
 			<form method="POST" action={url} onSubmit={event => handleSubmit(event)}>
@@ -87,6 +102,7 @@ export default function GamePanel() {
 				</div>
 				{allPublishers && <PublisherDropdown allPublishers={allPublishers as Array<IPublisher>} handlePubSelection={handlePubSelection} /> }
 				{allGenres && <GenreCheckbox allGenres={allGenres} handleCheckbox={handleCheckbox}/>}
+				{allConsoles && <ConsoleCheckbox allConsoles={allConsoles} handleGenreCheckbox={handleConsoleCheckbox}/>}
 				<button type="submit">Submit</button>
 			</form>
 			<AllGames fromPanel={true} />
