@@ -8,7 +8,6 @@ import mongoose from 'mongoose';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
-import multer from 'multer';
 // Routes
 import catalogRouter from './routes/catalog.js';
 dotenv.config();
@@ -20,14 +19,6 @@ const runningMessage = `Listening for requests on port ${PORT}`;
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.join(__dirname, '..');
-export const fileStoreageEngine = multer.diskStorage({
-    destination: (_req, _file, cb) => {
-        cb(null, path.join(ROOT, 'public/images'));
-    },
-    filename: (req, _file, cb) => {
-        cb(null, `${req.body._id}.jpeg`);
-    }
-});
 const app = express();
 // Connect to mongo and listen for requests
 mongoose.connect(MONGOURI).then(_result => {
