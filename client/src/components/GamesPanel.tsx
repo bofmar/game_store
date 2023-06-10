@@ -2,15 +2,17 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import AllGames from "./AllGames";
 import { SERVER_URI } from "../constats";
 import { ToastContainer, toast } from "react-toastify";
-import { IGameForm, IPublisher } from "../types/types";
+import { IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
 import useFetch from "../hooks/useFetch";
+import GenreCheckbox from "./GenreCheckbox";
 
 
 export default function GamePanel() {
 	const url = `${SERVER_URI}catalog/games`;
 	const [formData, setData] = useState<IGameForm>({kind: 'game', _id: '', title: '', release_date: '', description: '', copies_in_stock: '0', price: '0', publisher: {_id: ''}, genres: [], consoles: [], image: ''});
 	const {data: allPublishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
+	const {data: allGenres} = useFetch<Array<IGenre>>(`${SERVER_URI}catalog/genres`);
 
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
@@ -44,6 +46,19 @@ export default function GamePanel() {
 		setData({...formData, publisher : {_id: event.target.value }});
 	}
 
+	const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+
+		if(formData.genres.includes({_id: value})) { // remove the element
+			const newGenres = formData.genres.filter(genre => genre._id !== value);
+			setData({...formData, genres: newGenres});
+		} else { // add the element
+			const newGenres = [...formData.genres];
+			newGenres.push({_id: value});
+			setData({...formData, genres: newGenres});
+		}
+	}
+
 	return (
 		<>
 			<form method="POST" action={url} onSubmit={event => handleSubmit(event)}>
@@ -71,6 +86,7 @@ export default function GamePanel() {
 					<input type="file" id="image" name="image" required accept="image/*" onChange={e => setData({...formData, image: e.target.files![0]})}/>
 				</div>
 				{allPublishers && <PublisherDropdown allPublishers={allPublishers as Array<IPublisher>} handlePubSelection={handlePubSelection} /> }
+				{allGenres && <GenreCheckbox allGenres={allGenres} handleCheckbox={handleCheckbox}/>}
 				<button type="submit">Submit</button>
 			</form>
 			<AllGames fromPanel={true} />

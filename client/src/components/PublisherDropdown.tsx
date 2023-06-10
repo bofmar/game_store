@@ -1,9 +1,9 @@
-import { FormEvent } from "react";
+import { ChangeEvent } from "react";
 import { IGame, IPublisher } from "../types/types";
 
 interface IPubDropProps {
 	allPublishers: Array<IPublisher>;
-	handlePubSelection: (event: FormEvent<HTMLSelectElement>) => void;
+	handlePubSelection: (event: ChangeEvent<HTMLSelectElement>) => void;
 	game?: IGame;
 }
 
