@@ -1,13 +1,16 @@
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import AllGames from "./AllGames";
 import { SERVER_URI } from "../constats";
 import { ToastContainer, toast } from "react-toastify";
-import { IGameForm } from "../types/types";
+import { IGameForm, IPublisher } from "../types/types";
+import PublisherDropdown from "./PublisherDropdown";
+import useFetch from "../hooks/useFetch";
 
 
 export default function GamePanel() {
 	const url = `${SERVER_URI}catalog/games`;
 	const [formData, setData] = useState<IGameForm>({kind: 'game', _id: '', title: '', release_date: '', description: '', copies_in_stock: '0', price: '0', publisher: {_id: ''}, genres: [], consoles: [], image: ''});
+	const {data: allPublishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
 
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
@@ -37,6 +40,10 @@ export default function GamePanel() {
 		}
 	}
 
+	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
+		setData({...formData, publisher : {_id: event.target.value }});
+	}
+
 	return (
 		<>
 			<form method="POST" action={url} onSubmit={event => handleSubmit(event)}>
@@ -63,6 +70,7 @@ export default function GamePanel() {
 				<div>
 					<input type="file" id="image" name="image" required accept="image/*" onChange={e => setData({...formData, image: e.target.files![0]})}/>
 				</div>
+				{allPublishers && <PublisherDropdown allPublishers={allPublishers as Array<IPublisher>} handlePubSelection={handlePubSelection} /> }
 				<button type="submit">Submit</button>
 			</form>
 			<AllGames fromPanel={true} />
