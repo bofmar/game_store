@@ -11,7 +11,7 @@ export default function GameDetail() {
 	return (
 		<>
 			{loading && <p>'Loading...'</p>}
-			{game && game.title}
+			{game && game.title && <p>{game._id}</p>}
 			{error && !game && <p>An error has occured, please try again later. Error message: {error}</p>}
 		</>
 	);

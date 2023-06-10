@@ -19,6 +19,11 @@ export const game_get_detailed = async (req, res, next) => {
 };
 // POST new game
 export const game_post_new = async (req, res) => {
+    // BUGS
+    // NO GENRES ARE ADDED
+    // NO CONSOLES ARE ADDED
+    // IMAGE IS NOT GIVEN THE CORRECT NAME
+    // ID IS DIFFERENT THAN THE ONE PASSED
     const publisherId = req.body.publisher;
     const genreId = [req.body.genres];
     const consolesId = [req.body.consoles];
