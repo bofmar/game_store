@@ -1,5 +1,8 @@
 import express from 'express';
 import Game from "../models/game.js";
+import Genre from '../models/genre.js';
+import Console from '../models/console.js';
+import mongoose from 'mongoose';
 
 // Get all games
 export const game_get_all = async (_req: express.Request, res: express.Response): Promise<void> => {
@@ -21,29 +24,35 @@ export const game_get_detailed = async (req: express.Request, res: express.Respo
 
 // POST new game
 export const game_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
-	/*
-	const con = new Console({ 
-		name: req.body.name,
-		developer_name: req.body.developer_name,
-		description : req.body.description,
-		release_date : new Date(req.body.release_date),
+	const publisherId = req.body.publisher;
+	const genreId = [req.body.genres];
+	const consolesId = [req.body.consoles];
+
+	const allGenres = await Genre.find({}).exec();
+	const allConsoles = await Console.find({}).exec();
+
+	//console.log(genreId);
+	//res.send('ok');
+	const game = new Game({ 
+		_id: new mongoose.Types.ObjectId(req.body._id),
+		title: req.body.title,
+		release_date: req.body.release_date,
+		description: req.body.description,
+		copies_in_stock: parseInt(req.body.copies_in_stock),
+		price: parseFloat(req.body.price),
+		publisher: new mongoose.Types.ObjectId(publisherId._id),
+		genres: allGenres.filter(g => genreId.includes({_id: g._id})),
+		consoles: allConsoles.filter(c => consolesId.includes({_id: c._id})),
 	});
-	
-	if(req.body.discontinuedDate) {
-		con.discontinued_date = new Date(req.body.discontinued_date);
-	}
 
 	// TODO SERVER SIDE DATA VALIDATION
 
-	const consoleExists = await Console.findOne({ name: req.body.name }).exec();
-	if(!consoleExists) {
-		await con.save();
-		res.status(201).json(con);
+	const gameExists = await Game.findOne({ title: req.body.title }).exec();
+	if(!gameExists) {
+		await game.save();
+		res.status(201).json(game);
 	}
 	else {
 		res.status(400).send('Console already exists');
 	}
-	*/
-	console.log(req);
-	res.send('File uploaded');
 }

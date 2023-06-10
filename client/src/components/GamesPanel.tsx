@@ -7,7 +7,7 @@ import PublisherDropdown from "./PublisherDropdown";
 import useFetch from "../hooks/useFetch";
 import GenreCheckbox from "./GenreCheckbox";
 import ConsoleCheckbox from "./ConsoleCheckbox";
-
+import { v4 } from "uuid";
 
 export default function GamePanel() {
 	const url = `${SERVER_URI}catalog/games`;
@@ -20,14 +20,23 @@ export default function GamePanel() {
 		event.preventDefault();
 		const delay = 2000;
 		const loadToast = toast.loading('Please wait....');
+		const id = v4().split('-').join('').slice(0,12);
 
+		// Prepare data
 		const submitData = new FormData();
-		submitData.append('_id', '1');
-		submitData.append('name', formData.title);
+		submitData.append('_id', id);
+		submitData.append('title', formData.title);
+		submitData.append('release_date', formData.release_date);
+		submitData.append('description', formData.description);
+		submitData.append('copies_in_stock', formData.copies_in_stock);
+		submitData.append('price', formData.price);
+		submitData.append('publisher', JSON.stringify(formData.publisher));
+		submitData.append('consoles', JSON.stringify(formData.consoles));
+		submitData.append('genres', JSON.stringify(formData.genres));
 		submitData.append('image', formData.image);
+		console.log(submitData);
 
 		// TODO Frontend data validation
-
 		const response = await fetch(url, {
 			method: 'POST',
 			mode: 'cors',
@@ -45,7 +54,7 @@ export default function GamePanel() {
 	}
 
 	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
-		setData({...formData, publisher : {_id: event.target.value }});
+		setData(prevData => ({...prevData, publisher : {_id: event.target.value }}));
 	}
 
 	const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,11 +62,11 @@ export default function GamePanel() {
 
 		if(formData.genres.includes({_id: value})) { // remove the element
 			const newGenres = formData.genres.filter(genre => genre._id !== value);
-			setData({...formData, genres: newGenres});
+			setData(prevData => ({...prevData, genres: newGenres}));
 		} else { // add the element
 			const newGenres = [...formData.genres];
 			newGenres.push({_id: value});
-			setData({...formData, genres: newGenres});
+			setData(prevData => ({...prevData, genres: newGenres}));
 		}
 	}
 
@@ -66,11 +75,11 @@ export default function GamePanel() {
 
 		if(formData.consoles.includes({_id: value})) { // remove the element
 			const newConsoles = formData.consoles.filter(con => con._id !== value);
-			setData({...formData, genres: newConsoles});
+			setData(prevData => ({...prevData, genres: newConsoles}));
 		} else { // add the element
 			const newConsoles = [...formData.consoles];
 			newConsoles.push({_id: value});
-			setData({...formData, genres: newConsoles});
+			setData(prevData => ({...prevData, consoles: newConsoles}));
 		}
 	}
 
