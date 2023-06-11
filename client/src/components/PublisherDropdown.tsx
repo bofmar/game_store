@@ -11,7 +11,8 @@ export default function PublisherDropdown(props: IPubDropProps) {
 	return (
 		<div>
 			<label htmlFor="publisher">Publisher</label>
-			<select name='publisher' id='publisher' onChange={e => props.handlePubSelection(e)}>
+			<select name='publisher' id='publisher' required onChange={e => props.handlePubSelection(e)}>
+				<option value=''>---Select One---</option>
 				{props.allPublishers.sort((p1,p2) => p1.name > p2.name ? 1 : -1 ).map(publisher => <option value={publisher._id} key={publisher._id} selected={props.game && publisher._id === props.game.publisher._id} >{publisher.name}</option>)}
 			</select>
 		</div>
