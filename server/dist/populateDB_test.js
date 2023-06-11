@@ -9,6 +9,7 @@ console.log('This script populates some test games, publishers, genres and conso
 dotenv.config();
 // Get arguments passed on command line
 const MONGOURI = process.env.MONGO_TEST_URI;
+console.log(MONGOURI);
 const genres = [];
 const publishers = [];
 const consoles = [];

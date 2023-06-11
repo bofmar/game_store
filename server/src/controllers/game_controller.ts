@@ -27,8 +27,6 @@ export const game_post_new = async (req: express.Request, res: express.Response)
 	// BUGS
 	// NO GENRES ARE ADDED
 	// NO CONSOLES ARE ADDED
-	// IMAGE IS NOT GIVEN THE CORRECT NAME
-	// ID IS DIFFERENT THAN THE ONE PASSED
 	const publisherId = req.body.publisher;
 	const genreId = [req.body.genres];
 	const consolesId = [req.body.consoles];
@@ -39,7 +37,7 @@ export const game_post_new = async (req: express.Request, res: express.Response)
 	//console.log(genreId);
 	//res.send('ok');
 	const game = new Game({ 
-		_id: new mongoose.Types.ObjectId(req.body._id),
+		_id: req.body._id,
 		title: req.body.title,
 		release_date: req.body.release_date,
 		description: req.body.description,

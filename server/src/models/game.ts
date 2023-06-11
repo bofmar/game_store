@@ -6,6 +6,7 @@ import Console from "./console.js";
 const Schema = mongoose.Schema;
 
 interface IGame {
+	_id: string;
 	title: string;
 	release_date: Date;
 	description: string;
@@ -17,6 +18,7 @@ interface IGame {
 }
 
 const GameSchema = new Schema<IGame>({
+	_id: String,
 	title: { type: String, required: true, minLength: 1 },
 	release_date: { type: Date, required: true },
 	description: { type: String, required: true, minLength: 1 },

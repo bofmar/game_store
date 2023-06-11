@@ -4,6 +4,7 @@ import Publisher from "./publisher.js";
 import Console from "./console.js";
 const Schema = mongoose.Schema;
 const GameSchema = new Schema({
+    _id: String,
     title: { type: String, required: true, minLength: 1 },
     release_date: { type: Date, required: true },
     description: { type: String, required: true, minLength: 1 },

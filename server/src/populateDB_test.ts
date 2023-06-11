@@ -43,6 +43,7 @@ dotenv.config();
 
 // Get arguments passed on command line
 const MONGOURI =  process.env.MONGO_TEST_URI; 
+console.log(MONGOURI);
 
 const genres: Array<IGenre> = [];
 const publishers: Array<IPublisher> = [];
