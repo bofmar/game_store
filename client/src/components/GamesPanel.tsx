@@ -1,13 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import AllGames from "./AllGames";
 import { SERVER_URI } from "../constats";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer} from "react-toastify";
 import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
 import useFetch from "../hooks/useFetch";
 import GenreCheckbox from "./GenreCheckbox";
 import ConsoleCheckbox from "./ConsoleCheckbox";
 import { v4 } from "uuid";
+import { handlePost } from "../hooks/handlePost";
 
 export default function GamePanel() {
 	const url = `${SERVER_URI}catalog/games`;
@@ -18,8 +19,6 @@ export default function GamePanel() {
 
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
-		const delay = 2000;
-		const loadToast = toast.loading('Please wait....');
 		const id = v4().split('-').join('').slice(0,12);
 
 		// Prepare data
@@ -36,20 +35,7 @@ export default function GamePanel() {
 		payload.append('image', formData.image);
 
 		// TODO Frontend data validation
-		const response = await fetch(url, {
-			method: 'POST',
-			mode: 'cors',
-			body: payload,
-		});
-
-		if(response.status === 400){ // The genre already exists
-			toast.update(loadToast, { render: `${formData.title} already exists in the database`, type: 'warning', isLoading: false, autoClose: delay });
-		} else if(response.status === 201) { // The genre was created successfully
-			toast.update(loadToast, { render: `${formData.title} was created`, type: 'success', isLoading: false, autoClose: delay});
-			setTimeout(() => window.location.reload(), delay);
-		} else { // something went wrong
-			toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false, autoClose: delay});
-		}
+		handlePost(url, payload);
 	}
 
 	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -114,7 +100,7 @@ export default function GamePanel() {
 				<button type="submit">Submit</button>
 			</form>
 			<AllGames fromPanel={true} />
-			<ToastContainer />
+			<ToastContainer theme="dark"/>
 		</>
 	);
 }
