@@ -1,9 +1,10 @@
-import { FormEvent, useState } from "react";
-import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
+import { FormEvent, useEffect, useState } from "react";
+import { IConsole, IGame, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
 import GenreCheckbox from "./GenreCheckbox";
 import ConsoleCheckbox from "./ConsoleCheckbox";
 import { ChangeEvent } from "react";
+import { SERVER_URI } from "../constats";
 
 interface IFormProps {
 	url: string;
@@ -18,7 +19,7 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 	const [formData, setData] = useState<IGameForm>({
 		_id: game?._id || '',
 		title: game?.title || '',
-		release_date: game?.release_date || '',
+		release_date: game?.release_date ? game?.release_date.slice(0,10) : '',
 		description: game?.description || '',
 		copies_in_stock: game?.copies_in_stock.toString() || '0',
 		price: game?.price.toString() || '0',
@@ -27,6 +28,7 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 		consoles: game?.consoles || [],
 		image: game?.image || ''
 	});
+	const imageUrl = `${SERVER_URI}images/${game?._id}.jpeg`
 
 	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
 		setData(prevData => ({...prevData, publisher : {_id: event.target.value }}));
@@ -61,15 +63,15 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 	return (
 			<form method="POST" action={url} onSubmit={event => handleSubmit(event, formData)}>
 				<div>
-					<label htmlFor="title">Name</label>
+					{!game && <label htmlFor="title">Name</label>}
 					<input type="text" id="title" name="title" required value={formData.title} onChange={e => setData({...formData, title: e.target.value})}/>
 				</div>
 				<div>
-					<label htmlFor="description">Description</label>
+					{!game && <label htmlFor="description">Description</label>}
 					<textarea id="description" name="description" required value={formData.description} onChange={e => setData({...formData, description: e.target.value})}/>
 				</div>
 				<div>
-					<label htmlFor="releaseDate">Release Date</label>
+					{!game && <label htmlFor="releaseDate">Release Date</label>}
 					<input type="date" id="releaseDate" name="releaseDate" required value={formData.release_date} onChange={e => setData({...formData, release_date: e.target.value})}/>
 				</div>
 				<div>
@@ -81,11 +83,17 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 					<input type="number" id="price" name="price" step='0.01' min='0' required value={formData.price} onChange={e => setData({...formData, price: e.target.value})}/>
 				</div>
 				<div>
-					<input type="file" id="image" name="image" required accept="image/*" onChange={e => setData({...formData, image: e.target.files![0]})}/>
+					<img src={imageUrl} id="image"/>
+					<input type="file" id="files" name="image" required accept="image/*" onChange={e => { 
+						const imageDisplay = document.getElementById('image') as HTMLImageElement;
+						const src = URL.createObjectURL(e.target.files![0]);
+						imageDisplay.src = src;
+						setData({...formData, image: e.target.files![0]
+					})}}/>
 				</div>
-				<PublisherDropdown allPublishers={allPublishers} handlePubSelection={handlePubSelection} />
-				<GenreCheckbox allGenres={allGenres} handleCheckbox={handleCheckbox}/>
-				<ConsoleCheckbox allConsoles={allConsoles} handleGenreCheckbox={handleConsoleCheckbox}/>
+				<PublisherDropdown allPublishers={allPublishers} handlePubSelection={handlePubSelection} game={game ? game : undefined}/>
+				<GenreCheckbox allGenres={allGenres} handleCheckbox={handleCheckbox} game={game ? game : undefined}/>
+				<ConsoleCheckbox allConsoles={allConsoles} handleGenreCheckbox={handleConsoleCheckbox} game={game ? game: undefined} />
 				<button type="submit">Submit</button>
 			</form>
 	);

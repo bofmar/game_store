@@ -9,6 +9,7 @@ import GamePanel from "./components/GamesPanel"
 import GenrePanel from "./components/GenresPanel"
 import PublisherPanel from "./components/PublisherPanel"
 import ConsolesPanel from "./components/ConsolesPanel"
+import GameEdit from "./components/GameEdit"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
 			<Route path='/store/:gameId' element={<GameDetail />} />
 			<Route path='/control-panel' element={<ControlPanel />} />
 			<Route path='/control-panel/games' element={<GamePanel/>} />
+			<Route path='/control-panel/games/:gameId' element={<GameEdit/>} />
 			<Route path='/control-panel/genres' element={<GenrePanel/>} />
 			<Route path='/control-panel/publishers' element={<PublisherPanel/>} />
 			<Route path='/control-panel/consoles' element={<ConsolesPanel/>} />

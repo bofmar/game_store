@@ -1,10 +1,10 @@
 import { ChangeEvent } from "react";
-import { IConsole, IGame } from "../types/types";
+import { IConsole, IGameForm } from "../types/types";
 
 interface IConsoleCheckProps{
 	allConsoles: Array<IConsole>;
 	handleGenreCheckbox: (event: ChangeEvent<HTMLInputElement>) => void;
-	game?: IGame;
+	game?: IGameForm;
 }
 
 export default function ConsoleCheckbox (props: IConsoleCheckProps) {
@@ -14,7 +14,7 @@ export default function ConsoleCheckbox (props: IConsoleCheckProps) {
 			{props.allConsoles.sort((c1, c2) => c1.name > c2.name ? 1 : -1).map(con => {
 				return (
 					<div key={con._id}>
-						<input type="checkbox" id={con.name} name={con.name} value={con._id} onChange={e => props.handleGenreCheckbox(e)} />
+						<input type="checkbox" id={con.name} name={con.name} value={con._id} checked={!props.game ? false : props.game.consoles.some(c => c._id === con._id) } onChange={e => props.handleGenreCheckbox(e)} />
 						<label htmlFor={con.name}>{con.name}</label>
 					</div>
 				);
