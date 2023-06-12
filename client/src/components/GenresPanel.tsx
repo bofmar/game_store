@@ -16,7 +16,7 @@ export default function GenrePanel() {
 		event.preventDefault();
 		// validate data TODO
 
-		const sendData: IGenre = {...formData, kind: 'genre', _id:''};
+		const sendData: IGenre = {...formData, _id:''};
 
 		handlePost(url, sendData);
 	}

@@ -7,15 +7,15 @@ import { ChangeEvent } from "react";
 
 interface IFormProps {
 	url: string;
-	handleSubmit: (event: FormEvent) => void;
+	handleSubmit: (event: FormEvent, data: IGameForm) => void;
 	allPublishers: Array<IPublisher>;
 	allGenres: Array<IGenre>;
 	allConsoles: Array<IConsole>;
 	game?: IGameForm;
 }
+
 export default function GameForm({url, handleSubmit, allPublishers, allGenres, allConsoles, game}: IFormProps) {
 	const [formData, setData] = useState<IGameForm>({
-		kind: 'game',
 		_id: game?._id || '',
 		title: game?.title || '',
 		release_date: game?.release_date || '',
@@ -57,8 +57,9 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 			setData(prevData => ({...prevData, consoles: newConsoles}));
 		}
 	}
+
 	return (
-			<form method="POST" action={url} onSubmit={event => handleSubmit(event)}>
+			<form method="POST" action={url} onSubmit={event => handleSubmit(event, formData)}>
 				<div>
 					<label htmlFor="title">Name</label>
 					<input type="text" id="title" name="title" required value={formData.title} onChange={e => setData({...formData, title: e.target.value})}/>
@@ -82,9 +83,9 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 				<div>
 					<input type="file" id="image" name="image" required accept="image/*" onChange={e => setData({...formData, image: e.target.files![0]})}/>
 				</div>
-				{allPublishers && <PublisherDropdown allPublishers={allPublishers as Array<IPublisher>} handlePubSelection={handlePubSelection} /> }
-				{allGenres && <GenreCheckbox allGenres={allGenres} handleCheckbox={handleCheckbox}/>}
-				{allConsoles && <ConsoleCheckbox allConsoles={allConsoles} handleGenreCheckbox={handleConsoleCheckbox}/>}
+				<PublisherDropdown allPublishers={allPublishers} handlePubSelection={handlePubSelection} />
+				<GenreCheckbox allGenres={allGenres} handleCheckbox={handleCheckbox}/>
+				<ConsoleCheckbox allConsoles={allConsoles} handleGenreCheckbox={handleConsoleCheckbox}/>
 				<button type="submit">Submit</button>
 			</form>
 	);

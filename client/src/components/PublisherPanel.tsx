@@ -15,7 +15,6 @@ export default function PublisherPanel() {
 		event.preventDefault();
 		const sendData: IPublisher = {
 			...formData,
-			kind: 'publisher',
 			_id:'',
 			date_founded: new Date(formData.dateFounded),
 		};

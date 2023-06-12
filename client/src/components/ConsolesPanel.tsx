@@ -15,7 +15,6 @@ export default function ConsolesPanel() {
 		event.preventDefault();
 		const sendData: IConsole = {
 			...formData,
-			kind: 'console',
 			_id:'',
 			developer_name: formData.developer,
 			release_date: new Date(formData.releaseDate),

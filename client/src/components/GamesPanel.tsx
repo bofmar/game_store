@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import AllGames from "./AllGames";
 import { SERVER_URI } from "../constats";
 import { ToastContainer} from "react-toastify";
@@ -10,12 +10,11 @@ import GameForm from "./GameForm";
 
 export default function GamePanel() {
 	const url = `${SERVER_URI}catalog/games`;
-	const [formData, setData] = useState<IGameForm>({kind: 'game', _id: '', title: '', release_date: '', description: '', copies_in_stock: '0', price: '0', publisher: {_id: ''}, genres: [], consoles: [], image: ''});
 	const {data: allPublishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
 	const {data: allGenres} = useFetch<Array<IGenre>>(`${SERVER_URI}catalog/genres`);
 	const {data: allConsoles} = useFetch<Array<IConsole>>(`${SERVER_URI}catalog/consoles`);
 
-	const handleSubmit = async (event: FormEvent) => {
+	const handleSubmit = async (event: FormEvent, formData: IGameForm) => {
 		event.preventDefault();
 		const id = v4().split('-').join('').slice(0,12);
 
@@ -35,7 +34,6 @@ export default function GamePanel() {
 		// TODO Frontend data validation
 		handlePost(url, payload);
 	}
-
 
 	return (
 		<>

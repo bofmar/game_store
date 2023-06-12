@@ -1,5 +1,4 @@
 export interface IPublisher {
-	kind: 'publisher';
 	_id: string;
 	name: string;
     date_founded: Date;
@@ -7,13 +6,11 @@ export interface IPublisher {
 }
 
 export interface IGenre {
-	kind: 'genre';
 	_id: string;
 	name: string;
 }
 
 export interface IConsole {
-	kind: 'console';
 	_id: string;
 	name: string;
 	developer_name: string;
@@ -24,7 +21,6 @@ export interface IConsole {
 
 
 export interface IGame {
-	kind: 'game';
 	_id: string;
 	title: string;
 	release_date: Date;
@@ -37,7 +33,6 @@ export interface IGame {
 }
 
 export interface IGameForm {
-	kind: 'game';
 	_id: string;
 	title: string;
 	release_date: string; 
