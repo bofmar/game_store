@@ -23,23 +23,23 @@ export default function GamePanel() {
 		const id = v4().split('-').join('').slice(0,12);
 
 		// Prepare data
-		const submitData = new FormData();
-		submitData.append('_id', id);
-		submitData.append('title', formData.title);
-		submitData.append('release_date', formData.release_date);
-		submitData.append('description', formData.description);
-		submitData.append('copies_in_stock', formData.copies_in_stock);
-		submitData.append('price', formData.price);
-		submitData.append('publisher', JSON.stringify(formData.publisher));
-		submitData.append('consoles', JSON.stringify(formData.consoles));
-		submitData.append('genres', JSON.stringify(formData.genres));
-		submitData.append('image', formData.image);
+		const payload = new FormData();
+		payload.append('_id', id);
+		payload.append('title', formData.title);
+		payload.append('release_date', formData.release_date);
+		payload.append('description', formData.description);
+		payload.append('copies_in_stock', formData.copies_in_stock);
+		payload.append('price', formData.price);
+		payload.append('publisher', JSON.stringify(formData.publisher));
+		payload.append('consoles', JSON.stringify(formData.consoles));
+		payload.append('genres', JSON.stringify(formData.genres));
+		payload.append('image', formData.image);
 
 		// TODO Frontend data validation
 		const response = await fetch(url, {
 			method: 'POST',
 			mode: 'cors',
-			body: submitData,
+			body: payload,
 		});
 
 		if(response.status === 400){ // The genre already exists
