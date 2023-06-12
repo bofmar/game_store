@@ -36,6 +36,8 @@ export default function GamePanel() {
 		submitData.append('image', formData.image);
 		console.log(submitData);
 
+		/*
+
 		// TODO Frontend data validation
 		const response = await fetch(url, {
 			method: 'POST',
@@ -51,6 +53,7 @@ export default function GamePanel() {
 		} else { // something went wrong
 			toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false, autoClose: delay});
 		}
+		*/
 	}
 
 	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -59,7 +62,6 @@ export default function GamePanel() {
 
 	const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
-		console.log(formData.genres.some(genre => genre._id === value));
 
 		if(formData.genres.some(genre => genre._id === value)) { // remove the element
 			const newGenres = formData.genres.filter(genre => genre._id !== value);
@@ -74,7 +76,7 @@ export default function GamePanel() {
 	const handleConsoleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
 
-		if(formData.consoles.includes({_id: value})) { // remove the element
+		if(formData.consoles.some(con => con._id === value)) { // remove the element
 			const newConsoles = formData.consoles.filter(con => con._id !== value);
 			setData(prevData => ({...prevData, genres: newConsoles}));
 		} else { // add the element
