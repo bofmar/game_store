@@ -59,8 +59,9 @@ export default function GamePanel() {
 
 	const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
+		console.log(formData.genres.some(genre => genre._id === value));
 
-		if(formData.genres.includes({_id: value})) { // remove the element
+		if(formData.genres.some(genre => genre._id === value)) { // remove the element
 			const newGenres = formData.genres.filter(genre => genre._id !== value);
 			setData(prevData => ({...prevData, genres: newGenres}));
 		} else { // add the element
