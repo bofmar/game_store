@@ -34,9 +34,6 @@ export default function GamePanel() {
 		submitData.append('consoles', JSON.stringify(formData.consoles));
 		submitData.append('genres', JSON.stringify(formData.genres));
 		submitData.append('image', formData.image);
-		console.log(submitData);
-
-		/*
 
 		// TODO Frontend data validation
 		const response = await fetch(url, {
@@ -53,7 +50,6 @@ export default function GamePanel() {
 		} else { // something went wrong
 			toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false, autoClose: delay});
 		}
-		*/
 	}
 
 	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
