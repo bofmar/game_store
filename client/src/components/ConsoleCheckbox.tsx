@@ -3,7 +3,7 @@ import { IConsole, IGameForm } from "../types/types";
 
 interface IConsoleCheckProps{
 	con: IConsole;
-	handleGenreCheckbox: (event: ChangeEvent<HTMLInputElement>) => void;
+	handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	game?: IGameForm;
 }
 
@@ -16,7 +16,7 @@ export default function ConsoleCheckbox (props: IConsoleCheckProps) {
 					value={props.con._id} 
 					checked={checked} 
 					onChange={e => {
-						props.handleGenreCheckbox(e)
+						props.handleChange(e)
 						setChecked(!checked);
 					}} />
 				<label htmlFor={props.con.name}>{props.con.name}</label>

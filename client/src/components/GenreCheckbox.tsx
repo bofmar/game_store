@@ -3,7 +3,7 @@ import { IGameForm, IGenre } from "../types/types";
 
 interface IGenreCheckProps{
 	genre: IGenre;
-	handleCheckbox: (event: ChangeEvent<HTMLInputElement>) => void;
+	handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	game?: IGameForm;
 }
 
@@ -16,7 +16,7 @@ export default function GenreCheckbox (props: IGenreCheckProps) {
 				value={props.genre._id} 
 				checked={checked}
 				onChange={e => {
-					props.handleCheckbox(e);
+					props.handleChange(e);
 					setChecked(!checked);
 				}} />
 			<label htmlFor={props.genre.name}>{props.genre.name}</label>
