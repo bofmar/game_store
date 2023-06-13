@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { SERVER_URI } from "../constats";
-import { IConsole, IGame, IGameForm, IGenre, IPublisher } from "../types/types";
+import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import GameForm from "./GameForm";
 import { FormEvent } from "react";
 

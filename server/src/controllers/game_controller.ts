@@ -55,3 +55,31 @@ export const game_post_new = async (req: express.Request, res: express.Response)
 		res.status(400).send('Console already exists');
 	}
 }
+
+// UPDATE game
+export const game_update = async (req: express.Request, res: express.Response): Promise<void> => {
+	const publisherId = JSON.parse(req.body.publisher);
+	const genreId = [req.body.genres].map(g => JSON.parse(g)).flat();
+	const consolesId = [req.body.consoles].map(c => JSON.parse(c)).flat();
+
+	const publisher = await Publisher.findById(publisherId._id, '_id').exec();
+	const allGenres = await Genre.find({}, '_id').exec();
+	const allConsoles = await Console.find({}, '_id').exec();
+
+	const game = new Game({ 
+		_id: req.body._id,
+		title: req.body.title,
+		release_date: req.body.release_date,
+		description: req.body.description,
+		copies_in_stock: parseInt(req.body.copies_in_stock),
+		price: parseFloat(req.body.price),
+		publisher: publisher,
+		genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
+		consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
+	});
+
+	// TODO SERVER SIDE DATA VALIDATION
+
+	const theGame =	await Game.findByIdAndUpdate(game._id, game, {}).exec();
+	res.status(201).json(theGame);
+}
