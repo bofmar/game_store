@@ -4,10 +4,13 @@ import { SERVER_URI } from "../constats";
 import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import GameForm from "./GameForm";
 import { FormEvent } from "react";
+import { handleUpdate } from "../hooks/handleUpdate";
+import { ToastContainer } from "react-toastify";
 
 export default function GameEdit() {
 	const { gameId } = useParams();
 	const getUrl = `${SERVER_URI}catalog/games/${gameId}`;
+	const postUrl = `${SERVER_URI}catalog/games/${gameId}/update`;
 
 	const { data: game } = useFetch<IGameForm>(getUrl);
 	const {data: allPublishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
@@ -17,6 +20,21 @@ export default function GameEdit() {
 	const handleSubmit = async (event: FormEvent, formData: IGameForm) => {
 		event.preventDefault();
 
+		// Prepare data
+		const payload = new FormData();
+		payload.append('_id', gameId as string);
+		payload.append('title', formData.title);
+		payload.append('release_date', formData.release_date);
+		payload.append('description', formData.description);
+		payload.append('copies_in_stock', formData.copies_in_stock);
+		payload.append('price', formData.price);
+		payload.append('publisher', JSON.stringify(formData.publisher));
+		payload.append('consoles', JSON.stringify(formData.consoles));
+		payload.append('genres', JSON.stringify(formData.genres));
+		payload.append('image', formData.image);
+
+		// TODO Frontend data validation
+		handleUpdate(postUrl, payload);
 		console.log(formData);
 	}
 	return (
@@ -27,6 +45,7 @@ export default function GameEdit() {
 			allConsoles &&
 			<GameForm url='test' handleSubmit={handleSubmit} allGenres={allGenres} allPublishers={allPublishers} allConsoles={allConsoles} game={game}/>
 			} 
+			<ToastContainer theme="dark" />
 		</>
 	);
 }

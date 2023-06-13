@@ -1,24 +1,25 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { IGameForm, IGenre } from "../types/types";
 
 interface IGenreCheckProps{
-	allGenres: Array<IGenre>;
+	genre: IGenre;
 	handleCheckbox: (event: ChangeEvent<HTMLInputElement>) => void;
 	game?: IGameForm;
 }
 
 export default function GenreCheckbox (props: IGenreCheckProps) {
+	const [checked, setChecked] = useState(!props.game ? false : props.game.genres.some(g => g._id === props.genre._id) );
 	return (
 		<div>
-			<label htmlFor="genre">Genres</label>
-			{props.allGenres.sort((g1, g2) => g1.name > g2.name ? 1 : -1).map(genre => {
-				return (
-					<div key={genre._id}>
-						<input type="checkbox" id={genre.name} name={genre.name} value={genre._id} checked={!props.game ? false : props.game.genres.some(g => g._id === genre._id) } onChange={e => props.handleCheckbox(e)} />
-						<label htmlFor={genre.name}>{genre.name}</label>
-					</div>
-				);
-			})}
+			<input type="checkbox" id={props.genre.name} 
+				name={props.genre.name} 
+				value={props.genre._id} 
+				checked={checked}
+				onChange={e => {
+					props.handleCheckbox(e);
+					setChecked(!checked);
+				}} />
+			<label htmlFor={props.genre.name}>{props.genre.name}</label>
 		</div>
 	);
 }

@@ -52,7 +52,7 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 
 		if(formData.consoles.some(con => con._id === value)) { // remove the element
 			const newConsoles = formData.consoles.filter(con => con._id !== value);
-			setData(prevData => ({...prevData, genres: newConsoles}));
+			setData(prevData => ({...prevData, consoles: newConsoles}));
 		} else { // add the element
 			const newConsoles = [...formData.consoles];
 			newConsoles.push({_id: value});
@@ -92,8 +92,14 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 					})}}/>
 				</div>
 				<PublisherDropdown allPublishers={allPublishers} handlePubSelection={handlePubSelection} game={game ? game : undefined}/>
-				<GenreCheckbox allGenres={allGenres} handleCheckbox={handleCheckbox} game={game ? game : undefined}/>
-				<ConsoleCheckbox allConsoles={allConsoles} handleGenreCheckbox={handleConsoleCheckbox} game={game ? game: undefined} />
+				<div>
+					<label htmlFor="genre">Genres</label>
+					{allGenres.sort((g1, g2) => g1.name > g2.name ? 1 : -1).map(genre => <GenreCheckbox key={genre._id} genre={genre} handleCheckbox={handleCheckbox} game={game ? game : undefined} />)} 
+				</div>
+				<div>
+					<label htmlFor="consoles">Consoles</label>
+					{allConsoles.sort((c1, c2) => c1.name > c2.name ? 1 : -1).map(con => <ConsoleCheckbox key={con._id} con={con} handleGenreCheckbox={handleConsoleCheckbox} game={game ? game: undefined} />)}
+				</div>
 				<button type="submit">Submit</button>
 			</form>
 	);
