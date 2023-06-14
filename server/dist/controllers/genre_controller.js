@@ -27,4 +27,11 @@ export const genre_post_new = async (req, res) => {
         res.status(400).send('Genre already exists');
     }
 };
+// UPDATE genre
+export const genre_update = async (req, res) => {
+    const genre = new Genre({ name: req.body.name });
+    // TODO SERVER SIDE DATA VALIDATION
+    await Genre.findByIdAndUpdate(req.params.id, genre, {});
+    res.status(201).json(genre);
+};
 //# sourceMappingURL=genre_controller.js.map
