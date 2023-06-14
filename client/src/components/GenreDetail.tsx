@@ -3,8 +3,8 @@ import { SERVER_URI } from "../constats";
 import useFetch from "../hooks/useFetch";
 import { FormEvent, useEffect, useState } from "react";
 import { IGenre } from "../types/types";
-import { handlePost } from "../hooks/handlePost";
 import { ToastContainer } from "react-toastify";
+import { handleUpdate } from "../hooks/handleUpdate";
 
 export default function GenreDetail() {
 	const { genreId } = useParams();
@@ -23,7 +23,7 @@ export default function GenreDetail() {
 
 		const sendData: IGenre = {...formData, _id:''};
 
-		handlePost(postUrl, sendData);
+		handleUpdate(postUrl, sendData);
 	}
 
 	return (

@@ -1,5 +1,5 @@
-import { FormEvent, useEffect, useState } from "react";
-import { IConsole, IGame, IGameForm, IGenre, IPublisher } from "../types/types";
+import { FormEvent, useState } from "react";
+import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
 import GenreCheckbox from "./GenreCheckbox";
 import ConsoleCheckbox from "./ConsoleCheckbox";

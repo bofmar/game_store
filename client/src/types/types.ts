@@ -15,8 +15,8 @@ export interface IConsole {
 	name: string;
 	developer_name: string;
 	description: string;
-	release_date: Date;
-	discontinued_date?: Date;
+	release_date: string;
+	discontinued_date?: string;
 }
 
 

@@ -51,6 +51,8 @@ router.get('/consoles', console_controller.console_get_all);
 router.get('/consoles/:id', console_controller.console_get_detailed);
 // POST new console
 router.post('/consoles', console_controller.console_post_new);
+// UPDATE console
+router.post('/consoles/:id/update', console_controller.console_update);
 
 // Genre routes
 // GET all genres
