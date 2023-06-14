@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { FormEvent, useEffect, useState } from "react";
 import { IGenre } from "../types/types";
 import { handlePost } from "../hooks/handlePost";
+import { ToastContainer } from "react-toastify";
 
 export default function GenreDetail() {
 	const { genreId } = useParams();
@@ -26,10 +27,13 @@ export default function GenreDetail() {
 	}
 
 	return (
+		<div>
 			<form method="POST" action={postUrl} onSubmit={event => handleSubmit(event)}>
 				<label htmlFor="name">Name</label>
 				{genre && <input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/> }
 				{genre && <button type="submit">Submit</button>}
 			</form>
+			<ToastContainer theme="dark" />
+		</div>
 	);
 }

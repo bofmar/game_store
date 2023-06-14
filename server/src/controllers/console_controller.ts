@@ -44,3 +44,23 @@ export const console_post_new = async (req: express.Request, res: express.Respon
 		res.status(400).send('Console already exists');
 	}
 }
+
+// UPDATE console
+export const console_update = async (req: express.Request, res: express.Response): Promise<void> => {
+	const con = new Console({
+		name: req.body.name,
+		developer_name: req.body.developer_name,
+		description : req.body.description,
+		release_date : new Date(req.body.release_date),
+	});
+
+	// TODO SERVER SIDE DATA VALIDATION
+	
+	await Console.findByIdAndUpdate(req.params.id, {
+		name: req.body.name,
+		developer_name: req.body.developer_name,
+		description : req.body.description,
+		release_date : new Date(req.body.release_date),
+	}, {});
+	res.status(201).json(con);
+}

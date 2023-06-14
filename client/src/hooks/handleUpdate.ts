@@ -15,7 +15,7 @@ export const handleUpdate = async (url: string, formData: TFormData) => {
 		body: formData instanceof FormData ? formData : JSON.stringify(formData),
 	});
 	if(response.status === 201) { // The genre was created successfully
-		toast.update(loadToast, { render: `${ formData instanceof FormData ? formData.get('title') : formData.name } was created`, type: 'success', isLoading: false, autoClose: delay});
+		toast.update(loadToast, { render: `${ formData instanceof FormData ? formData.get('title') : formData.name } was updated`, type: 'success', isLoading: false, autoClose: delay});
 		setTimeout(() => window.location.reload(), delay);
 	} else { // something went wrong
 		toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false, autoClose: delay});
