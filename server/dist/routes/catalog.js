@@ -36,6 +36,8 @@ router.get('/publishers', publisher_controller.publisher_get_all);
 router.get('/publishers/:id', publisher_controller.publisher_get_detailed);
 // POST new publisher
 router.post('/publishers', publisher_controller.publisher_post_new);
+// UPDATE publisher
+router.post('/publishers/:id/update', publisher_controller.publisher_update);
 // Console routes
 // GET all consoles
 router.get('/consoles', console_controller.console_get_all);

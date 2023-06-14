@@ -12,6 +12,7 @@ import ConsolesPanel from "./components/ConsolesPanel"
 import GameEdit from "./components/GameEdit"
 import GenreDetail from "./components/GenreDetail"
 import ConsoleDetail from "./components/ConsoleDetail"
+import PublisherDetail from "./components/PublisherDetail"
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
 			<Route path='/control-panel/genres' element={<GenrePanel/>} />
 			<Route path='control-panel/genres/:genreId' element={<GenreDetail/>} />
 			<Route path='/control-panel/publishers' element={<PublisherPanel/>} />
+			<Route path='control-panel/publishers/:publisherId' element={<PublisherDetail/>} />
 			<Route path='/control-panel/consoles' element={<ConsolesPanel/>} />
 			<Route path='control-panel/consoles/:conId' element={<ConsoleDetail/>} />
 			<Route path='*' element={<PageNotFound />} />

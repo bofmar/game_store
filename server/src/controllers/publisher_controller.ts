@@ -39,3 +39,22 @@ export const publisher_post_new = async (req: express.Request, res: express.Resp
 		res.status(400).send('Publisher already exists');
 	}
 }
+
+// UPDATE publisher
+export const publisher_update = async (req: express.Request, res: express.Response): Promise<void> => {
+	const con = new Publisher({
+		name: req.body.name,
+		bio: req.body.bio,
+		date_founded: new Date(req.body.date_founded),
+	});
+
+	// TODO SERVER SIDE DATA VALIDATION
+	
+	await Publisher.findByIdAndUpdate(req.params.id, {
+		name: req.body.name,
+		bio: req.body.bio,
+		date_founded: new Date(req.body.date_founded),
+	}, {});
+
+	res.status(201).json(con);
+}

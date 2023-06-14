@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { IPublisher } from "../types/types";
 
 interface IPublisherCard {
@@ -5,10 +6,11 @@ interface IPublisherCard {
 }
 
 export default function PublisherCard({publisher}: IPublisherCard) {
+	const navigate = useNavigate();
 	return (
 		<>
 			<h1>{publisher.name}</h1>
-			<button>Modify</button>
+			<button onClick={() => navigate(`${publisher._id}`)}>Modify</button>
 			<button>Delete</button>
 		</>
 	);
