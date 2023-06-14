@@ -1,7 +1,7 @@
 export interface IPublisher {
 	_id: string;
 	name: string;
-    date_founded: Date;
+    date_founded: string;
 	bio: string;
 }
 
