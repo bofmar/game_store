@@ -40,6 +40,6 @@ export const genre_update = async (req: express.Request, res: express.Response):
 
 	// TODO SERVER SIDE DATA VALIDATION
 	
-	await Genre.findByIdAndUpdate(req.params.id, genre, {});
+	await Genre.findByIdAndUpdate(req.params.id, {name: genre.name}, {});
 	res.status(201).json(genre);
 }

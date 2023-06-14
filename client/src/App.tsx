@@ -10,6 +10,7 @@ import GenrePanel from "./components/GenresPanel"
 import PublisherPanel from "./components/PublisherPanel"
 import ConsolesPanel from "./components/ConsolesPanel"
 import GameEdit from "./components/GameEdit"
+import GenreDetail from "./components/GenreDetail"
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
 			<Route path='/control-panel/games' element={<GamePanel/>} />
 			<Route path='/control-panel/games/:gameId' element={<GameEdit/>} />
 			<Route path='/control-panel/genres' element={<GenrePanel/>} />
+			<Route path='control-panel/genres/:genreId' element={<GenreDetail/>} />
 			<Route path='/control-panel/publishers' element={<PublisherPanel/>} />
 			<Route path='/control-panel/consoles' element={<ConsolesPanel/>} />
 			<Route path='*' element={<PageNotFound />} />
