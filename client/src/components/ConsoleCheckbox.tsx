@@ -8,7 +8,7 @@ interface IConsoleCheckProps{
 }
 
 export default function ConsoleCheckbox (props: IConsoleCheckProps) {
-	const [checked, setChecked] = useState(!props.game ? false : props.game.consoles.some(c => c._id === props.con._id)) 
+	const [checked, setChecked] = useState(!props.game ? false : props.game.consoles?.some(c => c._id === props.con._id)) 
 	return (
 			<div key={props.con._id}>
 				<input type="checkbox" id={props.con.name} 

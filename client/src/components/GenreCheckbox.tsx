@@ -8,7 +8,7 @@ interface IGenreCheckProps{
 }
 
 export default function GenreCheckbox (props: IGenreCheckProps) {
-	const [checked, setChecked] = useState(!props.game ? false : props.game.genres.some(g => g._id === props.genre._id) );
+	const [checked, setChecked] = useState(!props.game ? false : props.game.genres?.some(g => g._id === props.genre._id) );
 	return (
 		<div>
 			<input type="checkbox" id={props.genre.name} 

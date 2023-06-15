@@ -39,8 +39,8 @@ export interface IGameForm {
 	description: string;
 	copies_in_stock: string;
 	price: string;
-	publisher: {_id: string};
-	genres: Array<{_id: string}>;
-	consoles: Array<{_id: string}>;
+	publisher?: {_id: string};
+	genres?: Array<{_id: string}>;
+	consoles?: Array<{_id: string}>;
 	image: '' | File;
 }

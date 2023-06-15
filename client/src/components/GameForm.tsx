@@ -37,11 +37,11 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 	const handleGenreCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
 
-		if(formData.genres.some(genre => genre._id === value)) { // remove the element
+		if(formData.genres?.some(genre => genre._id === value)) { // remove the element
 			const newGenres = formData.genres.filter(genre => genre._id !== value);
 			setData(prevData => ({...prevData, genres: newGenres}));
 		} else { // add the element
-			const newGenres = [...formData.genres];
+			const newGenres = [...formData.genres!];
 			newGenres.push({_id: value});
 			setData(prevData => ({...prevData, genres: newGenres}));
 		}
@@ -50,11 +50,11 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 	const handleConsoleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
 
-		if(formData.consoles.some(con => con._id === value)) { // remove the element
+		if(formData.consoles?.some(con => con._id === value)) { // remove the element
 			const newConsoles = formData.consoles.filter(con => con._id !== value);
 			setData(prevData => ({...prevData, consoles: newConsoles}));
 		} else { // add the element
-			const newConsoles = [...formData.consoles];
+			const newConsoles = [...formData.consoles!];
 			newConsoles.push({_id: value});
 			setData(prevData => ({...prevData, consoles: newConsoles}));
 		}
