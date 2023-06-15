@@ -1,3 +1,4 @@
+// BUG: FIX NEEDING TO RE UPLOAD IMAGES
 import { FormEvent, useState } from "react";
 import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
@@ -28,6 +29,7 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 		consoles: game?.consoles || [],
 		image: game?.image || ''
 	});
+
 	const imageUrl = `${SERVER_URI}images/${game?._id}.jpeg`
 
 	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
