@@ -101,6 +101,7 @@ export const game_delete = async (req: express.Request, res: express.Response): 
 	}
 
 	await Game.findByIdAndDelete(id);
+	res.status(201).send('Deleted');
 
 	// Remove orphaned image if it exists
 	unlink(path.join(ROOT, `public/images/${id}.jpeg`),(err) => {
