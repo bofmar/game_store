@@ -46,4 +46,21 @@ export const publisher_update = async (req, res) => {
     }, {});
     res.status(201).json(con);
 };
+// DELETE publisher
+export const publisher_delete = async (req, res) => {
+    const id = req.params.id;
+    const publisherExists = await Publisher.findById(id).exec();
+    if (!publisherExists) { // No such game
+        res.status(404).send('No such publisher exists');
+        return;
+    }
+    try {
+        const deleted = await Publisher.deleteOne({ _id: id });
+        res.status(201).send(deleted);
+    }
+    catch (e) {
+        console.error(`[error] ${e}`);
+        throw Error('Error occurred while deleting Person');
+    }
+};
 //# sourceMappingURL=publisher_controller.js.map

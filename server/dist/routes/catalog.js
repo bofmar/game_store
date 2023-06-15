@@ -40,6 +40,8 @@ router.get('/publishers/:id', publisher_controller.publisher_get_detailed);
 router.post('/publishers', publisher_controller.publisher_post_new);
 // UPDATE publisher
 router.post('/publishers/:id/update', publisher_controller.publisher_update);
+// DELETE publisher
+router.post('/publishers/:id/delete', publisher_controller.publisher_delete);
 // Console routes
 // GET all consoles
 router.get('/consoles', console_controller.console_get_all);

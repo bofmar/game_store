@@ -105,7 +105,6 @@ export const game_delete = async (req: express.Request, res: express.Response): 
 
 	// Remove orphaned image if it exists
 	unlink(path.join(ROOT, `public/images/${id}.jpeg`),(err) => {
-		console.log('PATH:', path.join(ROOT, `public/images/${id}.jpeg`));  
 		if(err) console.log(err);
 		console.log(`Removed ${id}.jpeg`);
 	});
