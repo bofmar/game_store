@@ -29,6 +29,8 @@ router.get('/games/:id', game_controller.game_get_detailed);
 router.post('/games', upload.single('image'), game_controller.game_post_new);
 // UPDATE game
 router.post('/games/:id/update', upload.single('image'), game_controller.game_update);
+// DELETE game
+router.post('/games/:id/delete', game_controller.game_delete);
 // Publisher routes
 // GET all publishers
 router.get('/publishers', publisher_controller.publisher_get_all);

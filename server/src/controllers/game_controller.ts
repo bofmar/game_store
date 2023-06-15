@@ -3,6 +3,9 @@ import Game from "../models/game.js";
 import Console from '../models/console.js';
 import Publisher from '../models/publisher.js';
 import Genre from '../models/genre.js';
+import url from 'url';
+import path from 'path';
+import { unlink } from 'fs';
 
 // Get all games
 export const game_get_all = async (_req: express.Request, res: express.Response): Promise<void> => {
@@ -82,4 +85,27 @@ export const game_update = async (req: express.Request, res: express.Response): 
 
 	const theGame =	await Game.findByIdAndUpdate(game._id, game, {}).exec();
 	res.status(201).json(theGame);
+}
+
+// DELETE game
+export const game_delete = async (req: express.Request, res: express.Response): Promise<void> => {
+	const __filename = url.fileURLToPath(import.meta.url);
+	const __dirname = path.dirname(__filename);
+	const ROOT = path.join(__dirname, '../..');
+	const id = req.params.id;
+
+	const gameExists = await Game.findById(id).exec();
+	if(!gameExists) { // No such game
+		res.status(404).send('No such game exists');
+		return;
+	}
+
+	await Game.findByIdAndDelete(id);
+
+	// Remove orphaned image if it exists
+	unlink(path.join(ROOT, `public/images/${id}.jpeg`),(err) => {
+		console.log('PATH:', path.join(ROOT, `public/images/${id}.jpeg`));  
+		if(err) console.log(err);
+		console.log(`Removed ${id}.jpeg`);
+	});
 }
