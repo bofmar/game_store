@@ -1,4 +1,5 @@
 import Publisher from '../models/publisher.js';
+import Game from '../models/game.js';
 // GET all publishers
 export const publisher_get_all = async (_req, res) => {
     const allPublishers = await Publisher.find({}).exec();
@@ -54,13 +55,9 @@ export const publisher_delete = async (req, res) => {
         res.status(404).send('No such publisher exists');
         return;
     }
-    try {
-        const deleted = await Publisher.deleteOne({ _id: id });
-        res.status(201).send(deleted);
-    }
-    catch (e) {
-        console.error(`[error] ${e}`);
-        throw Error('Error occurred while deleting Person');
-    }
+    const deleted = await Publisher.deleteOne({ _id: id });
+    // Remove the publisher from all Games
+    await Game.updateMany({ publisher: id }, { publisher: null });
+    res.status(201).send(deleted);
 };
 //# sourceMappingURL=publisher_controller.js.map

@@ -8,7 +8,7 @@ interface IPubDropProps {
 }
 
 export default function PublisherDropdown(props: IPubDropProps) {
-	const [value, setValue] = useState(props.game ? props.game.publisher._id : undefined);
+	const [value, setValue] = useState(props.game?.publisher?._id ? props.game.publisher._id : undefined);
 	return (
 		<div>
 			<label htmlFor="publisher">Publisher</label>
