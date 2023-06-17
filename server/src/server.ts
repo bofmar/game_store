@@ -26,12 +26,12 @@ const app = express();
 
 // Connect to mongo and listen for requests
 mongoose.connect(MONGOURI as string).then(_result => {
-	app.listen(PORT, () => console.log(runningMessage, `MONGOURI: ${MONGOURI}`, `filename: ${__filename}`, `dirname: ${__dirname}`));
+	app.listen(PORT, () => console.log(runningMessage));
 }).catch(error => {
 	console.log(error);
 });
 
-// middleware
+// Middleware
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: process.env.ACCESS_ORIGIN_URI }));
 app.use(morgan(IS_DEV ? 'dev' : 'common'));
@@ -46,6 +46,7 @@ app.use('/catalog', catalogRouter);
 app.use('/images', (_req: express.Request, res: express.Response): void => {
 	res.sendFile(path.join(ROOT, 'public/images/default.jpeg'));
 });
+
 // Handle generic 404
 app.use((_req: express.Request, res: express.Response): void => {
 	res.status(404).send('404 - Page not found');

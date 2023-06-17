@@ -22,11 +22,11 @@ const ROOT = path.join(__dirname, '..');
 const app = express();
 // Connect to mongo and listen for requests
 mongoose.connect(MONGOURI).then(_result => {
-    app.listen(PORT, () => console.log(runningMessage, `MONGOURI: ${MONGOURI}`, `filename: ${__filename}`, `dirname: ${__dirname}`));
+    app.listen(PORT, () => console.log(runningMessage));
 }).catch(error => {
     console.log(error);
 });
-// middleware
+// Middleware
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: process.env.ACCESS_ORIGIN_URI }));
 app.use(morgan(IS_DEV ? 'dev' : 'common'));

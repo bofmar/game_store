@@ -65,7 +65,7 @@ export const publisher_delete = async (req: express.Request, res: express.Respon
 	const id = req.params.id;
 
 	const publisherExists = await Publisher.findById(id).exec();
-	if(!publisherExists) { // No such game
+	if(!publisherExists) { // No such publisher
 		res.status(404).send('No such publisher exists');
 		return;
 	}

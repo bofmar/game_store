@@ -35,8 +35,8 @@ export default function GameEdit() {
 
 		// TODO Frontend data validation
 		handleUpdate(postUrl, payload);
-		console.log(formData);
 	}
+
 	return (
 		<>
 			{game &&

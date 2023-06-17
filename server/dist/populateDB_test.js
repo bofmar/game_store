@@ -7,9 +7,7 @@ import Genre from "./models/genre.js";
 ;
 console.log('This script populates some test games, publishers, genres and consoles to the tests database.');
 dotenv.config();
-// Get arguments passed on command line
 const MONGOURI = process.env.MONGO_TEST_URI;
-console.log(MONGOURI);
 const genres = [];
 const publishers = [];
 const consoles = [];
