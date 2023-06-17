@@ -1,5 +1,6 @@
 import express from 'express';
 import Genre from '../models/genre.js';
+import Game from '../models/game.js';
 
 // GET all genres
 export const genre_get_all = async (_req: express.Request, res: express.Response): Promise<void> => {
@@ -42,4 +43,19 @@ export const genre_update = async (req: express.Request, res: express.Response):
 	
 	await Genre.findByIdAndUpdate(req.params.id, {name: genre.name}, {});
 	res.status(201).json(genre);
+}
+
+// DELETE genre
+export const genre_delete = async (req: express.Request, res: express.Response): Promise<void> => {
+	const id = req.params.id;
+
+	const genreExists = await Genre.findById(id).exec();
+	if(!genreExists) { // No such genre
+		res.status(404).send('No such genre exists');
+		return;
+	}
+	const deleted = await Genre.deleteOne({_id: id});
+	// Remove the genre from all Games
+	await Game.updateMany({genres: id}, {$pull: { genres: { $elemMatch: {_id: id}}}}); 
+	res.status(201).send(deleted);
 }

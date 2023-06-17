@@ -60,5 +60,7 @@ router.get('/genres/:id', genre_controller.genre_get_detailed);
 router.post('/genres', genre_controller.genre_post_new);
 // UPDATE genre
 router.post('/genres/:id/update', genre_controller.genre_update);
+// DELETE genre
+router.post('/genres/:id/delete', genre_controller.genre_delete);
 export default router;
 //# sourceMappingURL=catalog.js.map
