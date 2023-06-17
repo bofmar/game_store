@@ -14,7 +14,7 @@ dotenv.config();
 // Constants
 const PORT = process.env.PORT || 5000;
 const IS_DEV = process.env.DEV;
-const MONGOURI = IS_DEV ? process.env.MONGO_TEST_URI : process.env.MONGO_PROD_URI;
+const MONGOURI = process.env.MONGO_PROD_URI;
 const runningMessage = `Listening for requests on port ${PORT}`;
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +22,7 @@ const ROOT = path.join(__dirname, '..');
 const app = express();
 // Connect to mongo and listen for requests
 mongoose.connect(MONGOURI).then(_result => {
-    app.listen(PORT, () => console.log(runningMessage));
+    app.listen(PORT, () => console.log(runningMessage, MONGOURI, IS_DEV));
 }).catch(error => {
     console.log(error);
 });

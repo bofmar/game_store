@@ -7,7 +7,7 @@ interface IGenre {
 }
 
 const GenreSchema = new Schema<IGenre>({
-	name: { type: String, required: true, minLength: 3 }
+	name: { type: String, required: true, minLength: 2 }
 });
 
 const Genre = mongoose.model<IGenre>('Genre', GenreSchema);

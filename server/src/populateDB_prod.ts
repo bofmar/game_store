@@ -66,8 +66,8 @@ async function main() {
 
 async function genreCreate(name: string) {
 	const genre = new Genre({ name: name });
-	await genre.save();
 	genres.push(genre);
+	await genre.save();
 	console.log(`Added genre: ${name}`);
 }
 
@@ -76,8 +76,8 @@ async function publisherCreate(name: string, date_founded: Date, bio: string) {
 
 	const publisher = new Publisher(publisherDetail);
 
-	await publisher.save();
 	publishers.push(publisher);
+	await publisher.save();
 	console.log(`Added publisher: ${name}`);
 }
 
@@ -94,8 +94,8 @@ async function consoleCreate(name: string, developer_name: string, description: 
 	}
 
 	const newConsole = new Console(consoleDetail);
-	await newConsole.save();
 	consoles.push(newConsole);
+	await newConsole.save();
 	console.log(`Added console: ${developer_name} ${name}`);
 }
 
@@ -174,9 +174,9 @@ async function createPublishers() {
 
 async function createGames() {
 	console.log("Adding Games");
-	let i = 1;
+	let i = 2;
 	await Promise.all([
-		gameCreate({ _id: `${i}`, title: `The Elder Scrolls V: Skyrim`, release_date: new Date('2011-11-11'), description: "The Elder Scrolls V: Skyrim is an action role-playing video game developed by Bethesda Game Studios and published by Bethesda Softworks. It is the fifth main installment in The Elder Scrolls series, following The Elder Scrolls IV: Oblivion (2006), and was released worldwide for Microsoft Windows, PlayStation 3, and Xbox 360 on November 11, 2011. ", copies_in_stock: 12, price: 14.99, publisher: publishers[0], genres: [genres[21]], consoles: [consoles[0], consoles[3], consoles[4], consoles[10], consoles[11], consoles[12], consoles[13] ]}),
+		gameCreate({ _id: '1', title: `The Elder Scrolls V: Skyrim`, release_date: new Date('2011-11-11'), description: "The Elder Scrolls V: Skyrim is an action role-playing video game developed by Bethesda Game Studios and published by Bethesda Softworks. It is the fifth main installment in The Elder Scrolls series, following The Elder Scrolls IV: Oblivion (2006), and was released worldwide for Microsoft Windows, PlayStation 3, and Xbox 360 on November 11, 2011. ", copies_in_stock: 12, price: 14.99, publisher: publishers[0], genres: [genres[21]], consoles: [consoles[0], consoles[3], consoles[4], consoles[10], consoles[11], consoles[12], consoles[13] ]}),
 		gameCreate({ _id: `${i}`, title: `Test game ${i++}`, release_date: new Date('2008-07-02'), description: 'generic game description', copies_in_stock: i, price: 59.99, publisher: publishers[0], genres: [genres[0], genres[2]], consoles: [consoles[1]]}),
 		gameCreate({ _id: `${i}`, title: `Test game ${i++}`, release_date: new Date('2008-07-01'), description: 'generic game description', copies_in_stock: i, price: 59.99, publisher: publishers[0], genres: [genres[0], genres[2]], consoles: [consoles[2]]}),
 		gameCreate({ _id: `${i}`, title: `Test game ${i++}`, release_date: new Date('2008-07-01'), description: 'generic game description', copies_in_stock: i, price: 59.99, publisher: publishers[0], genres: [genres[0], genres[2]], consoles: [consoles[3]]}),
