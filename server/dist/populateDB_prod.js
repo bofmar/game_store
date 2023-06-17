@@ -114,6 +114,7 @@ async function createGenres() {
 async function createPublishers() {
     console.log("Adding publishers");
     await Promise.all([
+        publisherCreate('Bethesda Softworks', new Date('1986-06-28'), 'Bethesda Softworks LLC is an American video game publisher based in Rockville, Maryland. The company was founded by Christopher Weaver in 1986 as a division of Media Technology Limited. In 1999, it became a subsidiary of ZeniMax Media. In its first 15 years, it was a video game developer and self-published its titles. In 2001, Bethesda spun off its own in-house development team into Bethesda Game Studios, and Bethesda Softworks retained only its publishing function. '),
         publisherCreate('Activistion Blizzard', new Date('2008-07-10'), 'generic bio'),
         publisherCreate('Nintendo', new Date('1967-07-10'), 'generic bio'),
         publisherCreate('Sega', new Date('1973-07-10'), 'generic bio'),
@@ -124,7 +125,7 @@ async function createGames() {
     console.log("Adding Games");
     let i = 1;
     await Promise.all([
-        gameCreate({ _id: `${i}`, title: `Test game ${i++}`, release_date: new Date('2008-07-01'), description: 'generic game description', copies_in_stock: i, price: 59.99, publisher: publishers[0], genres: [genres[0], genres[2]], consoles: [consoles[0]] }),
+        gameCreate({ _id: `${i}`, title: `The Elder Scrolls V: Skyrim`, release_date: new Date('2011-11-11'), description: "The Elder Scrolls V: Skyrim is an action role-playing video game developed by Bethesda Game Studios and published by Bethesda Softworks. It is the fifth main installment in The Elder Scrolls series, following The Elder Scrolls IV: Oblivion (2006), and was released worldwide for Microsoft Windows, PlayStation 3, and Xbox 360 on November 11, 2011. ", copies_in_stock: 12, price: 14.99, publisher: publishers[0], genres: [genres[21]], consoles: [consoles[0], consoles[3], consoles[4], consoles[10], consoles[11], consoles[12], consoles[13]] }),
         gameCreate({ _id: `${i}`, title: `Test game ${i++}`, release_date: new Date('2008-07-02'), description: 'generic game description', copies_in_stock: i, price: 59.99, publisher: publishers[0], genres: [genres[0], genres[2]], consoles: [consoles[1]] }),
         gameCreate({ _id: `${i}`, title: `Test game ${i++}`, release_date: new Date('2008-07-01'), description: 'generic game description', copies_in_stock: i, price: 59.99, publisher: publishers[0], genres: [genres[0], genres[2]], consoles: [consoles[2]] }),
         gameCreate({ _id: `${i}`, title: `Test game ${i++}`, release_date: new Date('2008-07-01'), description: 'generic game description', copies_in_stock: i, price: 59.99, publisher: publishers[0], genres: [genres[0], genres[2]], consoles: [consoles[3]] }),
