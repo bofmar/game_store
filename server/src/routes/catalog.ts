@@ -59,6 +59,8 @@ router.get('/consoles/:id', console_controller.console_get_detailed);
 router.post('/consoles', console_controller.console_post_new);
 // UPDATE console
 router.post('/consoles/:id/update', console_controller.console_update);
+// DELETE console
+router.post('/consoles/:id/delete', console_controller.console_delete);
 
 // Genre routes
 // GET all genres

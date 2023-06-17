@@ -1,4 +1,5 @@
 import Console from '../models/console.js';
+import Game from '../models/game.js';
 // GET all consoles
 export const console_get_all = async (_req, res) => {
     const allConsoles = await Console.find({}).exec();
@@ -51,5 +52,18 @@ export const console_update = async (req, res) => {
         release_date: new Date(req.body.release_date),
     }, {});
     res.status(201).json(con);
+};
+// DELETE genre
+export const console_delete = async (req, res) => {
+    const id = req.params.id;
+    const consoleExists = await Console.findById(id).exec();
+    if (!consoleExists) { // No such console
+        res.status(404).send('No such console exists');
+        return;
+    }
+    const deleted = await Console.deleteOne({ _id: id });
+    // Remove the console from all Games
+    await Game.updateMany({ consoles: id }, { $pull: { consoles: { $elemMatch: { _id: id } } } });
+    res.status(201).send(deleted);
 };
 //# sourceMappingURL=console_controller.js.map
