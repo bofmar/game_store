@@ -22,7 +22,7 @@ const ROOT = path.join(__dirname, '..');
 const app = express();
 // Connect to mongo and listen for requests
 mongoose.connect(MONGOURI).then(_result => {
-    app.listen(PORT, () => console.log(runningMessage, MONGOURI, IS_DEV));
+    app.listen(PORT, () => console.log(runningMessage));
 }).catch(error => {
     console.log(error);
 });

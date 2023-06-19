@@ -26,7 +26,7 @@ const app = express();
 
 // Connect to mongo and listen for requests
 mongoose.connect(MONGOURI as string).then(_result => {
-	app.listen(PORT, () => console.log(runningMessage, MONGOURI, IS_DEV));
+	app.listen(PORT, () => console.log(runningMessage));
 }).catch(error => {
 	console.log(error);
 });
