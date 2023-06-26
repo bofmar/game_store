@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from '../assets/images/gamesplanet-logo.png'
+import logo from '../assets/images/logo.png'
 
 export default function NavBar() {
 	return (
