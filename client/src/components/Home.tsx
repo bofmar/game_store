@@ -1,5 +1,12 @@
 export default function Home() {
 	return (
-		<h1>Home Page</h1>
+		<>
+			<section className="carousel-section">
+			</section>
+			<section className="home-games-section">
+			</section>
+			<section className="home-blog-section">
+			</section>
+		</>
 	);
 }
