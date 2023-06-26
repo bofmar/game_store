@@ -13,6 +13,8 @@ import GameEdit from "./components/GameEdit"
 import GenreDetail from "./components/GenreDetail"
 import ConsoleDetail from "./components/ConsoleDetail"
 import PublisherDetail from "./components/PublisherDetail"
+import './styles/reset.css'
+import './styles/styles.css'
 
 function App() {
 

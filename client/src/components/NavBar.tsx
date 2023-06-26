@@ -5,7 +5,7 @@ export default function NavBar() {
 	return (
 		<nav>
 			<section className="nav-image-section">
-				<NavLink to='/'><img src={logo} /></NavLink>
+				<NavLink to='/'><img src={logo} alt='gamesplanet logo' /></NavLink>
 			</section>
 			<section className="nav-search-section">
 			{/* TODO add functionality to the search bar*/}

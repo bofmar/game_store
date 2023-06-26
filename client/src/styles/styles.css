@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* * * * * * * *
+	1.GLOBALS
+* * * * * * * */
+
+:root {
+	--primary-color: #121212;
+	--secondary-color: #ff4136;
+	--off-white: #eee;
+
+	/*Fonts and font sizes */
+	--small-text-size: 12px;
+	--normal-text-size: 18px;
+	--biger-text-size: 26px;
+	--bigest-text-size: 32px;
+}
+
+body {
+	background-color: var(--primary-color);
+	font-family: Karla;
+
+}
+
+a {
+	text-decoration: none;
+}
+
+.active {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/* * * * * * * *
+	2.NAVBAR
+* * * * * * * */
+
+nav {
+	height: 9vh;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: 20px;
+	align-items: center;
+	justify-content: space-evenly;
+	padding: 0 4rem;
+}
+
+.nav-image-section {
+	width: 300px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+
+.nav-image-section img {
+	max-width: 100%;
+}
+
+.nav-search-form input{
+	width: 100%;
+	font-family: Karla;
+	font-size: var(--normal-text-size);
+}
+
+.nav-controls-section {
+	display: flex;
+	gap: 5px;
+	font-size: var(--normal-text-size);
+}
+
+.nav-controls-section a {
+	color: var(--off-white);
+}
