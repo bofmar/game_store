@@ -72,3 +72,21 @@ nav {
 .nav-controls-section a {
 	color: var(--off-white);
 }
+
+@media(max-width: 850px) {
+	nav {
+		height: auto;
+		grid-template-columns: 1fr;
+		grid-auto-rows: minmax(min-content, max-content);
+	}
+	
+	.nav-image-section {
+		height: 80px;
+	}
+
+	.nav-controls-section {
+		display: flex;
+		justify-content: center;
+		gap: 30px;
+	}
+}
