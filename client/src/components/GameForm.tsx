@@ -1,4 +1,3 @@
-// BUG: FIX NEEDING TO RE UPLOAD IMAGES
 import { FormEvent, useState } from "react";
 import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
@@ -86,7 +85,7 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 				</div>
 				<div>
 					<img src={imageUrl} id="image"/>
-					<input type="file" id="files" name="image" required accept="image/*" onChange={e => { 
+					<input type="file" id="files" name="image" accept="image/*" onChange={e => { 
 						const imageDisplay = document.getElementById('image') as HTMLImageElement;
 						const src = URL.createObjectURL(e.target.files![0]);
 						imageDisplay.src = src;
