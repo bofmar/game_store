@@ -73,6 +73,11 @@ nav {
 	color: var(--off-white);
 }
 
+.nav-controls-section a:hover,
+.nav-controls-section a:focus {
+	color: var(--secondary-color);
+}
+
 @media(max-width: 850px) {
 	nav {
 		height: auto;
