@@ -14,8 +14,8 @@ export default function FeaturedGame({game}: IGameProp) {
 			<div className="featured-details">
 				<h3>{game.title}</h3>
 				<p>{game.description}</p>
-				<p>{`${game.price}€`}</p>
-				<button>Add To Cart</button>
+				<p className="featured-price">{`${game.price}€`}</p>
+				<button className="orange-button">Add To Cart</button>
 			</div>
 		</div>
 	);

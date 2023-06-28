@@ -20,7 +20,7 @@ export default function Home() {
 	}
 
 	return (
-		<>
+		<div className='home center-wrapper'>
 			<section className="carousel-section">
 				<Carousel 
 				responsive={hehoResponsive}
@@ -32,9 +32,9 @@ export default function Home() {
 						<div className='text-overlay'>
 							<h1>Your one stop for all things gaming related</h1>
 							<p>Huge selection of games, all at the best prices in the industry</p>
-							<button>Browse</button>
+							<button className='orange-button'>Browse</button>
 						</div>
-						<img src={carousel1} />
+						<img className='carousel-image' src={carousel1} />
 					</div>
 					<div className='hero-carousel-item'>
 						<div className='text-overlay'>
@@ -42,7 +42,7 @@ export default function Home() {
 							<p>Our expert personel can provide personalized suggestions just for you, depending on past purchases</p>
 							<p>How? Become a member and find out!</p>
 						</div>
-						<img src={carousel2} />
+						<img className='carousel-image' src={carousel2} />
 					</div>
 					<div className='hero-carousel-item'>
 						<div className='styled-flair'>COMMING SOON</div>
@@ -50,11 +50,11 @@ export default function Home() {
 							<h1>The award winning Crisis Core: Final Fantasy VII is getting a remake!</h1>
 							<p>Don't miss out on Square Enix's next masterpiece by preordering now, at your local shop</p>
 						</div>
-						<img src={carousel3} />
+						<img className='carousel-image' src={carousel3} />
 					</div>
 					<div className='hero-carousel-item'>
 						{games && <FeaturedGame game={games.find(g => g._id === '15') as IGame} />}
-						<img src={carousel4} />
+						<img className='carousel-image' src={carousel4} />
 					</div>
 				</Carousel>
 			</section>
@@ -62,6 +62,6 @@ export default function Home() {
 			</section>
 			<section className="home-blog-section">
 			</section>
-		</>
+		</div>
 	);
 }
