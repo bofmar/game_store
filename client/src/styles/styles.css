@@ -135,7 +135,6 @@ nav {
 .carousel-section {
 	width: 80vw;
 	height: 70vh;
-	background-color: red;
 }
 
 .carousel-container {
@@ -149,6 +148,7 @@ nav {
 }
 
 .text-overlay {
+	letter-spacing: 0.1em;
 	position: absolute;
 	width: 50ch;
 	left: 50%;
@@ -202,6 +202,7 @@ nav {
 
 .featured-details > * {
 	margin-bottom: 20px;
+	letter-spacing: 0.1em;
 }
 
 .featured-details > h3 {
