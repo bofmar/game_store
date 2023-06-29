@@ -9,10 +9,12 @@ import { IGame } from '../types/types';
 import { SERVER_URI } from '../constats';
 import FeaturedGame from './FeaturedGame';
 import GameCard from './GameCard';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
 	const url = `${SERVER_URI}catalog/games`;
 	const {data: games} = useFetch<Array<IGame>>(url);
+	const navigate = useNavigate();
 
 	const heroResponsive = {
 		all: {
@@ -80,13 +82,15 @@ export default function Home() {
 				</Carousel>
 			</section>
 			<section className="home-games-section">
+				<h2>Browse our collection of games</h2>
 				<Carousel 
 				responsive={gameResponsive}
 				infinite={true}
 				keyBoardControl={true}
 				containerClass="game-carousel-container">
-					{games ? games.map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
+					{games ? games.slice(0,10).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
 				</Carousel>
+				<button className='orange-button' onClick={() => navigate('store')}>See More</button>
 			</section>
 			<section className="home-blog-section">
 			</section>

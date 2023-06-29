@@ -14,15 +14,13 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 
 	return (
 		<div className="game-card">
-			<h3><Link to={`${game._id}`}>{game.title}</Link></h3>
-			<img src={imageUrl}/>
-			<section>
+			<img className="game-card-image" src={imageUrl}/>
+			<h3 className="game-card-title"><Link to={`${game._id}`}>{game.title}</Link></h3>
+			<section className="game-card-genres-section">
 				{game.genres.map(genre => <p key={genre._id}>{genre.name}</p>)}
 			</section>
-			<section>
-				<p>{game.price}</p>
-			</section>
-			<section>
+			<p className="game-card-price">{`${game.price}€`}</p>
+			<section className="game-card-buttons-section">
 			{ fromPanel ? <button onClick={() => handleDelete(delUrl, game.title)}>Delete</button> : <button className="orange-button">Add To Cart </button>}
 			</section>
 		</div>
