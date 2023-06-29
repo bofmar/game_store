@@ -13,7 +13,7 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 	const delUrl = `${SERVER_URI}catalog/games/${game._id}/delete`;
 
 	return (
-		<div>
+		<div className="game-card">
 			<h3><Link to={`${game._id}`}>{game.title}</Link></h3>
 			<img src={imageUrl}/>
 			<section>
@@ -22,9 +22,9 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 			<section>
 				<p>{game.price}</p>
 			</section>
-			{ fromPanel && <section>
-				<button onClick={() => handleDelete(delUrl, game.title)}>Delete</button>
-			</section> }
+			<section>
+			{ fromPanel ? <button onClick={() => handleDelete(delUrl, game.title)}>Delete</button> : <button className="orange-button">Add To Cart </button>}
+			</section>
 		</div>
 	);
 }

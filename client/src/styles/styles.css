@@ -131,6 +131,9 @@ nav {
 /* * * * * * * *
 	4.HOME
 * * * * * * * */
+/* * * * * * * *
+	4.1.HERO
+* * * * * * * */
 
 .carousel-section {
 	width: 80vw;
@@ -243,4 +246,17 @@ nav {
 
 .carousel-section .react-multi-carousel-dot--active button {
 	background-color: var(--off-white);
+}
+
+/* * * * * * * *
+	4.2.GAMES
+* * * * * * * */
+.home-games-section {
+	width: 80vw;
+	height: 70vh;
+	background-color: red;
+}
+
+.game-carousel-container {
+	height: 100%;
 }

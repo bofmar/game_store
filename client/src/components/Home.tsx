@@ -8,13 +8,34 @@ import useFetch from '../hooks/useFetch';
 import { IGame } from '../types/types';
 import { SERVER_URI } from '../constats';
 import FeaturedGame from './FeaturedGame';
+import GameCard from './GameCard';
 
 export default function Home() {
 	const url = `${SERVER_URI}catalog/games`;
 	const {data: games} = useFetch<Array<IGame>>(url);
-	const hehoResponsive = {
+
+	const heroResponsive = {
 		all: {
-			breakpoint: { max: 10000, min: 0 },
+			breakpoint: { max: 100000, min: 0 },
+			items: 1
+		}
+	}
+
+	const gameResponsive = {
+		superLargeDesktop: {
+			breakpoint: { max: 100000, min: 3000 },
+			items: 5
+		},
+		desktop: {
+			breakpoint: { max: 3000, min: 1024 },
+			items: 3
+		},
+		tablet: {
+			breakpoint: { max: 1024, min: 464 },
+			items: 2
+		},
+		mobile: {
+			breakpoint: { max: 464, min: 0 },
 			items: 1
 		}
 	}
@@ -23,7 +44,7 @@ export default function Home() {
 		<div className='home center-wrapper'>
 			<section className="carousel-section">
 				<Carousel 
-				responsive={hehoResponsive}
+				responsive={heroResponsive}
 				showDots={true}
 				infinite={true}
 				keyBoardControl={true}
@@ -59,6 +80,13 @@ export default function Home() {
 				</Carousel>
 			</section>
 			<section className="home-games-section">
+				<Carousel 
+				responsive={gameResponsive}
+				infinite={true}
+				keyBoardControl={true}
+				containerClass="game-carousel-container">
+					{games ? games.map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
+				</Carousel>
 			</section>
 			<section className="home-blog-section">
 			</section>
