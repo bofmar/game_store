@@ -92,7 +92,27 @@ export default function Home() {
 				</Carousel>
 				<button className='orange-button' onClick={() => navigate('store')}>See More</button>
 			</section>
-			<section className="home-blog-section">
+			<section className="home-subscribe-section">
+				<h2>Still want more?</h2>
+				<p><span>Subscribe</span> to our newsletter and become a <span>GamesPlanet member</span> to receive news on all <span>new releases</span> as well as <span>special offers and discounts</span> on all our shops.</p>
+				<form className='home-sub-form'>
+					<div>
+						<label htmlFor='name'>First Name</label>
+						<input type='text' name='name' id='name' />
+					</div>
+					<div>
+						<label htmlFor='lastName'>Last Name</label>
+						<input type='text' name='lastName' id='lastName' />
+					</div>
+					<div>
+						<label htmlFor='email'>Email</label>
+						<input type='email' name='email' id='email' />
+					</div>
+					<div>
+						<input type='checkbox' name='tos' id='tos' value='accept'/>
+						<label htmlFor='tos'>I accept GamesPlanet's <a href='#'>terms of service</a> and want my email to apply for GamesPlanet memvership and subscribe to their newsletter</label>l 
+					</div>
+				</form>
 			</section>
 		</div>
 	);
