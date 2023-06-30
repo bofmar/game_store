@@ -96,22 +96,24 @@ export default function Home() {
 				<h2>Still want more?</h2>
 				<p><span>Subscribe</span> to our newsletter and become a <span>GamesPlanet member</span> to receive news on all <span>new releases</span> as well as <span>special offers and discounts</span> on all our shops.</p>
 				<form className='home-sub-form'>
+					<p>All fields are required</p>
 					<div>
-						<label htmlFor='name'>First Name</label>
-						<input type='text' name='name' id='name' />
+						<label htmlFor='name' className='white-label'>First Name:</label>
+						<input type='text' name='name' id='name' required className='dark-input'/>
 					</div>
 					<div>
-						<label htmlFor='lastName'>Last Name</label>
-						<input type='text' name='lastName' id='lastName' />
+						<label htmlFor='lastName' className='white-label'>Last Name:</label>
+						<input type='text' name='lastName' id='lastName' required className='dark-input'/>
 					</div>
 					<div>
-						<label htmlFor='email'>Email</label>
-						<input type='email' name='email' id='email' />
+						<label htmlFor='email' className='white-label'>Email:</label>
+						<input type='email' name='email' id='email' required className='dark-input'/>
 					</div>
 					<div>
-						<input type='checkbox' name='tos' id='tos' value='accept'/>
-						<label htmlFor='tos'>I accept GamesPlanet's <a href='#'>terms of service</a> and want my email to apply for GamesPlanet memvership and subscribe to their newsletter</label>l 
+						<input type='checkbox' name='tos' id='tos' value='accept'required/>
+						<label htmlFor='tos' className='white-label'>I accept GamesPlanet's <a href='#'>terms of service</a> and want my email to apply for GamesPlanet memvership and subscribe to their newsletter</label>l 
 					</div>
+					<button className='orange-button'>Subscribe Now!</button>
 				</form>
 			</section>
 		</div>

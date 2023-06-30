@@ -60,6 +60,19 @@ button {
 	background-color: #dd3146;
 }
 
+.dark-input {
+	background-color: var(--primary-color);
+	border: 1px solid var(--off-white);
+	border-radius: 5px;
+	text-indent: 0.5rem;
+	color: var(--off-white);
+	font-size: var(--normal-text-size);
+}
+
+.white-label{
+	color: var(--off-white);
+	font-size: var(--normal-text-size);
+}
 /* * * * * * * *
 	2.NAVBAR
 * * * * * * * */
@@ -337,6 +350,62 @@ nav {
 	height: 70%; 
 }
 
+/* * * * * * * *
+ 4.3.SUBSCRIBE
+* * * * * * * */
+
+.home-subscribe-section {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	max-width: 650px;
+	padding: 20px;
+}
+
+.home-subscribe-section > h2 {
+	color: var(--secondary-color);
+	font-weight: bold;
+	font-size: var(--bigest-text-size);
+	text-align: center;
+}
+
+.home-subscribe-section p {
+	color: var(--off-white);
+	font-size: var(--normal-text-size);
+}
+
+.home-subscribe-section span {
+	color: var(--secondary-color);
+	font-weight: bold;
+}
+
+.home-sub-form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+}
+
+.home-sub-form > div {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 100px 1fr;
+	gap: 10px;
+}
+
+.home-sub-form a {
+	color: var(--secondary-color);
+}
+
+.home-sub-form a:hover,
+.home-sub-form a:focus {
+	text-decoration: underline;
+}
+
+.home-sub-form input[type=checkbox] {
+	justify-self: center;
+	align-self: center;
+}
 /* * * * * * * *
    5.GAME CARD
 * * * * * * * */
