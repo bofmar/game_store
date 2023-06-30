@@ -10,6 +10,8 @@ import { SERVER_URI } from '../constats';
 import FeaturedGame from './FeaturedGame';
 import GameCard from './GameCard';
 import { useNavigate } from 'react-router-dom';
+import { FormEvent } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Home() {
 	const url = `${SERVER_URI}catalog/games`;
@@ -40,6 +42,11 @@ export default function Home() {
 			breakpoint: { max: 464, min: 0 },
 			items: 1
 		}
+	}
+
+	const handleSubmit = (e: FormEvent) => {
+		e.preventDefault();
+		toast.success('Subscribed!');
 	}
 
 	return (
@@ -95,7 +102,7 @@ export default function Home() {
 			<section className="home-subscribe-section">
 				<h2>Still want more?</h2>
 				<p><span>Subscribe</span> to our newsletter and become a <span>GamesPlanet member</span> to receive news on all <span>new releases</span> as well as <span>special offers and discounts</span> on all our shops.</p>
-				<form className='home-sub-form'>
+				<form className='home-sub-form' onSubmit={e => handleSubmit(e)}>
 					<p>All fields are required</p>
 					<div>
 						<label htmlFor='name' className='white-label'>First Name:</label>
@@ -116,6 +123,7 @@ export default function Home() {
 					<button className='orange-button'>Subscribe Now!</button>
 				</form>
 			</section>
+			<ToastContainer theme="dark" />
 		</div>
 	);
 }
