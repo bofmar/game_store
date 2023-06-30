@@ -276,18 +276,10 @@ nav {
 }
 
 .game-carousel-container {
-	height: 40vh;
+	height: 45vh;
 	align-items: normal;
 	gap: 10px;
 	color: var(--off-white);
-}
-
-.game-carousel-container .game-card {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 10px;
 }
 
 .game-carousel-container .game-card-image {
@@ -297,6 +289,14 @@ nav {
 /* * * * * * * *
    5.GAME CARD
 * * * * * * * */
+
+.game-card {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
 
 .game-card-title > a {
 	color: var(--tetriary-color);
