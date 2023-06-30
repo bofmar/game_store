@@ -253,12 +253,62 @@ nav {
 	background-color: var(--off-white);
 }
 
+@media(max-width: 650px) {
+	.text-overlay {
+		width: auto;
+	}
+
+	.text-overlay > h1 {
+		font-size: var(--normal-text-size);
+		line-height: auto;
+	}
+
+	.text-overlay > p {
+		line-height: auto;
+		font-size: var(--small-text-size);
+	}
+
+	.styled-flair {
+		font-size: var(--small-text-size);
+		padding: 10px;
+	}
+
+	.featured {
+		transform: translate(0%, -50%);
+		gap: 10px;
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.featured img {
+		width: 50%;
+	}
+
+	.featured-details {
+		width: auto;
+	}
+
+	.featured-details > * {
+		margin-bottom: 10px;
+		letter-spacing: auto;
+	}
+
+	.featured-details > h3 {
+		font-size: var(--normal-text-size);
+	}
+
+	.featured-details > p {
+		font-size: var(--small-text-size);
+		line-height: auto;
+	}
+}
+
 /* * * * * * * *
 	4.2.GAMES
 * * * * * * * */
 .home-games-section {
 	width: 80vw;
-	height: 60vh;
+	min-height: 60vh;
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
@@ -269,6 +319,7 @@ nav {
 	font-weight: bold;
 	font-size: var(--bigest-text-size);
 	align-self: center;
+	text-align: center;
 }
 
 .home-games-section > button {
@@ -276,7 +327,7 @@ nav {
 }
 
 .game-carousel-container {
-	height: 45vh;
+	height: 550px;
 	align-items: normal;
 	gap: 10px;
 	color: var(--off-white);
@@ -292,6 +343,7 @@ nav {
 
 .game-card {
 	height: 100%;
+	text-align: center;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
