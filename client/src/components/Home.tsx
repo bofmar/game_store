@@ -70,7 +70,7 @@ export default function Home() {
 						<div className='text-overlay'>
 							<h1>Don't know what to play next?</h1>
 							<p>Our expert personel can provide personalized suggestions just for you, depending on past purchases</p>
-							<p>How? Become a member and find out!</p>
+							<p>How? <a href="#subscribe-section">Become a member</a>a and find out!</p>
 						</div>
 						<img className='carousel-image' src={carousel2} />
 					</div>
@@ -99,7 +99,7 @@ export default function Home() {
 				</Carousel>
 				<button className='orange-button' onClick={() => navigate('store')}>See More</button>
 			</section>
-			<section className="home-subscribe-section">
+			<section className="home-subscribe-section" id="subscribe-section">
 				<h2>Still want more?</h2>
 				<p><span>Subscribe</span> to our newsletter and become a <span>GamesPlanet member</span> to receive news on all <span>new releases</span> as well as <span>special offers and discounts</span> on all our shops.</p>
 				<form className='home-sub-form' onSubmit={e => handleSubmit(e)}>

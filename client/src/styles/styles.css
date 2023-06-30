@@ -26,6 +26,12 @@ body {
 
 a {
 	text-decoration: none;
+	color: var(--secondary-color);
+}
+
+a:hover,
+a:focus {
+	text-decoration: underline;
 }
 
 button {
@@ -391,15 +397,6 @@ nav {
 	display: grid;
 	grid-template-columns: 100px 1fr;
 	gap: 10px;
-}
-
-.home-sub-form a {
-	color: var(--secondary-color);
-}
-
-.home-sub-form a:hover,
-.home-sub-form a:focus {
-	text-decoration: underline;
 }
 
 .home-sub-form input[type=checkbox] {
