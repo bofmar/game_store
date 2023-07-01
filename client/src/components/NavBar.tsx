@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from '../assets/images/logo.png'
+import cart from '../assets/images/shopping-cart-svgrepo-com.svg'
 
 export default function NavBar() {
 	return (
@@ -15,7 +16,7 @@ export default function NavBar() {
 			</section>
 			<section className="nav-controls-section">
 				<NavLink to='/store'>Store</NavLink>
-				<NavLink to='/control-panel'>Control Panel</NavLink>
+				<NavLink to='/'><img src={cart} alt='shopping cart' className="cart-icon" /></NavLink>
 			</section>
 		</nav>
 	);
