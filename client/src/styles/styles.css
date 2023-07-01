@@ -182,6 +182,7 @@ footer h3 {
 .footer-links a:hover,
 .footer-links a:focus {
 	color: var(--tetriary-color);
+	text-decoration: none;
 }
 
 .footer-links .active {
