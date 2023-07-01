@@ -79,6 +79,7 @@ button {
 	color: var(--off-white);
 	font-size: var(--normal-text-size);
 }
+
 /* * * * * * * *
 	2.NAVBAR
 * * * * * * * */
@@ -112,6 +113,7 @@ nav {
 
 .nav-controls-section {
 	display: flex;
+	align-items: center;
 	gap: 5px;
 	font-size: var(--normal-text-size);
 }
@@ -123,6 +125,10 @@ nav {
 .nav-controls-section a:hover,
 .nav-controls-section a:focus {
 	color: var(--secondary-color);
+}
+
+.cart-icon {
+	width: 30px;
 }
 
 @media(max-width: 850px) {
