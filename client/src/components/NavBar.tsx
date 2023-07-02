@@ -1,8 +1,14 @@
 import { NavLink } from "react-router-dom";
 import logo from '../assets/images/logo.png'
 import cart from '../assets/images/shopping-cart-svgrepo-com.svg'
+import useFetch from "../hooks/useFetch";
+import { IGame } from "../types/types";
+import { SERVER_URI } from "../constats";
 
 export default function NavBar() {
+	const url = `${SERVER_URI}catalog/games`;
+	const {data: games} = useFetch<Array<IGame>>(url);
+
 	return (
 		<nav>
 			<section className="nav-image-section">
@@ -11,7 +17,10 @@ export default function NavBar() {
 			<section className="nav-search-section">
 			{/* TODO add functionality to the search bar*/}
 				<form className="nav-search-form">
-					<input type="text" placeholder="Search..."/>
+					<input type="text" placeholder="Search..." list="game-titles"/>
+					<datalist id="game-titles">
+						{games && games.map(game => <option key={game._id} value={game.title}></option>)}
+					</datalist>
 				</form>
 			</section>
 			<section className="nav-controls-section">
