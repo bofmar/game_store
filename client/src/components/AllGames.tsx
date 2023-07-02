@@ -1,21 +1,22 @@
 import { IGame } from '../types/types';
 import GameCard from "./GameCard";
-import { SERVER_URI } from "../constats";
-import useFetch from '../hooks/useFetch';
+import { useSearchParams } from 'react-router-dom';
 
 interface IAllGames {
 	fromPanel: boolean;
+	games: Array<IGame>;
 }
 
-export default function AllGames({ fromPanel }: IAllGames) {
-	const url = `${SERVER_URI}catalog/games`;
-	const { data: allGames, loading, error } = useFetch<Array<IGame>>(url);
+export default function AllGames({ fromPanel, games }: IAllGames) {
+	const [searchParams] = useSearchParams();
+	const isFiltered = searchParams.get('title') !== null;
+	const filtered = isFiltered ? games.filter(game => game.title.toLowerCase().includes(searchParams.get('title')?.toLowerCase() as string)) : games;
 	
+	console.log(filtered);
+
 	return (
 		<>
-			{loading && <p>Loading....</p>}
-			{allGames ? allGames.map(game => <GameCard game={game} key={game._id} fromPanel={fromPanel} />) : null}
-			{error && !allGames && <p>An error has occured, please try again later. Error message: {error}</p>}
+			{filtered.length > 0 ? filtered.map(game => <GameCard game={game} key={game._id} fromPanel={fromPanel} />) : <p>No game found matching the criteria Title: ${searchParams.get('title')}</p>}
 		</>
 	);
 }
