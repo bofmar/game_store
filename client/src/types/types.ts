@@ -44,3 +44,7 @@ export interface IGameForm {
 	consoles?: Array<{_id: string}>;
 	image: '' | File;
 }
+
+export interface IFilters {
+	title: string
+}

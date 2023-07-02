@@ -1,22 +1,36 @@
-import { IGame } from '../types/types';
+import { IFilters, IGame } from '../types/types';
 import GameCard from "./GameCard";
-import { useSearchParams } from 'react-router-dom';
+// TODO Add better error message
+
 
 interface IAllGames {
 	fromPanel: boolean;
 	games: Array<IGame>;
+	filters?: IFilters;
 }
 
-export default function AllGames({ fromPanel, games }: IAllGames) {
-	const [searchParams] = useSearchParams();
-	const isFiltered = searchParams.get('title') !== null;
-	const filtered = isFiltered ? games.filter(game => game.title.toLowerCase().includes(searchParams.get('title')?.toLowerCase() as string)) : games;
-	
-	console.log(filtered);
 
+export default function AllGames({ fromPanel, games, filters }: IAllGames) {
+
+	const filterGames = (): Array<IGame> => {
+		let filteredGames = games;
+
+		if (filters) {
+			if (filters.title !== '') {
+				filteredGames = filteredGames.filter(game => game.title.toLowerCase().includes(filters.title.toLowerCase()))
+			}
+		}
+		
+		return filteredGames;
+	}
+
+	const displayGames = filterGames();
+	
 	return (
 		<>
-			{filtered.length > 0 ? filtered.map(game => <GameCard game={game} key={game._id} fromPanel={fromPanel} />) : <p>No game found matching the criteria Title: ${searchParams.get('title')}</p>}
+			{displayGames.length > 0 ?
+			displayGames.map(game => <GameCard game={game} key={game._id} fromPanel={fromPanel} />) :
+			<p>No game found matching the search criteria</p>}
 		</>
 	);
 }
