@@ -19,8 +19,6 @@ export default function NavBar() {
 		navigate({pathname: '/store', search: `?title=${searchString}`});
 	}
 
-	console.log(Cart?.cartItems);
-
 	return (
 		<nav>
 			<section className="nav-image-section">

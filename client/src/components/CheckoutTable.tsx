@@ -12,21 +12,23 @@ export default function CheckoutTable() {
 			<div className="checkout-wrapper">
 				<h2>Review your purchase</h2>
 				<table className="checkout-table">
-					{Cart.cartItems.map((item, index) => (
-						<tr key={index}>
-							<td>{item.title}</td>
-							<td>{item.publisher.name}</td>
-							<td>{item.price}€</td>
-							<td><button className='remove-button' onClick={() => Cart.removeFromCart(index)}>Remove</button></td>
+					<tbody>
+						{Cart.cartItems.map((item, index) => (
+							<tr key={index}>
+								<td>{item.title}</td>
+								<td>{item.publisher.name}</td>
+								<td>{item.price}€</td>
+								<td><button className='remove-button' onClick={() => Cart.removeFromCart(index)}>Remove</button></td>
+							</tr>
+						))}
+						<tr>
+							<td></td>
+							<td>Total:</td>
+							<td id='total-price'>{new Intl.NumberFormat('en-IN', {style: 'currency', currency:'EUR'}).format(Cart.cartItems.reduce((total, item) => {
+									return total + item.price;
+								},0))}</td>
 						</tr>
-					))}
-					<tr>
-						<td></td>
-						<td>Total:</td>
-						<td id='total-price'>{Cart.cartItems.reduce((total, item) => {
-								return total + item.price;
-							},0)}€</td>
-					</tr>
+					</tbody>
 				</table> 
 				<button className="orange-button" onClick={() => navigate('/checkout/complete')}>Procceed to checkout</button>
 			</div> :
