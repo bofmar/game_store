@@ -37,7 +37,7 @@ export default function NavBar() {
 			</section>
 			<section className="nav-controls-section">
 				<NavLink to='/store'>Store</NavLink>
-				<NavLink to='/' id="nav-cart-link">
+				<NavLink to='/checkout' id="nav-cart-link">
 					<img src={cart} alt='shopping cart' className="cart-icon" />
 					{Cart && Cart.cartItems.length > 0 && <div className="item-count">{Cart?.cartItems.length}</div>}
 				</NavLink>

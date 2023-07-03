@@ -14,9 +14,10 @@ import GenreDetail from "./components/GenreDetail"
 import ConsoleDetail from "./components/ConsoleDetail"
 import PublisherDetail from "./components/PublisherDetail"
 import Footer from "./components/Footer"
+import Checkout from "./components/Checkout"
+import { CartContextProvider } from "./components/CartContext"
 import './styles/reset.css'
 import './styles/styles.css'
-import { CartContextProvider } from "./components/CartContext"
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 					<Route path='/' element={<Home />} />
 					<Route path='/store' element={<Store />} />
 					<Route path='/store/:gameId' element={<GameDetail />} />
+					<Route path='/checkout' element={<Checkout />} />
 					<Route path='/control-panel' element={<ControlPanel />} />
 					<Route path='/control-panel/games' element={<GamePanel/>} />
 					<Route path='/control-panel/games/:gameId' element={<GameEdit/>} />
