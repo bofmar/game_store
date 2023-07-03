@@ -28,7 +28,7 @@ export default function CheckoutTable() {
 							},0)}€</td>
 					</tr>
 				</table> 
-				<button className="orange-button">Procceed to checkout</button>
+				<button className="orange-button" onClick={() => navigate('/checkout/complete')}>Procceed to checkout</button>
 			</div> :
 			<div className="checkout-wrapper">
 				<p>There are no items in your cart currently</p>
