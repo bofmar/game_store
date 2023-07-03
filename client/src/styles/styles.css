@@ -551,3 +551,23 @@ footer h3 {
 	font-weight: bold;
 	color: var(--secondary-color);
 }
+
+/* * * * * * * *
+  7.PURCHASE 
+* * * * * * * */
+
+.complete-purchase-wrapper {
+	min-height: 80vh;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100vw;
+	justify-content: center;
+	align-items: center;
+}
+
+.complete-purchase-form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: center;
+}
