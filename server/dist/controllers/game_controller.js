@@ -92,13 +92,24 @@ export const game_delete = async (req, res) => {
         console.log(`Removed ${id}.jpeg`);
     });
 };
-const checkGameAvailability = async (gameId) => {
+const checkGameAvailability = async (gameId, allGames) => {
     const game = await Game.findById(gameId).exec();
+    const totalPurchases = allGames.reduce((total, g) => {
+        if (g._id === gameId) {
+            return total + 1;
+        }
+        else {
+            return total;
+        }
+    }, 0);
     if (game === null) {
         return 'NOT FOUND';
     }
     else if (game.copies_in_stock === 0) {
         return 'NO COPIES';
+    }
+    else if (totalPurchases > game.copies_in_stock) {
+        return 'NOT ENOUGH COPIES';
     }
     else {
         return 'OK';
@@ -107,22 +118,29 @@ const checkGameAvailability = async (gameId) => {
 // PURCHASE game
 export const game_purchse = async (req, res) => {
     const games = req.body;
+    const uniqueGameIds = Array.from(new Set(games.map(game => game._id)));
     // Check that all games are available
-    for (let i = 0; i < games.length; i++) {
-        const result = await checkGameAvailability(games[i]._id);
+    for (let i = 0; i < uniqueGameIds.length; i++) {
+        const result = await checkGameAvailability(uniqueGameIds[i], games);
         if (result === 'NOT FOUND') {
             res.status(404).send('Game not found');
             return;
         }
         else if (result === 'NO COPIES') {
+            res.status(400).send('No copies left');
+            return;
+        }
+        else if (result === 'NOT ENOUGH COPIES') {
             res.status(400).send('Not enough copies');
             return;
         }
     }
+    /*
     // Decrease game copies
-    for (let i = 0; i < games.length; i++) {
-        await Game.findOneAndUpdate({ _id: games[i]._id }, { $inc: { copies_in_stock: -1 } });
+    for(let i = 0; i < games.length; i++) {
+        await Game.findOneAndUpdate({_id: games[i]._id}, {$inc: {copies_in_stock: -1}})
     }
+    */
     res.status(201).send('Game purchased');
 };
 //# sourceMappingURL=game_controller.js.map
