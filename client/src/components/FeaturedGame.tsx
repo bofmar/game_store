@@ -1,5 +1,6 @@
 import { IGame } from "../types/types";
 import { SERVER_URI } from "../constats";
+import AddToCartButton from "./AddToCartButton";
 
 interface IGameProp {
 	game: IGame
@@ -15,7 +16,7 @@ export default function FeaturedGame({game}: IGameProp) {
 				<h3>{game.title}</h3>
 				<p>{game.description}</p>
 				<p className="featured-price">{`${game.price}€`}</p>
-				<button className="orange-button">Add To Cart</button>
+				<AddToCartButton game={game} />
 			</div>
 		</div>
 	);

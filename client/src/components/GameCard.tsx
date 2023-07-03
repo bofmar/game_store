@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { IGame } from "../types/types";
 import { SERVER_URI } from "../constats";
 import { handleDelete } from "../hooks/handleDelete";
+import AddToCartButton from "./AddToCartButton";
 
 interface IGameProp {
 	game: IGame
@@ -21,7 +22,7 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 			</section>
 			<p className="game-card-price">{`${game.price}€`}</p>
 			<section className="game-card-buttons-section">
-			{ fromPanel ? <button onClick={() => handleDelete(delUrl, game.title)}>Delete</button> : <button className="orange-button">Add To Cart </button>}
+			{ fromPanel ? <button onClick={() => handleDelete(delUrl, game.title)}>Delete</button> : <AddToCartButton game={game} />}
 			</section>
 		</div>
 	);
