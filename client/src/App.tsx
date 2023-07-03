@@ -16,31 +16,30 @@ import PublisherDetail from "./components/PublisherDetail"
 import Footer from "./components/Footer"
 import './styles/reset.css'
 import './styles/styles.css'
-import { createContext } from "react"
-import { IGame } from "./types/types"
+import { CartContextProvider } from "./components/CartContext"
 
 function App() {
-	const GamesInCart = createContext<Array<IGame>>([]);
-
 	return (
 		<>
-			<NavBar />
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/store' element={<Store />} />
-				<Route path='/store/:gameId' element={<GameDetail />} />
-				<Route path='/control-panel' element={<ControlPanel />} />
-				<Route path='/control-panel/games' element={<GamePanel/>} />
-				<Route path='/control-panel/games/:gameId' element={<GameEdit/>} />
-				<Route path='/control-panel/genres' element={<GenrePanel/>} />
-				<Route path='control-panel/genres/:genreId' element={<GenreDetail/>} />
-				<Route path='/control-panel/publishers' element={<PublisherPanel/>} />
-				<Route path='control-panel/publishers/:publisherId' element={<PublisherDetail/>} />
-				<Route path='/control-panel/consoles' element={<ConsolesPanel/>} />
-				<Route path='control-panel/consoles/:conId' element={<ConsoleDetail/>} />
-				<Route path='*' element={<PageNotFound />} />
-			</Routes>
-			<Footer />
+			<CartContextProvider>
+				<NavBar />
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/store' element={<Store />} />
+					<Route path='/store/:gameId' element={<GameDetail />} />
+					<Route path='/control-panel' element={<ControlPanel />} />
+					<Route path='/control-panel/games' element={<GamePanel/>} />
+					<Route path='/control-panel/games/:gameId' element={<GameEdit/>} />
+					<Route path='/control-panel/genres' element={<GenrePanel/>} />
+					<Route path='control-panel/genres/:genreId' element={<GenreDetail/>} />
+					<Route path='/control-panel/publishers' element={<PublisherPanel/>} />
+					<Route path='control-panel/publishers/:publisherId' element={<PublisherDetail/>} />
+					<Route path='/control-panel/consoles' element={<ConsolesPanel/>} />
+					<Route path='control-panel/consoles/:conId' element={<ConsoleDetail/>} />
+					<Route path='*' element={<PageNotFound />} />
+				</Routes>
+				<Footer />
+			</CartContextProvider>
 		</>
 	)
 }

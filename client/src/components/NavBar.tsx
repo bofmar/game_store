@@ -1,21 +1,25 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IGame } from "../types/types";
 import { SERVER_URI } from "../constats";
 import logo from '../assets/images/logo.png'
 import cart from '../assets/images/shopping-cart-svgrepo-com.svg'
 import useFetch from "../hooks/useFetch";
+import { CartContext } from "./CartContext";
 
 export default function NavBar() {
 	const url = `${SERVER_URI}catalog/games`;
 	const {data: games} = useFetch<Array<IGame>>(url);
 	const [searchString, setSearchString] = useState('');
 	const navigate = useNavigate();
+	const cartItems = useContext(CartContext);
 
 	const handleSearch = (e: FormEvent) => {
 		e.preventDefault();
 		navigate({pathname: '/store', search: `?title=${searchString}`});
 	}
+
+	console.log(cartItems);
 
 	return (
 		<nav>
