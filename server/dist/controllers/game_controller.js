@@ -118,6 +118,8 @@ const checkGameAvailability = async (gameId, allGames) => {
 // PURCHASE game
 export const game_purchse = async (req, res) => {
     const games = req.body;
+    // Get only the unique games from the request, so that we don't have to check the availability
+    // of the same game again and again
     const uniqueGameIds = Array.from(new Set(games.map(game => game._id)));
     // Check that all games are available
     for (let i = 0; i < uniqueGameIds.length; i++) {

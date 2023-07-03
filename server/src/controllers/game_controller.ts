@@ -137,6 +137,8 @@ const checkGameAvailability = async(gameId: string, allGames: Array<IGame>): Pro
 // PURCHASE game
 export const game_purchse = async(req: express.Request, res: express.Response ): Promise<void> => {
 	const games: Array<IGame> = req.body;
+	// Get only the unique games from the request, so that we don't have to check the availability
+	// of the same game again and again
 	const uniqueGameIds: Array<string> = Array.from(new Set(games.map(game => game._id)));
 
 	// Check that all games are available
