@@ -6,3 +6,4 @@ Cors https://www.npmjs.com/package/cors
 React-toastify https://www.npmjs.com/package/react-toastify
 React Responsive Carousel https://github.com/leandrowd/react-responsive-carousel
 Multer https://github.com/expressjs/multer
+React credit cards https://www.npmjs.com/package/react-credit-cards
