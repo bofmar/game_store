@@ -1,7 +1,11 @@
+import CheckoutTable from "./CheckoutTable";
+
 export default function Checkout() {
 	return (
 		<div>
-			Checkout page
+			<div className="checkout-table-section">
+				<CheckoutTable />
+			</div>
 		</div>
 	);
 }
