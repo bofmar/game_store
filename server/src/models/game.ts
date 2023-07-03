@@ -5,7 +5,7 @@ import Console from "./console.js";
 
 const Schema = mongoose.Schema;
 
-interface IGame {
+export interface IGame {
 	_id: string;
 	title: string;
 	release_date: Date;

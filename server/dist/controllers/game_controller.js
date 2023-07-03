@@ -92,4 +92,37 @@ export const game_delete = async (req, res) => {
         console.log(`Removed ${id}.jpeg`);
     });
 };
+const checkGameAvailability = async (gameId) => {
+    const game = await Game.findById(gameId).exec();
+    if (game === null) {
+        return 'NOT FOUND';
+    }
+    else if (game.copies_in_stock === 0) {
+        return 'NO COPIES';
+    }
+    else {
+        return 'OK';
+    }
+};
+// PURCHASE game
+export const game_purchse = async (req, res) => {
+    const games = req.body;
+    // Check that all games are available
+    for (let i = 0; i < games.length; i++) {
+        const result = await checkGameAvailability(games[i]._id);
+        if (result === 'NOT FOUND') {
+            res.status(404).send('Game not found');
+            return;
+        }
+        else if (result === 'NO COPIES') {
+            res.status(400).send('Not enough copies');
+            return;
+        }
+    }
+    // Decrease game copies
+    for (let i = 0; i < games.length; i++) {
+        await Game.findOneAndUpdate({ _id: games[i]._id }, { $inc: { copies_in_stock: -1 } });
+    }
+    res.status(200).send('Game purchased');
+};
 //# sourceMappingURL=game_controller.js.map

@@ -27,6 +27,8 @@ router.get('/games', game_controller.game_get_all);
 router.get('/games/:id', game_controller.game_get_detailed);
 // POST new game
 router.post('/games', upload.single('image'), game_controller.game_post_new);
+// Purchase a game
+router.post('/games/purchase', game_controller.game_purchse);
 // UPDATE game
 router.post('/games/:id/update', upload.single('image'), game_controller.game_update);
 // DELETE game

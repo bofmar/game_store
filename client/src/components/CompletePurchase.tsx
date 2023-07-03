@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import Cards, { Focused } from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
+import { CartContext } from './CartContext';
+import { SERVER_URI } from '../constats';
 
 export default function CompletePurchse() {
 	const [number, setNumber] = useState('');
@@ -8,10 +10,27 @@ export default function CompletePurchse() {
 	const [expiry, setExpiry] = useState('');
 	const [cvc, setCVC] = useState('');
 	const [focus, setFocus] = useState<Focused | undefined>(undefined);
+	const url = `${SERVER_URI}catalog/games/purchase`;
+	const Cart = useContext(CartContext);
+	
+	const submitPurchase = async(e: FormEvent) => {
+		e.preventDefault();
+		if (Cart && Cart.cartItems.length > 0) {
+			console.log(JSON.stringify(Cart.cartItems));
+			const response = await fetch(url, {
+				method: 'POST',
+				mode: 'cors',
+				headers: { 'Content-Type': 'application/json',},
+				body: JSON.stringify(Cart.cartItems),
+			});
+		} else { // Nothing to send
+			return;
+		}
+	}
 
 	return (
 		<div className='complete-purchase-wrapper'>
-			<form className='complete-purchase-form'>
+			<form className='complete-purchase-form' onSubmit={e => submitPurchase(e)}>
 				<h2>Card Info</h2>
 				<input className='dark-input' type='tel' name='number' placeholder='Card Number' value={number} onChange={e => setNumber(e.target.value)} onFocus={() => setFocus('number')} required/>
 				<input className='dark-input' type='text' name='name' placeholder='Cardholder Name' value={name} onChange={e => setName(e.target.value)} onFocus={() => setFocus('name')} required/>
