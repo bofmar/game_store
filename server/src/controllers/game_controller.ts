@@ -145,6 +145,6 @@ export const game_purchse = async(req: express.Request, res: express.Response ):
 		await Game.findOneAndUpdate({_id: games[i]._id}, {$inc: {copies_in_stock: -1}})
 	}
 
-	res.status(200).send('Game purchased');
+	res.status(201).send('Game purchased');
 }
 

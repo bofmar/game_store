@@ -3,6 +3,8 @@ import Cards, { Focused } from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import { CartContext } from './CartContext';
 import { SERVER_URI } from '../constats';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function CompletePurchse() {
 	const [number, setNumber] = useState('');
@@ -12,17 +14,37 @@ export default function CompletePurchse() {
 	const [focus, setFocus] = useState<Focused | undefined>(undefined);
 	const url = `${SERVER_URI}catalog/games/purchase`;
 	const Cart = useContext(CartContext);
+	const navigate = useNavigate();
+	
+	const clearCart = () => {
+		if(Cart && Cart.cartItems.length > 0) {
+			let itemsLeft = Cart.cartItems.length;
+
+			for(itemsLeft; itemsLeft >= 0; itemsLeft--) {
+				Cart.removeFromCart(0);
+			}
+		}
+	}
 	
 	const submitPurchase = async(e: FormEvent) => {
 		e.preventDefault();
+		const loadToast = toast.loading('Please wait...');
+		const delay = 2000;
+
 		if (Cart && Cart.cartItems.length > 0) {
-			console.log(JSON.stringify(Cart.cartItems));
 			const response = await fetch(url, {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json',},
 				body: JSON.stringify(Cart.cartItems),
 			});
+			if(response.status === 201) { 
+				toast.update(loadToast, { render: 'Order submited!', type: 'success', isLoading: false, autoClose: delay});
+				clearCart();
+				setTimeout(() => navigate('/store'), delay);
+			} else { 
+				toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false, autoClose: delay});
+			}
 		} else { // Nothing to send
 			return;
 		}
@@ -39,6 +61,7 @@ export default function CompletePurchse() {
 				<button className='orange-button'>Submit</button>
 			</form>
 			<Cards number={number} name={name} expiry={expiry} cvc={cvc} focused={focus}/>
+			<ToastContainer theme='dark' />
 		</div>
 	);
 }
