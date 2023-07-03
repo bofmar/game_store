@@ -36,6 +36,7 @@ a:focus {
 
 button {
 	all: initial;
+	user-select: none;
 }
 
 .active {
