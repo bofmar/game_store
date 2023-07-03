@@ -12,14 +12,14 @@ export default function NavBar() {
 	const {data: games} = useFetch<Array<IGame>>(url);
 	const [searchString, setSearchString] = useState('');
 	const navigate = useNavigate();
-	const cartItems = useContext(CartContext);
+	const Cart = useContext(CartContext);
 
 	const handleSearch = (e: FormEvent) => {
 		e.preventDefault();
 		navigate({pathname: '/store', search: `?title=${searchString}`});
 	}
 
-	console.log(cartItems);
+	console.log(Cart?.cartItems);
 
 	return (
 		<nav>
