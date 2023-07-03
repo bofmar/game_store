@@ -9,6 +9,7 @@ interface ICartContext {
 	cartItems: Array<IGame>;
 	addToCart: (game: IGame) => void; 
 	removeFromCart: (position: number) => void;
+	clearCart: () => void;
 }
 
 export const CartContext = createContext<ICartContext | null>(null);
@@ -30,5 +31,9 @@ export const CartContextProvider = ({children}: ICartContextProviderProps) => {
 		setCartItems(newItems);
 	}
 
-	return <CartContext.Provider value={{cartItems, addToCart, removeFromCart}}>{children}</CartContext.Provider>
+	const clearCart = () => {
+		setCartItems([]);
+	}
+
+	return <CartContext.Provider value={{cartItems, addToCart, removeFromCart, clearCart}}>{children}</CartContext.Provider>
 }

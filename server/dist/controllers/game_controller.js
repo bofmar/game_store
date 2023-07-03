@@ -136,10 +136,10 @@ export const game_purchse = async (req, res) => {
         }
     }
     /*
-    // Decrease game copies
-    for(let i = 0; i < games.length; i++) {
-        await Game.findOneAndUpdate({_id: games[i]._id}, {$inc: {copies_in_stock: -1}})
-    }
+        // Decrease game copies
+        for(let i = 0; i < games.length; i++) {
+            await Game.findOneAndUpdate({_id: games[i]._id}, {$inc: {copies_in_stock: -1}})
+        }
     */
     res.status(201).send('Game purchased');
 };

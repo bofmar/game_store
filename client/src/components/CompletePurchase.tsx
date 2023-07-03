@@ -16,16 +16,6 @@ export default function CompletePurchse() {
 	const Cart = useContext(CartContext);
 	const navigate = useNavigate();
 	
-	const clearCart = () => {
-		if(Cart && Cart.cartItems.length > 0) {
-			let itemsLeft = Cart.cartItems.length;
-
-			for(itemsLeft; itemsLeft >= 0; itemsLeft--) {
-				Cart.removeFromCart(0);
-			}
-		}
-	}
-	
 	const submitPurchase = async(e: FormEvent) => {
 		e.preventDefault();
 		const loadToast = toast.loading('Please wait...');
@@ -40,7 +30,7 @@ export default function CompletePurchse() {
 			});
 			if(response.status === 201) { 
 				toast.update(loadToast, { render: 'Order submited!', type: 'success', isLoading: false, autoClose: delay});
-				clearCart();
+				Cart.clearCart();
 				setTimeout(() => navigate('/store'), delay);
 			} else { 
 				toast.update(loadToast, { render: 'Something went wrong. Please try again later', type: 'error', isLoading: false, autoClose: delay});
