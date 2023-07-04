@@ -80,6 +80,14 @@ button {
 	font-size: var(--normal-text-size);
 }
 
+@media(max-width: 550px) {
+	:root {
+		--small-text-size: 9px;
+		--normal-text-size: 15px;
+		--biger-text-size: 18px;
+		--bigest-text-size: 20px;
+	}
+}
 /* * * * * * * *
 	2.NAVBAR
 * * * * * * * */
@@ -179,7 +187,7 @@ nav {
 footer {
 	display: flex;
 	justify-content: center;
-	padding: 30px 0;
+	padding: 30px 10px;
 }
 
 .footer-links {
@@ -341,18 +349,13 @@ footer h3 {
 		width: auto;
 	}
 
-	.text-overlay > h1 {
-		font-size: var(--normal-text-size);
-		line-height: auto;
-	}
-
-	.text-overlay > p {
-		line-height: auto;
-		font-size: var(--small-text-size);
+	.text-overlay > h1,
+	.text-overlay > p, 
+	.featured-details > p {
+		line-height: initial;
 	}
 
 	.styled-flair {
-		font-size: var(--small-text-size);
 		padding: 10px;
 	}
 
@@ -374,15 +377,6 @@ footer h3 {
 	.featured-details > * {
 		margin-bottom: 10px;
 		letter-spacing: auto;
-	}
-
-	.featured-details > h3 {
-		font-size: var(--normal-text-size);
-	}
-
-	.featured-details > p {
-		font-size: var(--small-text-size);
-		line-height: auto;
 	}
 }
 
@@ -524,6 +518,10 @@ footer h3 {
 	gap: 1rem;
 }
 
+.checkout-wrapper > p {
+	text-align: center;
+}
+
 .remove-button {
 	font-family: Roboto;
 	color: var(--tetriary-color);
@@ -552,6 +550,12 @@ footer h3 {
 	color: var(--secondary-color);
 }
 
+@media(max-width: 550px) {
+	tr:not(:last-child) > td:nth-child(2){
+		display: none;
+	}
+}
+
 /* * * * * * * *
   7.PURCHASE 
 * * * * * * * */
@@ -570,4 +574,17 @@ footer h3 {
 	flex-direction: column;
 	gap: 0.5rem;
 	align-items: center;
+}
+
+@media(max-width: 600px) {
+	.complete-purchase-wrapper {
+		grid-template-columns: none;
+		grid-template-areas: 
+			"form"
+			"card";
+	}
+
+	.complete-purchase-form {
+		grid-area: form;
+	}
 }

@@ -118,7 +118,7 @@ export default function Home() {
 					</div>
 					<div>
 						<input type='checkbox' name='tos' id='tos' value='accept'required/>
-						<label htmlFor='tos' className='white-label'>I accept GamesPlanet's <a href='#'>terms of service</a> and want my email to apply for GamesPlanet memvership and subscribe to their newsletter</label>l 
+						<label htmlFor='tos' className='white-label'>I accept GamesPlanet's <a href='#'>terms of service</a> and want my email to apply for GamesPlanet memvership and subscribe to their newsletter.</label>
 					</div>
 					<button className='orange-button'>Subscribe Now!</button>
 				</form>
