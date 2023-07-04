@@ -1,9 +1,7 @@
 import ReactPaginate from 'react-paginate';
 import { IFilters, IGame } from '../types/types';
 import GameCard from "./GameCard";
-import { useState } from 'react';
-// TODO Add better error message
-
+import { useEffect, useState } from 'react';
 
 interface IAllGames {
 	fromPanel: boolean;
@@ -12,12 +10,10 @@ interface IAllGames {
 	filters?: IFilters;
 }
 
-
 export default function AllGames({ fromPanel, paginate, games, filters }: IAllGames) {
 	const [itemOffset, setItemOffset] = useState(0);
 	const itemsPerPage = 9;
 	const endOffset = itemOffset + itemsPerPage;
-	const pageCount = Math.ceil(games.length / itemsPerPage);
 
 	const handlePageClick = (event: {selected: number}) => {
 		const newOffset = (event.selected * itemsPerPage) % games.length;
@@ -31,6 +27,7 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 			if (filters.title !== '') {
 				filteredGames = filteredGames.filter(game => game.title.toLowerCase().includes(filters.title.toLowerCase()))
 			}
+			filteredGames = filteredGames.filter(game => game.price <= filters.price);
 		}
 		
 		return filteredGames;
@@ -38,6 +35,12 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 
 	const filteredGames = filterGames();
 	const currentGames = paginate ? filteredGames.slice(itemOffset, endOffset) : filteredGames;
+	let pageCount = Math.ceil(filteredGames.length / itemsPerPage);
+
+	// Recalculate pageCount when the filters change
+	useEffect(() => {
+		pageCount = Math.ceil(filteredGames.length / itemsPerPage);
+	},[filters]);
 	
 	return (
 		<>
