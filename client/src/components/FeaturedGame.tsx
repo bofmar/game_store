@@ -10,7 +10,7 @@ export default function FeaturedGame({game}: IGameProp) {
 	const imageUrl = `${SERVER_URI}images/${game._id}.jpeg`;
 
 	return (
-		<div className="featured">
+		<div className="featured center-wrapper">
 			<img src={imageUrl}/>
 			<div className="featured-details">
 				<h3>{game.title}</h3>

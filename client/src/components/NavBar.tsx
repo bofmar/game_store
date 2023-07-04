@@ -21,7 +21,7 @@ export default function NavBar() {
 
 	return (
 		<nav>
-			<section className="nav-image-section">
+			<section className="nav-image-section center-wrapper">
 				<NavLink to='/'><img src={logo} alt='gamesplanet logo' /></NavLink>
 			</section>
 			<section className="nav-search-section">
@@ -33,11 +33,11 @@ export default function NavBar() {
 					</datalist>
 				</form>
 			</section>
-			<section className="nav-controls-section">
+			<section className="nav-controls-section center-wrapper">
 				<NavLink to='/store'>Store</NavLink>
 				<NavLink to='/checkout' id="nav-cart-link">
 					<img src={cart} alt='shopping cart' className="cart-icon" />
-					{Cart && Cart.cartItems.length > 0 && <div className="item-count">{Cart?.cartItems.length}</div>}
+					{Cart && Cart.cartItems.length > 0 && <div className="item-count center-wrapper">{Cart?.cartItems.length}</div>}
 				</NavLink>
 			</section>
 		</nav>

@@ -46,6 +46,12 @@ button {
 
 .center-wrapper {
 	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.center-wrapper-column {
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -105,8 +111,6 @@ nav {
 .nav-image-section {
 	width: 300px;
 	overflow: hidden;
-	display: flex;
-	align-items: center;
 }
 
 .nav-image-section img {
@@ -120,8 +124,6 @@ nav {
 }
 
 .nav-controls-section {
-	display: flex;
-	align-items: center;
 	gap: 5px;
 	font-size: var(--normal-text-size);
 }
@@ -150,9 +152,6 @@ nav {
 
 .item-count {
 	position: absolute;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	font-size: 14px;
 	width: 20px;
 	height: 20px;
@@ -185,8 +184,6 @@ nav {
 * * * * * * * */
 
 footer {
-	display: flex;
-	justify-content: center;
 	padding: 30px 10px;
 }
 
@@ -286,8 +283,6 @@ footer h3 {
 	top: 50%;
 	transform: translate(10%, -50%);
 	z-index: 2;
-	display: flex;
-	align-items: center;
 	gap: 40px;
 }
 
@@ -467,9 +462,6 @@ footer h3 {
 .game-card {
 	height: 100%;
 	text-align: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	gap: 10px;
 }
 
@@ -498,9 +490,6 @@ footer h3 {
 .checkout-table-section {
 	min-height: 80vh;
 	margin: 2rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	font-size: var(--normal-text-size);
 }
 
@@ -512,9 +501,6 @@ footer h3 {
 }
 
 .checkout-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	gap: 1rem;
 }
 
@@ -570,10 +556,7 @@ footer h3 {
 }
 
 .complete-purchase-form {
-	display: flex;
-	flex-direction: column;
 	gap: 0.5rem;
-	align-items: center;
 }
 
 @media(max-width: 600px) {

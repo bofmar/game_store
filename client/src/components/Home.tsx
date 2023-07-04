@@ -50,7 +50,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className='home center-wrapper'>
+		<div className='home center-wrapper-column'>
 			<section className="carousel-section">
 				<Carousel 
 				responsive={heroResponsive}

@@ -14,7 +14,7 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 	const delUrl = `${SERVER_URI}catalog/games/${game._id}/delete`;
 
 	return (
-		<div className="game-card">
+		<div className="game-card center-wrapper-column">
 			<img className="game-card-image" src={imageUrl}/>
 			<h3 className="game-card-title"><Link to={`${game._id}`}>{game.title}</Link></h3>
 			<section className="game-card-genres-section">

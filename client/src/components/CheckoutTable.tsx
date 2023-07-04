@@ -9,7 +9,7 @@ export default function CheckoutTable() {
 	return (
 		<>
 			{Cart && Cart.cartItems.length > 0 ?
-			<div className="checkout-wrapper">
+			<div className="checkout-wrapper center-wrapper-column">
 				<h2>Review your purchase</h2>
 				<table className="checkout-table">
 					<tbody>
@@ -32,7 +32,7 @@ export default function CheckoutTable() {
 				</table> 
 				<button className="orange-button" onClick={() => navigate('/checkout/complete')}>Procceed to checkout</button>
 			</div> :
-			<div className="checkout-wrapper">
+			<div className="checkout-wrapper center-wrapper-column">
 				<p>There are no items in your cart currently</p>
 				<button className="orange-button" onClick={() => navigate('/store')}>Back to the store</button>
 			</div>}

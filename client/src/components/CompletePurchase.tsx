@@ -42,7 +42,7 @@ export default function CompletePurchse() {
 
 	return (
 		<div className='complete-purchase-wrapper'>
-			<form className='complete-purchase-form' onSubmit={e => submitPurchase(e)}>
+			<form className='complete-purchase-form center-wrapper-column' onSubmit={e => submitPurchase(e)}>
 				<h2>Card Info</h2>
 				<input className='dark-input' type='tel' name='number' placeholder='Card Number' value={number} onChange={e => setNumber(e.target.value)} onFocus={() => setFocus('number')} required/>
 				<input className='dark-input' type='text' name='name' placeholder='Cardholder Name' value={name} onChange={e => setName(e.target.value)} onFocus={() => setFocus('name')} required/>

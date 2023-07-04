@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Footer() {
 	return (
-		<footer>
+		<footer className="center-wrapper">
 			<div className="footer-links">
 				<section className="footer-company-section">
 					<h3>About us</h3>
