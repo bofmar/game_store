@@ -27,7 +27,7 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 			if (filters.title !== '') {
 				filteredGames = filteredGames.filter(game => game.title.toLowerCase().includes(filters.title.toLowerCase()))
 			}
-			filteredGames = filteredGames.filter(game => game.price <= filters.price);
+			filteredGames = filteredGames.filter(game => game.price <= parseInt(filters.price));
 		}
 		
 		return filteredGames;

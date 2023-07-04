@@ -6,7 +6,7 @@ import AllGames from "./AllGames";
 import { useSearchParams } from "react-router-dom";
 
 interface IFormControls {
-	price: number;
+	price: string;
 }
 
 export default function Store() {
@@ -14,11 +14,11 @@ export default function Store() {
 	const { data: allGames } = useFetch<Array<IGame>>(url);
 	const [searchParams] = useSearchParams();
 	const [formControls, setFormControls] = useState<IFormControls>({
-			price: 80,
+			price: '80',
 		})
 	const [filters, setFilters] = useState<IFilters>({
 			title: '',
-			price: 80,
+			price: '80',
 		});
 
 	useEffect(() => {
@@ -30,14 +30,8 @@ export default function Store() {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const newValue = e.target.value;
 		const name = e.target.name;
-		switch (name) {
-			case 'price':
-				setFormControls(prev => ({...prev, price: parseInt(newValue)}));
-				setFilters(prev => ({...prev, price: parseInt(newValue)}));
-				break;
-			default:
-				break;
-		}
+		setFormControls(prev => ({...prev, [name]: newValue}));
+		setFilters(prev => ({...prev, [name]: newValue}));
 	}
 
 	return (
@@ -51,7 +45,7 @@ export default function Store() {
 					<div>
 						<label htmlFor="price">Maximum Price</label>
 						<input type="range" name='price' min='0' max='80' step='1' value={formControls.price} onChange={e => handleChange(e)} />
-						<p>{new Intl.NumberFormat('en-IN', {style: 'currency', currency:'EUR'}).format(formControls.price)}</p>
+						<p>{new Intl.NumberFormat('en-IN', {style: 'currency', currency:'EUR'}).format(parseInt(formControls.price))}</p>
 					</div>
 				</form>
 			</aside>

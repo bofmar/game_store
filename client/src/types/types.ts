@@ -47,5 +47,5 @@ export interface IGameForm {
 
 export interface IFilters {
 	title: string;
-	price: number;
+	price: string;
 }
