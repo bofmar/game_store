@@ -39,7 +39,7 @@ export default function GamePanel() {
 	return (
 		<>
 			{allPublishers && allGenres && allConsoles && <GameForm url={url} handleSubmit={handleSubmit} allPublishers={allPublishers} allGenres={allGenres} allConsoles={allConsoles}/>}
-			{allGames && <AllGames fromPanel={true} games={allGames}/>}
+			{allGames && <AllGames fromPanel={true} games={allGames} paginate={false} />}
 			<ToastContainer theme="dark"/>
 		</>
 	);

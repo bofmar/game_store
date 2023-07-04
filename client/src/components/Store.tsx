@@ -21,7 +21,7 @@ export default function Store() {
 
 	return (
 		<div>
-			{allGames && <AllGames fromPanel={false} games={allGames} filters={filters}/>}
+			{allGames && <AllGames fromPanel={false} games={allGames} filters={filters} paginate={true} />}
 		</div>
 	);
 }
