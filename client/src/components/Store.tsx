@@ -28,7 +28,6 @@ export default function Store() {
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const newValue = e.target.value;
-		console.log(newValue);
 		const name = e.target.name;
 		setFilters(prev => ({...prev, [name]: newValue}));
 	}
@@ -51,6 +50,13 @@ export default function Store() {
 						<select name='publisherId' id='publisher' value={filters.publisherId} onChange={e => handleChange(e)}>
 							<option value=''>---Select One---</option>
 							{publishers.sort((p1,p2) => p1.name > p2.name ? 1 : -1 ).map(publisher => <option value={publisher._id} key={publisher._id} >{publisher.name}</option>)}
+						</select>
+					</div>}
+					{genres && <div>
+						<label htmlFor="genre">Genre</label>
+						<select name='genreId' id='genre' value={filters.genreId} onChange={e => handleChange(e)}>
+							<option value=''>---Select One---</option>
+							{genres.sort((g1,g2) => g1.name > g2.name ? 1 : -1 ).map(genre => <option value={genre._id} key={genre._id} >{genre.name}</option>)}
 						</select>
 					</div>}
 				</form>

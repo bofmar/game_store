@@ -29,8 +29,13 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 			}
 			// filter by price
 			filteredGames = filteredGames.filter(game => game.price <= parseInt(filters.price));
+			// filter by publisher
 			if (filters.publisherId !== '') {
 				filteredGames = filteredGames.filter(game => game.publisher._id === filters.publisherId);
+			}
+			// filter by genre 
+			if (filters.genreId !== '') {
+				filteredGames = filteredGames.filter(game => game.genres.some(genre => genre._id === filters.genreId));
 			}
 		}
 		
