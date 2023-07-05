@@ -48,4 +48,7 @@ export interface IGameForm {
 export interface IFilters {
 	title: string;
 	price: string;
+	publisherId: string;
+	genreId: string;
+	consoleId: string;	
 }

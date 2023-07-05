@@ -24,10 +24,14 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 		let filteredGames = games;
 
 		if (filters) {
-			if (filters.title !== '') {
+			if (filters.title !== '') { // filter by name
 				filteredGames = filteredGames.filter(game => game.title.toLowerCase().includes(filters.title.toLowerCase()))
 			}
+			// filter by price
 			filteredGames = filteredGames.filter(game => game.price <= parseInt(filters.price));
+			if (filters.publisherId !== '') {
+				filteredGames = filteredGames.filter(game => game.publisher._id === filters.publisherId);
+			}
 		}
 		
 		return filteredGames;

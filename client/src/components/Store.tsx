@@ -1,24 +1,23 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { SERVER_URI } from "../constats";
 import useFetch from "../hooks/useFetch";
-import { IFilters, IGame } from "../types/types";
+import { IConsole, IFilters, IGame, IGenre, IPublisher } from "../types/types";
 import AllGames from "./AllGames";
 import { useSearchParams } from "react-router-dom";
 
-interface IFormControls {
-	price: string;
-}
-
 export default function Store() {
-	const url = `${SERVER_URI}catalog/games`;
-	const { data: allGames } = useFetch<Array<IGame>>(url);
+	// Fetch required data
+	const { data: allGames } = useFetch<Array<IGame>>(`${SERVER_URI}catalog/games`);
+	const { data: publishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
+	const { data: genres} = useFetch<Array<IGenre>>(`${SERVER_URI}catalog/genres`);
+	const { data: consoles} = useFetch<Array<IConsole>>(`${SERVER_URI}catalog/consoles`);
 	const [searchParams] = useSearchParams();
-	const [formControls, setFormControls] = useState<IFormControls>({
-			price: '80',
-		})
 	const [filters, setFilters] = useState<IFilters>({
 			title: '',
 			price: '80',
+			publisherId: '',
+			genreId: '',
+			consoleId: ''
 		});
 
 	useEffect(() => {
@@ -27,10 +26,10 @@ export default function Store() {
 		}
 	},[searchParams]);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const newValue = e.target.value;
+		console.log(newValue);
 		const name = e.target.name;
-		setFormControls(prev => ({...prev, [name]: newValue}));
 		setFilters(prev => ({...prev, [name]: newValue}));
 	}
 
@@ -44,9 +43,16 @@ export default function Store() {
 				<form className="store-filters-form" onSubmit={e => e.preventDefault()}>
 					<div>
 						<label htmlFor="price">Maximum Price</label>
-						<input type="range" name='price' min='0' max='80' step='1' value={formControls.price} onChange={e => handleChange(e)} />
-						<p>{new Intl.NumberFormat('en-IN', {style: 'currency', currency:'EUR'}).format(parseInt(formControls.price))}</p>
+						<input type="range" name='price' min='0' max='80' step='1' value={filters.price} onChange={e => handleChange(e)} />
+						<p>{new Intl.NumberFormat('en-IN', {style: 'currency', currency:'EUR'}).format(parseInt(filters.price))}</p>
 					</div>
+					{publishers && <div>
+						<label htmlFor="publisher">Publisher</label>
+						<select name='publisherId' id='publisher' value={filters.publisherId} onChange={e => handleChange(e)}>
+							<option value=''>---Select One---</option>
+							{publishers.sort((p1,p2) => p1.name > p2.name ? 1 : -1 ).map(publisher => <option value={publisher._id} key={publisher._id} >{publisher.name}</option>)}
+						</select>
+					</div>}
 				</form>
 			</aside>
 		</div>
