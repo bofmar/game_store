@@ -59,6 +59,13 @@ export default function Store() {
 							{genres.sort((g1,g2) => g1.name > g2.name ? 1 : -1 ).map(genre => <option value={genre._id} key={genre._id} >{genre.name}</option>)}
 						</select>
 					</div>}
+					{consoles && <div>
+						<label htmlFor="console">Console</label>
+						<select name='consoleId' id='console' value={filters.consoleId} onChange={e => handleChange(e)}>
+							<option value=''>---Select One---</option>
+							{consoles.sort((c1,c2) => c1.name > c2.name ? 1 : -1 ).map(cons => <option value={cons._id} key={cons._id} >{cons.name}</option>)}
+						</select>
+					</div>}
 				</form>
 			</aside>
 		</div>

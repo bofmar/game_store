@@ -37,6 +37,10 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 			if (filters.genreId !== '') {
 				filteredGames = filteredGames.filter(game => game.genres.some(genre => genre._id === filters.genreId));
 			}
+			// filter by console
+			if (filters.consoleId!== '') {
+				filteredGames = filteredGames.filter(game => game.consoles.some(cons => cons._id === filters.consoleId));
+			}
 		}
 		
 		return filteredGames;
