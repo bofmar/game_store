@@ -37,9 +37,27 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 	const currentGames = paginate ? filteredGames.slice(itemOffset, endOffset) : filteredGames;
 	let pageCount = Math.ceil(filteredGames.length / itemsPerPage);
 
-	// Recalculate pageCount when the filters change
+	// This is here because when the filters change and the displayed items count change
+	// while the user is on a page other than the first, we can end in a situation where
+	// the user will be shown the error message instead of the games and the pagination
+	// controls. So we need to:
+	// 1. Recalculate how many pages there are in the pagination
+	// 2. Move the user manualy to the first page
+	// 3. Change the offset to that of the first page's manualy
 	useEffect(() => {
+		// Recalculate how many pages there shoul be
 		pageCount = Math.ceil(filteredGames.length / itemsPerPage);
+		const firstPage = document.querySelector('[aria-label="Page 1"]');
+		// create a mouse click event and call it on the first element
+		const clickEvent = new MouseEvent("click", {
+			"view": window,
+			"bubbles": true,
+			"cancelable": false
+		});
+		// set the new offset manualy, because it does not get set from the click event
+		handlePageClick({selected: 0});
+		// navigate to page 1
+		firstPage?.dispatchEvent(clickEvent);
 	},[filters]);
 	
 	return (
