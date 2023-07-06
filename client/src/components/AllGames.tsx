@@ -87,6 +87,11 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 				pageCount={pageCount}
 				previousLabel="< previous"
 				renderOnZeroPageCount={null}
+				containerClassName='pagination center-wrapper'
+				pageLinkClassName='page-num'
+				previousLinkClassName='page-num'
+				nextLinkClassName='page-num'
+				activeLinkClassName='active'
 			/>}
 		</>
 	);

@@ -571,3 +571,33 @@ footer h3 {
 		grid-area: form;
 	}
 }
+
+/* * * * * * * *
+  8.PAGINATION
+* * * * * * * */
+
+.pagination {
+	list-style: none;
+	margin: 2rem 0 5rem 0;
+	font-size: var(--normal-text-size);
+	gap: 5px;
+}
+
+.pagination .page-num {
+	color: var(--off-white);
+	padding: 8px 15px;
+	cursor: pointer;
+	border-radius: 3px;
+	font-weight: 400;
+}
+
+.pagination .page-num:hover,
+.pagination .page-num:focus {
+	text-decoration: none;
+	border: 1px solid;
+}
+
+.pagination .active {
+	text-decoration: none;
+	border: 1px solid;
+}
