@@ -170,6 +170,7 @@ nav {
 	
 	.nav-image-section {
 		height: 80px;
+		justify-self: center;
 	}
 
 	.nav-controls-section {
@@ -671,4 +672,13 @@ footer h3 {
 	text-indent: 1rem;
 	background-color: var(--secondary-color);
 	color: var(--primary-color);
+}
+
+@media(max-width: 850px) {
+	.store {
+		grid-template-areas: 'filters' 'games';
+	}
+	.store > main {
+		width: auto;
+	}
 }
