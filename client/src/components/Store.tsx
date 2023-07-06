@@ -32,6 +32,16 @@ export default function Store() {
 		setFilters(prev => ({...prev, [name]: newValue}));
 	}
 
+	const handleClear = () => {
+		setFilters({
+			title: '',
+			price: '80',
+			publisherId: '',
+			genreId: '',
+			consoleId: ''
+		});
+	}
+
 	return (
 		<div>
 			<main className="store-games-area">
@@ -67,6 +77,7 @@ export default function Store() {
 						</select>
 					</div>}
 				</form>
+				<button className="orange-button" onClick={handleClear}>Clear</button>
 			</aside>
 		</div>
 	);
