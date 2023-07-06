@@ -614,7 +614,7 @@ footer h3 {
 
 .store > main {
 	grid-area: games;
-	width: 90vw;
+	width: 80vw;
 }
 
 .store .game-cards {
@@ -640,4 +640,35 @@ footer h3 {
 
 .store > aside {
 	grid-area: filters;
+	border: 1px solid var(--secondary-color);
+	gap: 20px;
+	font-family: Roboto;
+	align-self: flex-start;
+	margin-top: 50px;
+}
+
+.store-controls > h2 {
+	background-color: var(--secondary-color);
+	font-size: var(--biger-text-size);
+	width: 100%;
+	color: var(--primary-color);
+	text-align: center;
+}
+
+.store-filters-form {
+	gap: 20px;
+	width: 100%;
+}
+
+.store-filters-form > div {
+	gap: 10px;
+	width: 100%;
+}
+
+.store-controls label {
+	font-size: var(--normal-text-size);
+	width: 100%;
+	text-indent: 1rem;
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
 }

@@ -47,29 +47,29 @@ export default function Store() {
 			<main className="store-games-area">
 				{allGames && <AllGames fromPanel={false} games={allGames} filters={filters} paginate={true} />}
 			</main>
-			<aside className="store-controls">
+			<aside className="store-controls center-wrapper-column">
 				<h2>Filter Games</h2>
-				<form className="store-filters-form" onSubmit={e => e.preventDefault()}>
-					<div>
+				<form className="store-filters-form center-wrapper-column" onSubmit={e => e.preventDefault()}>
+					<div className='center-wrapper-column' >
 						<label htmlFor="price">Maximum Price</label>
 						<input type="range" name='price' id='price' min='0' max='80' step='1' value={filters.price} onChange={e => handleChange(e)} />
 						<p>{new Intl.NumberFormat('en-IN', {style: 'currency', currency:'EUR'}).format(parseInt(filters.price))}</p>
 					</div>
-					{publishers && <div>
+					{publishers && <div className='center-wrapper-column' >
 						<label htmlFor="publisher">Publisher</label>
 						<select name='publisherId' id='publisher' value={filters.publisherId} onChange={e => handleChange(e)}>
 							<option value=''>---Select One---</option>
 							{publishers.sort((p1,p2) => p1.name > p2.name ? 1 : -1 ).map(publisher => <option value={publisher._id} key={publisher._id} >{publisher.name}</option>)}
 						</select>
 					</div>}
-					{genres && <div>
+					{genres && <div className='center-wrapper-column' >
 						<label htmlFor="genre">Genre</label>
 						<select name='genreId' id='genre' value={filters.genreId} onChange={e => handleChange(e)}>
 							<option value=''>---Select One---</option>
 							{genres.sort((g1,g2) => g1.name > g2.name ? 1 : -1 ).map(genre => <option value={genre._id} key={genre._id} >{genre.name}</option>)}
 						</select>
 					</div>}
-					{consoles && <div>
+					{consoles && <div className='center-wrapper-column' >
 						<label htmlFor="console">Console</label>
 						<select name='consoleId' id='console' value={filters.consoleId} onChange={e => handleChange(e)}>
 							<option value=''>---Select One---</option>

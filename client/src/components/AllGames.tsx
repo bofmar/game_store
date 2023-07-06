@@ -12,7 +12,7 @@ interface IAllGames {
 
 export default function AllGames({ fromPanel, paginate, games, filters }: IAllGames) {
 	const [itemOffset, setItemOffset] = useState(0);
-	const itemsPerPage = 9;
+	const itemsPerPage = 6;
 	const endOffset = itemOffset + itemsPerPage;
 
 	const handlePageClick = (event: {selected: number}) => {
