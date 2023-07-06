@@ -601,3 +601,43 @@ footer h3 {
 	text-decoration: none;
 	border: 1px solid;
 }
+
+/* * * * * * * *
+	9.STORE
+* * * * * * * */
+
+.store {
+	display: grid;
+	grid-template-areas: 'filters games';
+	align-items: center;
+}
+
+.store > main {
+	grid-area: games;
+	width: 90vw;
+}
+
+.store .game-cards {
+	padding: 20px;
+	display: grid;
+	grid-template-rows: repeat(3, auto);
+	grid-template-columns: repeat(3, auto);
+	grid-gap: 20px;
+	justify-items: center;
+}
+
+.store .game-card {
+	width: 150px;
+	height: 400px;
+	padding: 10px;
+}
+
+.store .game-card-image {
+	width: 120px;
+	height: 200px;
+}
+
+
+.store > aside {
+	grid-area: filters;
+}

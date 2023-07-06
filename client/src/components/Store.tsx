@@ -43,7 +43,7 @@ export default function Store() {
 	}
 
 	return (
-		<div>
+		<div className="store">
 			<main className="store-games-area">
 				{allGames && <AllGames fromPanel={false} games={allGames} filters={filters} paginate={true} />}
 			</main>
@@ -52,7 +52,7 @@ export default function Store() {
 				<form className="store-filters-form" onSubmit={e => e.preventDefault()}>
 					<div>
 						<label htmlFor="price">Maximum Price</label>
-						<input type="range" name='price' min='0' max='80' step='1' value={filters.price} onChange={e => handleChange(e)} />
+						<input type="range" name='price' id='price' min='0' max='80' step='1' value={filters.price} onChange={e => handleChange(e)} />
 						<p>{new Intl.NumberFormat('en-IN', {style: 'currency', currency:'EUR'}).format(parseInt(filters.price))}</p>
 					</div>
 					{publishers && <div>

@@ -76,7 +76,9 @@ export default function AllGames({ fromPanel, paginate, games, filters }: IAllGa
 	return (
 		<>
 			{currentGames.length > 0 ?
-			currentGames.map(game => <GameCard game={game} key={game._id} fromPanel={fromPanel} />) :
+			<div className='game-cards'>
+			{currentGames.map(game => <GameCard game={game} key={game._id} fromPanel={fromPanel} />)}
+			</div>:
 			<p>No game found matching the search criteria</p>}
 			{currentGames.length > 0 && paginate === true &&
 			<ReactPaginate
