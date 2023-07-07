@@ -617,6 +617,7 @@ footer h3 {
 .store > main {
 	grid-area: games;
 	width: 80vw;
+	border-left: 1px solid var(--off-white);
 }
 
 .store .game-cards {
@@ -642,7 +643,6 @@ footer h3 {
 
 .store > aside {
 	grid-area: filters;
-	border: 1px solid var(--secondary-color);
 	gap: 20px;
 	font-family: Roboto;
 	align-self: flex-start;
@@ -650,10 +650,9 @@ footer h3 {
 }
 
 .store-controls > h2 {
-	background-color: var(--secondary-color);
 	font-size: var(--biger-text-size);
 	width: 100%;
-	color: var(--primary-color);
+	color: var(--secondary-color);
 	text-align: center;
 }
 
@@ -669,10 +668,8 @@ footer h3 {
 
 .store-controls label {
 	font-size: var(--normal-text-size);
-	width: 100%;
-	text-indent: 1rem;
-	background-color: var(--secondary-color);
-	color: var(--primary-color);
+	font-weight: bold;
+	color: var(--off-white);
 }
 
 @media(max-width: 850px) {
@@ -681,6 +678,20 @@ footer h3 {
 	}
 	.store > main {
 		width: auto;
+		border-left: none;
+		border-top: 1px solid var(--off-white);
+	}
+	.store-controls {
+		margin-bottom: 20px;
+	}
+
+	.store-filters-form {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.store-filters-form > div {
+		flex-direction: row;
 	}
 }
 
