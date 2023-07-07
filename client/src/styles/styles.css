@@ -7,9 +7,10 @@
 
 :root {
 	--primary-color: #121212;
-	--secondary-color: #ff4136;
-	--tetriary-color: #3db0c1;
-	--off-white: #eee;
+	--secondary-color: #FF4136;
+	--tetriary-color: #3DB0C1;
+	--off-white: #EEE;
+	--warning-red: #B3343A;
 
 	/*Fonts and font sizes */
 	--small-text-size: 12px;
@@ -680,5 +681,74 @@ footer h3 {
 	}
 	.store > main {
 		width: auto;
+	}
+}
+
+/* * * * * * * *
+10.GAME DETAILS
+* * * * * * * */
+.game-details-wrapper{
+	width: 80%;
+	display: grid;
+	grid-template-areas: 
+		'title title'
+		'image desc';
+	gap: 20px;
+}
+
+.game-details-wrapper > h2 {
+	grid-area: title;
+	font-size: var(--bigest-text-size);
+	font-weight: bold;
+}
+
+.game-details-wrapper > .game-details-image-section{
+	grid-area: image;
+}
+
+.game-details-image-section img {
+	max-height: 80vh;
+	max-width: 100%;
+}
+
+.game-details-wrapper > .game-details-details-section{
+	grid-area: desc;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	font-size: var(--normal-text-size);
+	justify-self: flex-start;
+}
+
+.game-details-details-section h3,
+.game-details-price {
+	font-weight: bold;
+	color: var(--secondary-color);
+}
+
+.game-details-details-section p {
+	max-width: 50ch;
+}
+
+.game-details-details-section span {
+	color: white;
+}
+
+.game-details-details-section button {
+	align-self: center;
+}
+
+.sold-out {
+	font-size: var(--biger-text-size);
+	font-weight: bold;
+	color:var(--warning-red);
+}
+
+@media(max-width: 850px) {
+	.game-details-wrapper{
+		grid-template-areas: 
+			'title'
+			'image'
+			'desc';
 	}
 }

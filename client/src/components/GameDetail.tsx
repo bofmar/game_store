@@ -10,7 +10,7 @@ export default function GameDetail() {
 	const { data: game } = useFetch<IGame>(url);
 
 	return (
-		<div className="game-details-body">
+		<div className="game-details-body center-wrapper">
 			{game && <div className="game-details-wrapper">
 				<h2>{game.title}</h2>
 				<section className="game-details-image-section">
@@ -19,15 +19,15 @@ export default function GameDetail() {
 				<section className="game-details-details-section">
 					<p className="game-details-description">{game.description}</p>
 					<section className="game-details-genres-section">
-						<h3>Genres:{game.genres.map(g => <span> {g.name}</span>)}</h3>
+						<h3>Genres:{game.genres.map(g => <span key={g._id}> {g.name}</span>)}</h3>
 					</section>
 					<section className="game-details-consoles-section">
-						<h3>Available on:{game.consoles.map(c => <span> {c.name}</span>)}</h3>
+						<h3>Available on:{game.consoles.map(c => <span key={c._id}> {c.name}</span>)}</h3>
 					</section>
 					{game.copies_in_stock > 0
-					? <p className="game-details-price">Price: {game.price}€</p> 
+					? <p className="game-details-price">Price: <span className="price-span">{game.price}€</span></p> 
 					: <p className="sold-out">SOLD OUT</p>}
-					<AddToCartButton game={game}/>
+					{game.copies_in_stock > 0 && <AddToCartButton game={game}/>}
 				</section>
 			</div>}
 		</div>
