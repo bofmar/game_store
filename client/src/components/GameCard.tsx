@@ -20,9 +20,9 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 			<section className="game-card-genres-section">
 				{game.genres.map(genre => <p key={genre._id}>{genre.name}</p>)}
 			</section>
-			<p className="game-card-price">{`${game.price}€`}</p>
+			{game.copies_in_stock > 0 ? <p className="game-card-price">{`${game.price}€`}</p> : <p className="sold-out">SOLD OUT</p>}
 			<section className="game-card-buttons-section">
-			{ fromPanel ? <button onClick={() => handleDelete(delUrl, game.title)}>Delete</button> : <AddToCartButton game={game} />}
+			{ fromPanel ? <button onClick={() => handleDelete(delUrl, game.title)}>Delete</button> : game.copies_in_stock > 0 && <AddToCartButton game={game} />}
 			</section>
 		</div>
 	);
