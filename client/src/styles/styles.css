@@ -739,6 +739,7 @@ footer h3 {
 
 .game-details-details-section p {
 	max-width: 50ch;
+	line-height: 1.5rem;
 }
 
 .game-details-details-section span {
@@ -761,5 +762,8 @@ footer h3 {
 			'title'
 			'image'
 			'desc';
+	}
+	.game-details-details-section {
+		gap: 1rem;
 	}
 }
