@@ -20,18 +20,33 @@ export default function GameDetail() {
 	
 	useEffect(() => {
 		if(games && game) {
-			games.map(g => {
+			const temp: Array<IGameRanked> = [];
+			games.forEach(g => {
 				const newGame: IGameRanked = {...g, score: 0};
-				if(newGame.title === game.title) {
-					setRanked(prev => ({...prev, newGame}));
-					return;
+				if(newGame._id === game._id) {
+					return // don't add the current game to the list
 				}else {
 					// check for matching genres
-					// check for matching publishers
+					game.genres.forEach(genre => {
+						if (newGame.genres.some(gen => gen._id === genre._id)) {
+							newGame.score += 10;
+						}
+					});
 					// check for matching consoles
-					setRanked(prev => ({...prev, newGame}));
+					game.consoles.forEach(con => {
+						if (newGame.consoles.some(c => c._id === con._id)) {
+							newGame.score += 2;
+						}
+					});
+					// check for matching publishers
+					if(game.publisher._id === newGame.publisher._id) {
+						newGame.score += 1;
+					}
+					temp.push(newGame);
 				}
 			});
+			temp.sort((g1,g2) => g1.score > g2.score ? -1 : 1);
+			setRanked(temp);
 		}
 	},[games, game]);
 
@@ -41,15 +56,15 @@ export default function GameDetail() {
 			items: 5
 		},
 		desktop: {
-			breakpoint: { max: 3000, min: 1024 },
+			breakpoint: { max: 3000, min: 1200 },
 			items: 3
 		},
 		tablet: {
-			breakpoint: { max: 1024, min: 464 },
+			breakpoint: { max: 1200, min: 800 },
 			items: 2
 		},
 		mobile: {
-			breakpoint: { max: 464, min: 0 },
+			breakpoint: { max: 800, min: 0 },
 			items: 1
 		}
 	}
@@ -74,13 +89,14 @@ export default function GameDetail() {
 					: <p className="sold-out">SOLD OUT</p>}
 					{game.copies_in_stock > 0 && <AddToCartButton game={game}/>}
 				</section>
-				<section>
+				<section className="rec-carousel-section">
+					<h2>You might also like</h2>
 					<Carousel
 					responsive={gameResponsive}
 					infinite={true}
 					keyBoardControl={true}
 					containerClass="game-carousel-container">
-						{ranked.length > 0 ? ranked.slice(0,4).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
+						{ranked.length > 0 ? ranked.slice(0,5).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
 					</Carousel>
 				</section>
 			</div>}
