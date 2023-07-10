@@ -5,7 +5,6 @@ import url from 'url';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 // Middleware
-import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 // Routes
@@ -27,8 +26,7 @@ mongoose.connect(MONGOURI).then(_result => {
     console.log(error);
 });
 // Middleware
-app.use(helmet({ crossOriginResourcePolicy: false }));
-app.use(cors({ origin: process.env.ACCESS_ORIGIN_URI }));
+app.use(cors());
 app.use(morgan(IS_DEV ? 'dev' : 'common'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
