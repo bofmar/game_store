@@ -26,7 +26,6 @@ export const genre_post_new = [body('name', 'Name must not be empty').trim().isL
         }
         const genre = new Genre({ name: req.body.name });
         const genreExists = await Genre.findOne({ name: req.body.name }).exec();
-        // TODO SERVER SIDE DATA VALIDATION
         if (!genreExists) {
             await genre.save();
             res.status(201).json(genre);

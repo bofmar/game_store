@@ -25,7 +25,6 @@ export default function NavBar() {
 				<NavLink to='/'><img src={logo} alt='gamesplanet logo' /></NavLink>
 			</section>
 			<section className="nav-search-section">
-			{/* TODO add functionality to the search bar*/}
 				<form className="nav-search-form" onSubmit={e => handleSearch(e)}>
 					<input type="search" placeholder="Search..." list="game-titles" value={searchString} onChange={e => setSearchString(e.target.value)}/>
 					<datalist id="game-titles">
