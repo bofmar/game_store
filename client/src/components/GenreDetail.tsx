@@ -3,7 +3,7 @@ import { SERVER_URI } from "../constats";
 import useFetch from "../hooks/useFetch";
 import { FormEvent, useEffect, useState } from "react";
 import { IGenre } from "../types/types";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { handleUpdate } from "../hooks/handleUpdate";
 
 export default function GenreDetail() {
@@ -19,7 +19,11 @@ export default function GenreDetail() {
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		// validate data TODO
+		const payload = formData.name.trim();
+		if(payload === '') {
+			toast('Name cannot be only spaces', {type:'error'})
+			return
+		}
 
 		const sendData: IGenre = {...formData, _id:''};
 
@@ -31,7 +35,7 @@ export default function GenreDetail() {
 			<form method="POST" action={postUrl} onSubmit={event => handleSubmit(event)}>
 				<label htmlFor="name">Name</label>
 				{genre && <input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/> }
-				{genre && <button type="submit">Submit</button>}
+				{genre && <button className='orange-button' type="submit">Submit</button>}
 			</form>
 			<ToastContainer theme="dark" />
 		</div>

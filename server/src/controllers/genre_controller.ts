@@ -46,14 +46,20 @@ export const genre_post_new = [body('name', 'Name must not be empty').trim().isL
 ];
 
 // UPDATE genre
-export const genre_update = async (req: express.Request, res: express.Response): Promise<void> => {
-	const genre = new Genre({ name: req.body.name});
+export const genre_update = [body('name', 'Name must not be empty').trim().isLength({min: 1}).escape(), 
+	async (req: express.Request, res: express.Response): Promise<void> => {
+		const errors = validationResult(req);
+		if(!errors.isEmpty()) {
+			res.status(405).send('Received empty query');
+			return;
+		}
 
-	// TODO SERVER SIDE DATA VALIDATION
-	
-	await Genre.findByIdAndUpdate(req.params.id, {name: genre.name}, {});
-	res.status(201).json(genre);
-}
+		const genre = new Genre({ name: req.body.name});
+
+		await Genre.findByIdAndUpdate(req.params.id, {name: genre.name}, {});
+		res.status(201).json(genre);
+	}
+];
 
 // DELETE genre
 export const genre_delete = async (req: express.Request, res: express.Response): Promise<void> => {
