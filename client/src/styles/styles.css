@@ -853,10 +853,6 @@ footer h3 {
 	font-size: var(--normal-text-size);
 }
 
-.checkbox {
-	background: red;
-}
-
 .two-cols {
 	grid-column: span 2;
 }
@@ -872,4 +868,38 @@ footer h3 {
 
 #image ~ input{
 	align-self: flex-end;
+}
+
+.games-panel > .game-cards{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-auto-rows: auto;
+	place-items: center;
+}
+
+.games-panel .game-cards > div {
+	width: 30%;
+}
+
+.games-panel .game-cards > div > img{
+	width: 100%;
+}
+
+@media(max-width: 550px) {
+	.controls-form > div {
+		grid-template-columns: 70px auto;
+	}
+
+	.grid-list-wrapper{
+		grid-template-columns: 70px auto auto;
+	}
+
+	.games-panel > .game-cards{
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	#image {
+		width: 80px;
+	}
 }
