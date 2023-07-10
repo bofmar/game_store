@@ -62,14 +62,14 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 	}
 
 	return (
-			<form method="POST" action={url} onSubmit={event => handleSubmit(event, formData)}>
+			<form className='controls-form games-form' method="POST" action={url} onSubmit={event => handleSubmit(event, formData)}>
 				<div>
 					{!game && <label htmlFor="title">Name</label>}
 					<input type="text" id="title" name="title" required value={formData.title} onChange={e => setData({...formData, title: e.target.value})}/>
 				</div>
 				<div>
 					{!game && <label htmlFor="description">Description</label>}
-					<textarea id="description" name="description" required value={formData.description} onChange={e => setData({...formData, description: e.target.value})}/>
+					<textarea className={game ? 'two-cols' : ''} id="description" rows={20} cols={100}name="description" required value={formData.description} onChange={e => setData({...formData, description: e.target.value})}/>
 				</div>
 				<div>
 					{!game && <label htmlFor="releaseDate">Release Date</label>}
@@ -94,14 +94,14 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 				</div>
 				<PublisherDropdown allPublishers={allPublishers} handlePubSelection={handlePubSelection} game={game ? game : undefined}/>
 				<div>
-					<label htmlFor="genre">Genres</label>
+					<label className='two-cols accent-label' htmlFor="genre">Genres</label>
 					{allGenres.sort((g1, g2) => g1.name > g2.name ? 1 : -1).map(genre => <GenreCheckbox key={genre._id} genre={genre} handleChange={handleGenreCheckbox} game={game ? game : undefined} />)} 
 				</div>
 				<div>
-					<label htmlFor="consoles">Consoles</label>
+					<label className='two-cols accent-label' htmlFor="consoles">Consoles</label>
 					{allConsoles.sort((c1, c2) => c1.name > c2.name ? 1 : -1).map(con => <ConsoleCheckbox key={con._id} con={con} handleChange={handleConsoleCheckbox} game={game ? game: undefined} />)}
 				</div>
-				<button type="submit">Submit</button>
+				<button className='orange-button' type="submit">Submit</button>
 			</form>
 	);
 }

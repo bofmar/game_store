@@ -38,7 +38,9 @@ export default function GamePanel() {
 	return (
 		<>
 			{allPublishers && allGenres && allConsoles && <GameForm url={url} handleSubmit={handleSubmit} allPublishers={allPublishers} allGenres={allGenres} allConsoles={allConsoles}/>}
+			<div className="">
 			{allGames && <AllGames fromPanel={true} games={allGames} paginate={false} />}
+			</div>
 			<ToastContainer theme="dark"/>
 		</>
 	);

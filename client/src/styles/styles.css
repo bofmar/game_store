@@ -852,3 +852,24 @@ footer h3 {
 .grid-list-wrapper > h1 {
 	font-size: var(--normal-text-size);
 }
+
+.checkbox {
+	background: red;
+}
+
+.two-cols {
+	grid-column: span 2;
+}
+
+.accent-label {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#image {
+	width: 200px;
+}
+
+#image ~ input{
+	align-self: flex-end;
+}
