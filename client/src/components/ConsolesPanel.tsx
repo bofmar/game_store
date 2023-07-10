@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { SERVER_URI } from "../constats";
 import useFetch from "../hooks/useFetch";
 import { IConsole } from "../types/types";
@@ -9,19 +9,33 @@ import ConsoleForm from "./ConsoleForm";
 
 export default function ConsolesPanel() {
 	const url = `${SERVER_URI}catalog/consoles`;
-	const {data: consoles, loading} = useFetch<Array<IConsole>>(url);
+	const {data: consoles} = useFetch<Array<IConsole>>(url);
 
 	const handleSubmit = (event: FormEvent, payload: IConsole) => {
 		event.preventDefault();
-		// TODO CLIENT SIDE VALIDATION
+		const localPayload: IConsole= {
+			_id: payload._id,
+			name: payload.name.trim(),
+			developer_name: payload.developer_name.trim(),
+			description: payload.description.trim(),
+			release_date: payload.release_date.trim()
+		}
 
-		handlePost(url, payload);
+		if(localPayload.name === '' 
+			|| localPayload.developer_name === '' 
+			|| localPayload.description === ''
+			|| localPayload.release_date === '') {
+
+			toast('Fields cannot be only spaces', {type:'error'})
+			return;
+		}
+
+		handlePost(url, localPayload);
 	}
 
 	return (
 		<>
 			<ConsoleForm url={url} handleSubmit={handleSubmit} />
-			{loading && <p>Loading...</p>}
 			{consoles && consoles.map(con => <ConsoleCard con={con} key={con._id} />) }
 			<ToastContainer theme="dark"/>
 		</>

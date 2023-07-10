@@ -1,5 +1,6 @@
 import Console from '../models/console.js';
 import Game from '../models/game.js';
+import { body, validationResult } from 'express-validator';
 // GET all consoles
 export const console_get_all = async (_req, res) => {
     const allConsoles = await Console.find({}).exec();
@@ -16,43 +17,61 @@ export const console_get_detailed = async (req, res, next) => {
     res.json(gameConsole);
 };
 // POST new console
-export const console_post_new = async (req, res) => {
-    const con = new Console({
-        name: req.body.name,
-        developer_name: req.body.developer_name,
-        description: req.body.description,
-        release_date: new Date(req.body.release_date),
-    });
-    if (req.body.discontinuedDate) {
-        con.discontinued_date = new Date(req.body.discontinued_date);
+export const console_post_new = [body('name').trim().isLength({ min: 1 }).escape(),
+    body('developer_name').trim().isLength({ min: 1 }).escape(),
+    body('description').trim().isLength({ min: 1 }).escape(),
+    body('release_date').isISO8601().toDate(),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(405).send('Invalid data');
+            return;
+        }
+        const con = new Console({
+            name: req.body.name,
+            developer_name: req.body.developer_name,
+            description: req.body.description,
+            release_date: new Date(req.body.release_date),
+        });
+        if (req.body.discontinuedDate) {
+            con.discontinued_date = new Date(req.body.discontinued_date);
+        }
+        const consoleExists = await Console.findOne({ name: req.body.name }).exec();
+        if (!consoleExists) {
+            await con.save();
+            res.status(201).json(con);
+        }
+        else {
+            res.status(400).send('Console already exists');
+        }
     }
-    // TODO SERVER SIDE DATA VALIDATION
-    const consoleExists = await Console.findOne({ name: req.body.name }).exec();
-    if (!consoleExists) {
-        await con.save();
+];
+// UPDATE console
+export const console_update = [body('name').trim().isLength({ min: 1 }).escape(),
+    body('developer_name').trim().isLength({ min: 1 }).escape(),
+    body('description').trim().isLength({ min: 1 }).escape(),
+    body('release_date').isISO8601().toDate(),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(405).send('Invalid data');
+            return;
+        }
+        const con = new Console({
+            name: req.body.name,
+            developer_name: req.body.developer_name,
+            description: req.body.description,
+            release_date: new Date(req.body.release_date),
+        });
+        await Console.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            developer_name: req.body.developer_name,
+            description: req.body.description,
+            release_date: new Date(req.body.release_date),
+        }, {});
         res.status(201).json(con);
     }
-    else {
-        res.status(400).send('Console already exists');
-    }
-};
-// UPDATE console
-export const console_update = async (req, res) => {
-    const con = new Console({
-        name: req.body.name,
-        developer_name: req.body.developer_name,
-        description: req.body.description,
-        release_date: new Date(req.body.release_date),
-    });
-    // TODO SERVER SIDE DATA VALIDATION
-    await Console.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
-        developer_name: req.body.developer_name,
-        description: req.body.description,
-        release_date: new Date(req.body.release_date),
-    }, {});
-    res.status(201).json(con);
-};
+];
 // DELETE genre
 export const console_delete = async (req, res) => {
     const id = req.params.id;
