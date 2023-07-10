@@ -11,10 +11,10 @@ export default function PublisherCard({publisher}: IPublisherCard) {
 	const navigate = useNavigate();
 	const delUrl = `${SERVER_URI}catalog/publishers/${publisher._id}/delete`;
 	return (
-		<>
+		<div className="grid-list-wrapper">
 			<h1>{publisher.name}</h1>
-			<button onClick={() => navigate(`${publisher._id}`)}>Modify</button>
-			<button onClick={() => handleDelete(delUrl, publisher.name)}>Delete</button>
-		</>
+			<button className='orange-button-small' onClick={() => navigate(`${publisher._id}`)}>Modify</button>
+			<button className='orange-button-small' onClick={() => handleDelete(delUrl, publisher.name)}>Delete</button>
+		</div>
 	);
 }

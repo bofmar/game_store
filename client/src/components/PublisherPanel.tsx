@@ -31,7 +31,9 @@ export default function PublisherPanel() {
 	return (
 		<>
 			<PublisherForm handleSubmit={handleSubmit} url={url} />
-			{publishers && publishers.map(publisher => <PublisherCard publisher={publisher} key={publisher._id}/>)}
+			<div className="center-wrapper-column publisher-cards-wrapper">
+				{publishers && publishers.map(publisher => <PublisherCard publisher={publisher} key={publisher._id}/>)}
+			</div>
 			<ToastContainer theme="dark"/>
 		</>
 	);
