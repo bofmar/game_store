@@ -31,15 +31,17 @@ function App() {
 					<Route path='/store/:gameId' element={<GameDetail />} />
 					<Route path='/checkout' element={<Checkout />} />
 					<Route path='/checkout/complete' element={<CompletePurchse />} />
-					<Route path='/control-panel' element={<ControlPanel />} />
-					<Route path='/control-panel/games' element={<GamePanel/>} />
-					<Route path='/control-panel/games/:gameId' element={<GameEdit/>} />
-					<Route path='/control-panel/genres' element={<GenrePanel/>} />
-					<Route path='control-panel/genres/:genreId' element={<GenreDetail/>} />
-					<Route path='/control-panel/publishers' element={<PublisherPanel/>} />
-					<Route path='control-panel/publishers/:publisherId' element={<PublisherDetail/>} />
-					<Route path='/control-panel/consoles' element={<ConsolesPanel/>} />
-					<Route path='control-panel/consoles/:conId' element={<ConsoleDetail/>} />
+					<Route path='/control-panel' element={<ControlPanel />}>
+						<Route index element={<GamePanel />} />
+						<Route path='games' element={<GamePanel/>} />
+						<Route path='games/:gameId' element={<GameEdit/>} />
+						<Route path='genres' element={<GenrePanel/>} />
+						<Route path='genres/:genreId' element={<GenreDetail/>} />
+						<Route path='publishers' element={<PublisherPanel/>} />
+						<Route path='publishers/:publisherId' element={<PublisherDetail/>} />
+						<Route path='consoles' element={<ConsolesPanel/>} />
+						<Route path='consoles/:conId' element={<ConsoleDetail/>} />
+					</Route>
 					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 				<Footer />

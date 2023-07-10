@@ -27,7 +27,7 @@ export default function NavBar() {
 			<section className="nav-search-section">
 			{/* TODO add functionality to the search bar*/}
 				<form className="nav-search-form" onSubmit={e => handleSearch(e)}>
-					<input type="text" placeholder="Search..." list="game-titles" value={searchString} onChange={e => setSearchString(e.target.value)}/>
+					<input type="search" placeholder="Search..." list="game-titles" value={searchString} onChange={e => setSearchString(e.target.value)}/>
 					<datalist id="game-titles">
 						{games && games.map(game => <option key={game._id} value={game.title}></option>)}
 					</datalist>
