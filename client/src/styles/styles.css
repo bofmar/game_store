@@ -711,6 +711,7 @@ footer h3 {
 /* * * * * * * *
 10.GAME DETAILS
 * * * * * * * */
+
 .game-details-wrapper{
 	width: 80%;
 	display: grid;
@@ -797,4 +798,48 @@ footer h3 {
 	.game-details-details-section {
 		gap: 1rem;
 	}
+}
+
+/* * * * * * * *
+  10.CONTROLS
+* * * * * * * */
+
+.controls-nav {
+	font-size: var(--normal-text-size);
+}
+
+.controls-nav > h1 {
+	font-weight: bold;
+}
+
+.controls-form {
+	margin-bottom: 30px;
+	gap: 1rem;
+}
+
+.controls-form label {
+	font-size: var(--normal-text-size);
+}
+
+.controls-form > div {
+	display: flex;
+	gap: 1rem;
+}
+
+.genre-cards-wrapper {
+	gap: 1rem;
+}
+
+.grid-list-wrapper{
+	display: grid;
+	grid-template-columns: 200px auto auto;
+	gap: 1rem;
+}
+
+.grid-list-wrapper > button {
+	place-self: center;
+}
+
+.grid-list-wrapper > h1 {
+	font-size: var(--normal-text-size);
 }

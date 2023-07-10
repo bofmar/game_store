@@ -27,9 +27,11 @@ export default function GenrePanel() {
 
 	return (
 		<>
-			<form method="POST" action={url} onSubmit={event => handleSubmit(event)}>
-				<label htmlFor="name">Name</label>
-				<input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/>
+			<form className='center-wrapper-column controls-form' method="POST" action={url} onSubmit={event => handleSubmit(event)}>
+				<div>
+					<label htmlFor="name">Name</label>
+					<input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/>
+				</div>
 				<button className='orange-button' type="submit">Submit</button>
 			</form>
 			<div className="center-wrapper-column genre-cards-wrapper">
