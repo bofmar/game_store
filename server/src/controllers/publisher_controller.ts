@@ -39,8 +39,6 @@ export const publisher_post_new = [body('name').trim().isLength({min: 1}).escape
 			date_founded: new Date(req.body.date_founded),
 		});
 
-		// TODO SERVER SIDE DATA VALIDATION
-
 		const publisherExists = await Publisher.findOne({ name: req.body.name }).exec();
 		if(!publisherExists) {
 			await publisher.save();
@@ -53,23 +51,31 @@ export const publisher_post_new = [body('name').trim().isLength({min: 1}).escape
 ];
 
 // UPDATE publisher
-export const publisher_update = async (req: express.Request, res: express.Response): Promise<void> => {
-	const con = new Publisher({
-		name: req.body.name,
-		bio: req.body.bio,
-		date_founded: new Date(req.body.date_founded),
-	});
+export const publisher_update = [body('name').trim().isLength({min: 1}).escape(),
+	body('bio').trim().isLength({min: 1}).escape(),
+	body('date_founded').isISO8601().toDate(),
+		async (req: express.Request, res: express.Response): Promise<void> => {
+		const errors = validationResult(req);
+		if(!errors.isEmpty()) {
+			res.status(405).send('Invalid data');
+			return;
+		}
 
-	// TODO SERVER SIDE DATA VALIDATION
-	
-	await Publisher.findByIdAndUpdate(req.params.id, {
-		name: req.body.name,
-		bio: req.body.bio,
-		date_founded: new Date(req.body.date_founded),
-	}, {});
+		const publisher = new Publisher({
+			name: req.body.name,
+			bio: req.body.bio,
+			date_founded: new Date(req.body.date_founded),
+		});
 
-	res.status(201).json(con);
-}
+		await Publisher.findByIdAndUpdate(req.params.id, {
+			name: req.body.name,
+			bio: req.body.bio,
+			date_founded: new Date(req.body.date_founded),
+		}, {});
+
+		res.status(201).json(publisher);
+	}
+]
 
 // DELETE publisher
 export const publisher_delete = async (req: express.Request, res: express.Response): Promise<void> => {
