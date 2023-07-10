@@ -4,25 +4,33 @@ import useFetch from "../hooks/useFetch";
 import { IPublisher } from "../types/types";
 import PublisherCard from "./PublisherCard";
 import { handlePost } from "../hooks/handlePost";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import PublisherForm from "./PublisherForm";
 
 export default function PublisherPanel() {
 	const url = `${SERVER_URI}catalog/publishers`;
-	const {data: publishers, loading} = useFetch<Array<IPublisher>>(url);
+	const {data: publishers} = useFetch<Array<IPublisher>>(url);
 
 	const handleSubmit = (event: FormEvent, payload: IPublisher) => {
 		event.preventDefault();
+		const localPayload: IPublisher = {
+			_id: payload._id,
+			name: payload.name.trim(),
+			bio: payload.bio.trim(),
+			date_founded: payload.date_founded,
+		}
 
-		// TODO CLIENT SIDE VALIDATION
+		if(localPayload.name === '' || localPayload.bio === '' || localPayload.date_founded === ''){
+			toast('Fields cannot be only spaces', {type:'error'})
+			return;
+		}
 
-		handlePost(url, payload);
+		handlePost(url, localPayload);
 	}
 
 	return (
 		<>
 			<PublisherForm handleSubmit={handleSubmit} url={url} />
-			{loading && <p>Loading....</p>}
 			{publishers && publishers.map(publisher => <PublisherCard publisher={publisher} key={publisher._id}/>)}
 			<ToastContainer theme="dark"/>
 		</>

@@ -1,6 +1,7 @@
 import express from 'express';
 import Publisher from '../models/publisher.js';
 import Game from '../models/game.js';
+import { body, validationResult } from 'express-validator';
 
 // GET all publishers
 export const publisher_get_all = async (_req: express.Request, res: express.Response): Promise<void> => {
@@ -22,24 +23,34 @@ export const publisher_get_detailed = async (req: express.Request, res: express.
 }
 
 // POST new publisher
-export const publisher_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
-	const publisher = new Publisher({ 
-		name: req.body.name,
-		bio: req.body.bio,
-		date_founded: new Date(req.body.date_founded),
-	});
+export const publisher_post_new = [body('name').trim().isLength({min: 1}).escape(),
+	body('bio').trim().isLength({min: 1}).escape(),
+	body('date_founded').isISO8601().toDate(),
+	async (req: express.Request, res: express.Response): Promise<void> => {
+		const errors = validationResult(req);
+		if(!errors.isEmpty()) {
+			res.status(405).send('Invalid data');
+			return;
+		}
 
-	// TODO SERVER SIDE DATA VALIDATION
+		const publisher = new Publisher({ 
+			name: req.body.name,
+			bio: req.body.bio,
+			date_founded: new Date(req.body.date_founded),
+		});
 
-	const publisherExists = await Publisher.findOne({ name: req.body.name }).exec();
-	if(!publisherExists) {
-		await publisher.save();
-		res.status(201).json(publisher);
+		// TODO SERVER SIDE DATA VALIDATION
+
+		const publisherExists = await Publisher.findOne({ name: req.body.name }).exec();
+		if(!publisherExists) {
+			await publisher.save();
+			res.status(201).json(publisher);
+		}
+		else {
+			res.status(400).send('Publisher already exists');
+		}
 	}
-	else {
-		res.status(400).send('Publisher already exists');
-	}
-}
+];
 
 // UPDATE publisher
 export const publisher_update = async (req: express.Request, res: express.Response): Promise<void> => {
