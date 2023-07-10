@@ -16,7 +16,7 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 	return (
 		<div className="game-card center-wrapper-column">
 			<img className="game-card-image" src={imageUrl}/>
-			<h3 className="game-card-title"><Link to={`/store/${game._id}`}>{game.title}</Link></h3>
+			<h3 className="game-card-title"><Link to={`${fromPanel ? '/control-panel/games/' : '/store/'}${game._id}`}>{game.title}</Link></h3>
 			<section className="game-card-genres-section">
 				{game.genres.map(genre => <p key={genre._id}>{genre.name}</p>)}
 			</section>

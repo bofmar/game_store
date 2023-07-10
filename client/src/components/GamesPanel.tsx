@@ -22,17 +22,16 @@ export default function GamePanel() {
 		// Prepare data
 		const payload = new FormData();
 		payload.append('_id', id);
-		payload.append('title', formData.title);
-		payload.append('release_date', formData.release_date);
-		payload.append('description', formData.description);
-		payload.append('copies_in_stock', formData.copies_in_stock);
-		payload.append('price', formData.price);
+		payload.append('title', formData.title.trim());
+		payload.append('release_date', formData.release_date.trim());
+		payload.append('description', formData.description.trim());
+		payload.append('copies_in_stock', formData.copies_in_stock.trim());
+		payload.append('price', formData.price.trim());
 		payload.append('publisher', JSON.stringify(formData.publisher));
 		payload.append('consoles', JSON.stringify(formData.consoles));
 		payload.append('genres', JSON.stringify(formData.genres));
 		payload.append('image', formData.image);
 
-		// TODO Frontend data validation
 		handlePost(url, payload);
 	}
 

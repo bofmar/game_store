@@ -6,6 +6,7 @@ import Genre from '../models/genre.js';
 import url from 'url';
 import path from 'path';
 import { unlink } from 'fs';
+import { body, validationResult } from 'express-validator';
 
 // Get all games
 export const game_get_all = async (_req: express.Request, res: express.Response): Promise<void> => {
@@ -26,66 +27,91 @@ export const game_get_detailed = async (req: express.Request, res: express.Respo
 }
 
 // POST new game
-export const game_post_new = async (req: express.Request, res: express.Response): Promise<void> => {
-	const publisherId = JSON.parse(req.body.publisher);
-	const genreId = [req.body.genres].map(g => JSON.parse(g)).flat();
-	const consolesId = [req.body.consoles].map(c => JSON.parse(c)).flat();
+export const game_post_new = [body('title').trim().isLength({min: 1}).escape(),
+	body('_id').trim().isLength({min: 12}).escape(),
+	body('description').trim().isLength({min: 1}).escape(),
+	body('copies_in_stock').trim().isLength({min: 1}).isNumeric(),
+	body('price').trim().isLength({min: 3}).isNumeric(),
+	body('release_date').isISO8601().toDate(),
+	async (req: express.Request, res: express.Response): Promise<void> => {
+		const errors = validationResult(req);
 
-	const publisher = await Publisher.findById(publisherId._id, '_id').exec();
-	const allGenres = await Genre.find({}, '_id').exec();
-	const allConsoles = await Console.find({}, '_id').exec();
+		if(!errors.isEmpty()) {
+			res.status(405).send('Invalid data');
+			return;
+		}
 
-	const game = new Game({ 
-		_id: req.body._id,
-		title: req.body.title,
-		release_date: req.body.release_date,
-		description: req.body.description,
-		copies_in_stock: parseInt(req.body.copies_in_stock),
-		price: parseFloat(req.body.price),
-		publisher: publisher,
-		genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
-		consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
-	});
+		const publisherId = JSON.parse(req.body.publisher);
+		const genreId = [req.body.genres].map(g => JSON.parse(g)).flat();
+		const consolesId = [req.body.consoles].map(c => JSON.parse(c)).flat();
 
-	// TODO SERVER SIDE DATA VALIDATION
+		const publisher = await Publisher.findById(publisherId._id, '_id').exec();
+		const allGenres = await Genre.find({}, '_id').exec();
+		const allConsoles = await Console.find({}, '_id').exec();
 
-	const gameExists = await Game.findOne({ title: req.body.title }).exec();
-	if(!gameExists) {
-		await game.save();
-		res.status(201).json(game);
+		const game = new Game({ 
+			_id: req.body._id,
+			title: req.body.title,
+			release_date: req.body.release_date,
+			description: req.body.description,
+			copies_in_stock: parseInt(req.body.copies_in_stock),
+			price: parseFloat(req.body.price),
+			publisher: publisher,
+			genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
+			consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
+		});
+
+		const gameExists = await Game.findOne({ title: req.body.title }).exec();
+		if(!gameExists) {
+			await game.save();
+			res.status(201).json(game);
+		}
+		else {
+			res.status(400).send('Console already exists');
+		}
 	}
-	else {
-		res.status(400).send('Console already exists');
-	}
-}
+];
 
 // UPDATE game
-export const game_update = async (req: express.Request, res: express.Response): Promise<void> => {
-	const publisherId = JSON.parse(req.body.publisher);
-	const genreId = [req.body.genres].map(g => JSON.parse(g)).flat();
-	const consolesId = [req.body.consoles].map(c => JSON.parse(c)).flat();
+export const game_update = [body('title').trim().isLength({min: 1}).escape(),
+	body('_id').trim().isLength({min: 12}).escape(),
+	body('description').trim().isLength({min: 1}).escape(),
+	body('copies_in_stock').trim().isLength({min: 1}).isNumeric(),
+	body('price').trim().isLength({min: 3}).isNumeric(),
+	body('release_date').isISO8601().toDate(),
+	async (req: express.Request, res: express.Response): Promise<void> => {
+		const errors = validationResult(req);
 
-	const publisher = await Publisher.findById(publisherId._id, '_id').exec();
-	const allGenres = await Genre.find({}, '_id').exec();
-	const allConsoles = await Console.find({}, '_id').exec();
+		if(!errors.isEmpty()) {
+			res.status(405).send('Invalid data');
+			return;
+		}
 
-	const game = new Game({ 
-		_id: req.body._id,
-		title: req.body.title,
-		release_date: req.body.release_date,
-		description: req.body.description,
-		copies_in_stock: parseInt(req.body.copies_in_stock),
-		price: parseFloat(req.body.price),
-		publisher: publisher,
-		genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
-		consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
-	});
+		const publisherId = JSON.parse(req.body.publisher);
+		const genreId = [req.body.genres].map(g => JSON.parse(g)).flat();
+		const consolesId = [req.body.consoles].map(c => JSON.parse(c)).flat();
 
-	// TODO SERVER SIDE DATA VALIDATION
+		const publisher = await Publisher.findById(publisherId._id, '_id').exec();
+		const allGenres = await Genre.find({}, '_id').exec();
+		const allConsoles = await Console.find({}, '_id').exec();
 
-	const theGame =	await Game.findByIdAndUpdate(game._id, game, {}).exec();
-	res.status(201).json(theGame);
-}
+		const game = new Game({ 
+			_id: req.body._id,
+			title: req.body.title,
+			release_date: req.body.release_date,
+			description: req.body.description,
+			copies_in_stock: parseInt(req.body.copies_in_stock),
+			price: parseFloat(req.body.price),
+			publisher: publisher,
+			genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
+			consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
+		});
+
+
+		const theGame =	await Game.findByIdAndUpdate(game._id, game, {}).exec();
+		res.status(201).json(theGame);
+	}
+];
 
 // DELETE game
 export const game_delete = async (req: express.Request, res: express.Response): Promise<void> => {
