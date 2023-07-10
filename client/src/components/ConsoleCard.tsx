@@ -12,10 +12,10 @@ export default function ConsoleCard({con}: IConsoleCard) {
 	const delUrl = `${SERVER_URI}catalog/consoles/${con._id}/delete`;
 
 	return (
-		<>
+		<div className="grid-list-wrapper">
 			<h1>{con.name}</h1>
-			<button onClick={() => navigate(`${con._id}`)}>Modify</button>
-			<button onClick={() => handleDelete(delUrl, con.name)}>Delete</button>
-		</>
+			<button className="orange-button-small" onClick={() => navigate(`${con._id}`)}>Modify</button>
+			<button className="orange-button-small" onClick={() => handleDelete(delUrl, con.name)}>Delete</button>
+		</div>
 	);
 }

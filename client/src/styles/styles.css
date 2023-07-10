@@ -813,6 +813,9 @@ footer h3 {
 }
 
 .controls-form {
+	display: grid;
+	justify-content: center;
+	align-items: center;
 	margin-bottom: 30px;
 	gap: 1rem;
 }
@@ -822,11 +825,17 @@ footer h3 {
 }
 
 .controls-form > div {
-	display: flex;
+	display: grid;
+	grid-template-columns: 200px auto;
 	gap: 1rem;
 }
 
-.genre-cards-wrapper {
+.controls-form > button {
+	place-self: center;
+}
+
+.genre-cards-wrapper,
+.consoles-cards-wrapper {
 	gap: 1rem;
 }
 

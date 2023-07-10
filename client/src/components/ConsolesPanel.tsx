@@ -36,7 +36,9 @@ export default function ConsolesPanel() {
 	return (
 		<>
 			<ConsoleForm url={url} handleSubmit={handleSubmit} />
-			{consoles && consoles.map(con => <ConsoleCard con={con} key={con._id} />) }
+			<div className="center-wrapper-column consoles-cards-wrapper">
+				{consoles && consoles.map(con => <ConsoleCard con={con} key={con._id} />) }
+			</div>
 			<ToastContainer theme="dark"/>
 		</>
 	);

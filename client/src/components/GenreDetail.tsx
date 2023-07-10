@@ -32,9 +32,11 @@ export default function GenreDetail() {
 
 	return (
 		<div>
-			<form className='center-wrapper controls-form' method="POST" action={postUrl} onSubmit={event => handleSubmit(event)}>
-				<label htmlFor="name">Name</label>
-				{genre && <input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/> }
+			<form className='controls-form' method="POST" action={postUrl} onSubmit={event => handleSubmit(event)}>
+				<div>
+					<label htmlFor="name">Name</label>
+					{genre && <input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/> }
+				</div>
 				{genre && <button className='orange-button' type="submit">Submit</button>}
 			</form>
 			<ToastContainer theme="dark" />

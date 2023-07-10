@@ -27,7 +27,7 @@ export default function GenrePanel() {
 
 	return (
 		<>
-			<form className='center-wrapper-column controls-form' method="POST" action={url} onSubmit={event => handleSubmit(event)}>
+			<form className='controls-form' method="POST" action={url} onSubmit={event => handleSubmit(event)}>
 				<div>
 					<label htmlFor="name">Name</label>
 					<input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/>
