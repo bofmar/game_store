@@ -69,8 +69,21 @@ button {
 	cursor: pointer;
 }
 
+.orange-button-small {
+	color: var(--primary-color);
+	background-color: var(--secondary-color);
+	font-family: Karla;
+	font-weight: bold;
+	font-size: var(--small-text-size);
+	padding: 0.25rem;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
 .orange-button:hover,
-.orange-button:focus {
+.orange-button:focus, 
+.orange-button-small:hover,
+.orange-button-small:focus {
 	background-color: #dd3146;
 }
 

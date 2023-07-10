@@ -11,10 +11,10 @@ export default function GenreCard({genre}: IGenreCard) {
 	const navigate = useNavigate();
 	const delUrl = `${SERVER_URI}catalog/genres/${genre._id}/delete`;
 	return (
-		<>
+		<div className="center-wrapper genre-card-wrapper">
 			<h1>{genre.name}</h1>
-			<button onClick={() => navigate(`${genre._id}`)}>Modify</button>
-			<button onClick={() => handleDelete(delUrl, genre.name)}>Delete</button>
-		</>
+			<button className='orange-button-small' onClick={() => navigate(`${genre._id}`)}>Modify</button>
+			<button className='orange-button-small' onClick={() => handleDelete(delUrl, genre.name)}>Delete</button>
+		</div>
 	);
 }

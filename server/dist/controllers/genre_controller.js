@@ -1,5 +1,6 @@
 import Genre from '../models/genre.js';
 import Game from '../models/game.js';
+import { body, validationResult } from 'express-validator';
 // GET all genres
 export const genre_get_all = async (_req, res) => {
     const allGenres = await Genre.find({}).exec();
@@ -16,18 +17,25 @@ export const genre_get_detailed = async (req, res, next) => {
     res.json(genre);
 };
 // POST new genre
-export const genre_post_new = async (req, res) => {
-    const genre = new Genre({ name: req.body.name });
-    const genreExists = await Genre.findOne({ name: req.body.name }).exec();
-    // TODO SERVER SIDE DATA VALIDATION
-    if (!genreExists) {
-        await genre.save();
-        res.status(201).json(genre);
+export const genre_post_new = [body('name', 'Name must not be empty').trim().isLength({ min: 1 }).escape(),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(405).send('Received empty query');
+            return;
+        }
+        const genre = new Genre({ name: req.body.name });
+        const genreExists = await Genre.findOne({ name: req.body.name }).exec();
+        // TODO SERVER SIDE DATA VALIDATION
+        if (!genreExists) {
+            await genre.save();
+            res.status(201).json(genre);
+        }
+        else {
+            res.status(400).send('Genre already exists');
+        }
     }
-    else {
-        res.status(400).send('Genre already exists');
-    }
-};
+];
 // UPDATE genre
 export const genre_update = async (req, res) => {
     const genre = new Genre({ name: req.body.name });

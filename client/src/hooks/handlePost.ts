@@ -16,6 +16,8 @@ export const handlePost = async (url: string, formData: TFormData) => {
 	});
 	if(response.status === 400){ // The genre already exists
 		toast.update(loadToast, { render: `${ formData instanceof FormData ? formData.get('title') : formData.name } already exists in the database`, type: 'warning', isLoading: false, autoClose: delay });
+	}else if(response.status === 405){ // The genre already exists
+		toast.update(loadToast, { render: 'Invalid data. Please check your inputs and try again.', type: 'warning', isLoading: false, autoClose: delay });
 	} else if(response.status === 201) { // The genre was created successfully
 		toast.update(loadToast, { render: `${ formData instanceof FormData ? formData.get('title') : formData.name } was created`, type: 'success', isLoading: false, autoClose: delay});
 		setTimeout(() => window.location.reload(), delay);

@@ -4,19 +4,23 @@ import useFetch from "../hooks/useFetch";
 import { IGenre } from "../types/types";
 import GenreCard from "./GenreCard";
 import { FormEvent, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function GenrePanel() {
 	const url = `${SERVER_URI}catalog/genres`;
-	const { data: genres, loading } = useFetch<Array<IGenre>>(url);
+	const { data: genres } = useFetch<Array<IGenre>>(url);
 	const [formData, setData] = useState({name: ''})
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		// validate data TODO
+		const payload = formData.name.trim();
+		if(payload === '') {
+			toast('Name cannot be only spaces', {type:'error'})
+			return
+		}
 
-		const sendData: IGenre = {...formData, _id:''};
+		const sendData: IGenre = {name:payload, _id:''};
 
 		handlePost(url, sendData);
 	}
@@ -26,10 +30,11 @@ export default function GenrePanel() {
 			<form method="POST" action={url} onSubmit={event => handleSubmit(event)}>
 				<label htmlFor="name">Name</label>
 				<input type="text" id="name" name="name" required value={formData.name} onChange={e => setData({...formData, name: e.target.value})}/>
-				<button type="submit">Submit</button>
+				<button className='orange-button' type="submit">Submit</button>
 			</form>
-			{loading && <p>'Loading....'</p>}
-			{genres && genres.map(genre => <GenreCard genre={genre} key={genre._id} />)}
+			<div className="center-wrapper-column genre-cards-wrapper">
+				{genres && genres.map(genre => <GenreCard genre={genre} key={genre._id} />)}
+			</div>
 			<ToastContainer theme="dark"/>
 		</>
 	);
