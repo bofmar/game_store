@@ -19,33 +19,36 @@ import CompletePurchse from "./components/CompletePurchase"
 import { CartContextProvider } from "./components/CartContext"
 import './styles/reset.css'
 import './styles/styles.css'
+import { GamesContextProvider } from "./components/GamesContext"
 
 function App() {
 	return (
 		<>
-			<CartContextProvider>
-				<NavBar />
-				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='/store' element={<Store />} />
-					<Route path='/store/:gameId' element={<GameDetail />} />
-					<Route path='/checkout' element={<Checkout />} />
-					<Route path='/checkout/complete' element={<CompletePurchse />} />
-					<Route path='/control-panel' element={<ControlPanel />}>
-						<Route index element={<GamePanel />} />
-						<Route path='games' element={<GamePanel/>} />
-						<Route path='games/:gameId' element={<GameEdit/>} />
-						<Route path='genres' element={<GenrePanel/>} />
-						<Route path='genres/:genreId' element={<GenreDetail/>} />
-						<Route path='publishers' element={<PublisherPanel/>} />
-						<Route path='publishers/:publisherId' element={<PublisherDetail/>} />
-						<Route path='consoles' element={<ConsolesPanel/>} />
-						<Route path='consoles/:conId' element={<ConsoleDetail/>} />
-					</Route>
-					<Route path='*' element={<PageNotFound />} />
-				</Routes>
-				<Footer />
-			</CartContextProvider>
+			<GamesContextProvider>
+				<CartContextProvider>
+					<NavBar />
+					<Routes>
+						<Route path='/' element={<Home />} />
+						<Route path='/store' element={<Store />} />
+						<Route path='/store/:gameId' element={<GameDetail />} />
+						<Route path='/checkout' element={<Checkout />} />
+						<Route path='/checkout/complete' element={<CompletePurchse />} />
+						<Route path='/control-panel' element={<ControlPanel />}>
+							<Route index element={<GamePanel />} />
+							<Route path='games' element={<GamePanel/>} />
+							<Route path='games/:gameId' element={<GameEdit/>} />
+							<Route path='genres' element={<GenrePanel/>} />
+							<Route path='genres/:genreId' element={<GenreDetail/>} />
+							<Route path='publishers' element={<PublisherPanel/>} />
+							<Route path='publishers/:publisherId' element={<PublisherDetail/>} />
+							<Route path='consoles' element={<ConsolesPanel/>} />
+							<Route path='consoles/:conId' element={<ConsoleDetail/>} />
+						</Route>
+						<Route path='*' element={<PageNotFound />} />
+					</Routes>
+					<Footer />
+				</CartContextProvider>
+			</GamesContextProvider>
 		</>
 	)
 }

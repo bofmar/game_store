@@ -4,7 +4,7 @@ import PublisherDropdown from "./PublisherDropdown";
 import GenreCheckbox from "./GenreCheckbox";
 import ConsoleCheckbox from "./ConsoleCheckbox";
 import { ChangeEvent } from "react";
-import { SERVER_URI } from "../constats";
+import defaultImage from '../assets/default.jpeg';
 
 interface IFormProps {
 	url: string;
@@ -28,8 +28,6 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 		consoles: game?.consoles || [],
 		image: game?.image || ''
 	});
-
-	const imageUrl = `${SERVER_URI}images/${game?._id}.jpeg`
 
 	const handlePubSelection = (event: ChangeEvent<HTMLSelectElement>) => {
 		setData(prevData => ({...prevData, publisher : {_id: event.target.value }}));
@@ -84,7 +82,7 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 					<input type="number" id="price" name="price" step='0.01' min='0' required value={formData.price} onChange={e => setData({...formData, price: e.target.value})}/>
 				</div>
 				<div>
-					<img src={imageUrl} id="image"/>
+					{game ? <img src={`data:image/jpeg;base64,${game.image}`} id="image"/> : <img id="image" src={defaultImage} />}
 					<input type="file" id="files" name="image" accept="image/*" onChange={e => { 
 						const imageDisplay = document.getElementById('image') as HTMLImageElement;
 						const src = URL.createObjectURL(e.target.files![0]);

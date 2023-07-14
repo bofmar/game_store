@@ -4,18 +4,16 @@ import carousel1 from '../assets/images/carousel1.jpeg';
 import carousel2 from '../assets/images/carousel2.jpeg';
 import carousel3 from '../assets/images/carousel3.jpeg';
 import carousel4 from '../assets/images/carousel4.jpeg';
-import useFetch from '../hooks/useFetch';
 import { IGame } from '../types/types';
-import { SERVER_URI } from '../constats';
 import FeaturedGame from './FeaturedGame';
 import GameCard from './GameCard';
 import { useNavigate } from 'react-router-dom';
-import { FormEvent } from 'react';
+import { FormEvent, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { GamesContext } from './GamesContext';
 
 export default function Home() {
-	const url = `${SERVER_URI}catalog/games`;
-	const {data: games} = useFetch<Array<IGame>>(url);
+	const Games = useContext(GamesContext);
 	const navigate = useNavigate();
 
 	const heroResponsive = {
@@ -83,7 +81,7 @@ export default function Home() {
 						<img className='carousel-image' src={carousel3} />
 					</div>
 					<div className='hero-carousel-item'>
-						{games && <FeaturedGame game={games.find(g => g._id === '15') as IGame} />}
+						{Games && Games.allGames && <FeaturedGame game={Games.allGames.find(g => g._id === '15') as IGame} />}
 						<img className='carousel-image' src={carousel4} />
 					</div>
 				</Carousel>
@@ -95,7 +93,7 @@ export default function Home() {
 				infinite={true}
 				keyBoardControl={true}
 				containerClass="game-carousel-container">
-					{games ? games.slice(0,10).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
+					{Games && Games.allGames ? Games.allGames.slice(0,10).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
 				</Carousel>
 				<button className='orange-button' onClick={() => navigate('store')}>See More</button>
 			</section>

@@ -10,12 +10,11 @@ interface IGameProp {
 }
 
 export default function GameCard({game, fromPanel}: IGameProp) {
-	const imageUrl = `${SERVER_URI}images/${game._id}.jpeg`;
 	const delUrl = `${SERVER_URI}catalog/games/${game._id}/delete`;
 
 	return (
 		<div className="game-card center-wrapper-column">
-			<img className="game-card-image" src={imageUrl}/>
+			<img className="game-card-image" src={`data:image/jpeg;base64,${game.image}`}/>
 			<h3 className="game-card-title"><Link to={`${fromPanel ? '/control-panel/games/' : '/store/'}${game._id}`}>{game.title}</Link></h3>
 			<section className="game-card-genres-section">
 				{game.genres.map(genre => <p key={genre._id}>{genre.name}</p>)}
