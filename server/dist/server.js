@@ -13,7 +13,7 @@ dotenv.config();
 // Constants
 const PORT = process.env.PORT || 5000;
 const IS_DEV = process.env.DEV;
-const MONGOURI = process.env.MONGO_PROD_URI;
+const MONGOURI = process.env.MONGO_TEST_URI;
 const runningMessage = `Listening for requests on port ${PORT}`;
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

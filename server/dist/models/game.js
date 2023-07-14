@@ -12,7 +12,8 @@ const GameSchema = new Schema({
     price: { type: Number, required: true },
     publisher: { type: Schema.Types.ObjectId, ref: Publisher.modelName, required: true },
     genres: [{ type: Schema.Types.ObjectId, ref: Genre.modelName, required: true }],
-    consoles: [{ type: Schema.Types.ObjectId, ref: Console.modelName, required: true }]
+    consoles: [{ type: Schema.Types.ObjectId, ref: Console.modelName, required: true }],
+    image: { type: String, required: true }
 });
 const Game = mongoose.model('Game', GameSchema);
 export default Game;

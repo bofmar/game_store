@@ -15,6 +15,7 @@ export interface IGame {
 	publisher: Types.ObjectId;
 	genres: Array<Types.ObjectId>;
 	consoles: Array<Types.ObjectId>;
+	image: string;
 }
 
 const GameSchema = new Schema<IGame>({
@@ -26,7 +27,8 @@ const GameSchema = new Schema<IGame>({
 	price: { type: Number, required: true },
 	publisher: { type: Schema.Types.ObjectId, ref: Publisher.modelName, required: true },
 	genres: [{ type: Schema.Types.ObjectId, ref: Genre.modelName, required: true }],
-	consoles: [{ type: Schema.Types.ObjectId, ref: Console.modelName, required: true }]
+	consoles: [{ type: Schema.Types.ObjectId, ref: Console.modelName, required: true }],
+	image: { type: String, required: true }
 });
 
 const Game = mongoose.model<IGame>('Game', GameSchema);

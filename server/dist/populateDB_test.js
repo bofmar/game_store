@@ -4,10 +4,17 @@ import Game from "./models/game.js";
 import Publisher from "./models/publisher.js";
 import Console from "./models/console.js";
 import Genre from "./models/genre.js";
+import fs from 'fs';
+import path from 'path';
+import url from 'url';
 ;
 console.log('This script populates some test games, publishers, genres and consoles to the tests database.');
 dotenv.config();
 const MONGOURI = process.env.MONGO_TEST_URI;
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT = path.join(__dirname, '..');
+const imagePath = path.join(ROOT, 'public/images');
 const genres = [];
 const publishers = [];
 const consoles = [];
@@ -50,7 +57,11 @@ async function consoleCreate(name, developer_name, description, release_date, di
     consoles.push(newConsole);
     console.log(`Added console: ${developer_name} ${name}`);
 }
+function getImage(name) {
+    return fs.readFileSync(path.join(imagePath, `${name}.jpeg`), 'base64');
+}
 async function gameCreate({ _id, title, release_date, description, copies_in_stock, price, publisher, genres, consoles }) {
+    let image = getImage('1');
     const gameDetail = {
         _id: _id,
         title: title,
@@ -61,6 +72,7 @@ async function gameCreate({ _id, title, release_date, description, copies_in_sto
         publisher: publisher,
         genres: genres,
         consoles: consoles,
+        image: image,
     };
     const game = new Game(gameDetail);
     await game.save();
