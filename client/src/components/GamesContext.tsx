@@ -8,14 +8,14 @@ interface IGamesContextProviderProps {
 }
 
 interface IGamesContext {
-	games: Array<IGame> | null;
+	allGames: Array<IGame> | null;
 }
 
 export const GamesContext = createContext<IGamesContext | null>(null);
 
 export const GamesContextProvider = ({children}: IGamesContextProviderProps) => {
 	const url = `${SERVER_URI}catalog/games`;
-	const {data: games } = useFetch<Array<IGame>>(url);
+	const {data: allGames } = useFetch<Array<IGame>>(url);
 
-	return <GamesContext.Provider value={{games}}>{children}</GamesContext.Provider>
+	return <GamesContext.Provider value={{allGames}}>{children}</GamesContext.Provider>
 }
