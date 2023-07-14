@@ -1,5 +1,4 @@
 import { IGame } from "../types/types";
-import { SERVER_URI } from "../constats";
 import AddToCartButton from "./AddToCartButton";
 
 interface IGameProp {
@@ -7,11 +6,10 @@ interface IGameProp {
 }
 
 export default function FeaturedGame({game}: IGameProp) {
-	const imageUrl = `${SERVER_URI}images/${game._id}.jpeg`;
 
 	return (
 		<div className="featured center-wrapper">
-			<img src={imageUrl}/>
+			<img src={`data:image/jpeg;base64,${game.image}`}/>
 			<div className="featured-details">
 				<h3>{game.title}</h3>
 				<p>{game.description}</p>

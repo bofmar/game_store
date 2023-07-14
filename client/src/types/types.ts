@@ -30,6 +30,7 @@ export interface IGame {
 	publisher: IPublisher;
 	genres: Array<IGenre>;
 	consoles: Array<IConsole>;
+	image: string;
 }
 
 export interface IGameForm {

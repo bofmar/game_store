@@ -74,7 +74,7 @@ export default function GameDetail() {
 			{game && <div className="game-details-wrapper">
 				<h2>{game.title}</h2>
 				<section className="game-details-image-section">
-					<img src={`${SERVER_URI}images/${game._id}.jpeg`} alt={game.title} />
+					<img src={`data:image/jpeg;base64,${game.image}`}/>
 				</section>
 				<section className="game-details-details-section">
 					<p className="game-details-description">{game.description}</p>

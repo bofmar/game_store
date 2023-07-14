@@ -9,7 +9,6 @@ import { CartContext } from "./CartContext";
 
 export default function NavBar() {
 	const url = `${SERVER_URI}catalog/games`;
-	console.log(url);
 	const {data: games} = useFetch<Array<IGame>>(url);
 	const [searchString, setSearchString] = useState('');
 	const navigate = useNavigate();
