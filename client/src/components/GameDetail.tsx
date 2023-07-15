@@ -8,6 +8,7 @@ import GameCard from "./GameCard";
 import { useContext, useEffect, useState } from "react";
 import { GamesContext } from "./GamesContext";
 import { PacmanLoader } from "react-spinners";
+import defaultImage from '../assets/default.jpeg';
 
 interface IGameRanked extends IGame {
 	score: number;
@@ -78,7 +79,7 @@ export default function GameDetail() {
 				{game && <div className="game-details-wrapper">
 					<h2>{game.title}</h2>
 					<section className="game-details-image-section">
-						<img src={`data:image/jpeg;base64,${game.image}`}/>
+						<img src={game.image === 'none' ? defaultImage :`data:image/jpeg;base64,${game.image}`}/>
 					</section>
 					<section className="game-details-details-section">
 						<p className="game-details-description">{game.description}</p>
