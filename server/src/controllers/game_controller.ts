@@ -1,5 +1,5 @@
 import express from 'express';
-import Game, { IGame } from "../models/game.js";
+import Game from "../models/game.js";
 import Console from '../models/console.js';
 import Publisher from '../models/publisher.js';
 import Genre from '../models/genre.js';
@@ -145,7 +145,7 @@ export const game_delete = async (req: express.Request, res: express.Response): 
 
 type TAvailabilityStatus = 'NOT FOUND' | 'NO COPIES' | 'NOT ENOUGH COPIES' | 'OK';
 
-const checkGameAvailability = async(gameId: string, allGames: Array<IGame>): Promise<TAvailabilityStatus> => {
+const checkGameAvailability = async(gameId: string, allGames: Array<{_id: string}>): Promise<TAvailabilityStatus> => {
 	const game = await Game.findById(gameId).exec();
 	const totalPurchases = allGames.reduce((total, g) => {
 		if(g._id === gameId) {
@@ -169,7 +169,7 @@ const checkGameAvailability = async(gameId: string, allGames: Array<IGame>): Pro
 
 // PURCHASE game
 export const game_purchse = async(req: express.Request, res: express.Response ): Promise<void> => {
-	const games: Array<IGame> = req.body;
+	const games: Array<{_id: string}> = req.body;
 	// Get only the unique games from the request, so that we don't have to check the availability
 	// of the same game again and again
 	const uniqueGameIds: Array<string> = Array.from(new Set(games.map(game => game._id)));

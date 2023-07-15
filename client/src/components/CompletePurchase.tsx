@@ -22,11 +22,12 @@ export default function CompletePurchse() {
 		const delay = 2000;
 
 		if (Cart && Cart.cartItems.length > 0) {
+			const payload: Array<{_id: string}> = Cart.cartItems.map(item => ({_id: item._id}));
 			const response = await fetch(url, {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json',},
-				body: JSON.stringify(Cart.cartItems),
+				body: JSON.stringify(payload),
 			});
 			if(response.status === 201) { 
 				toast.update(loadToast, { render: 'Order submited!', type: 'success', isLoading: false, autoClose: delay});
