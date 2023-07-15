@@ -21,6 +21,11 @@ export const game_get_detailed = async (req, res, next) => {
     }
     res.json(game);
 };
+// Get all games titles
+export const games_get_titles_all = async (_req, res) => {
+    const allTitles = await Game.find({}).select('title').exec();
+    res.json(allTitles);
+};
 // POST new game
 export const game_post_new = [body('title').trim().isLength({ min: 1 }).escape(),
     body('_id').trim().isLength({ min: 12 }).escape(),

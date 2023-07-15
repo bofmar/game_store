@@ -33,6 +33,8 @@ router.post('/games/purchase', game_controller.game_purchse);
 router.post('/games/:id/update', upload.single('image'), game_controller.game_update);
 // DELETE game
 router.post('/games/:id/delete', game_controller.game_delete);
+// GET all titles
+router.get('/games-names', game_controller.games_get_titles_all);
 // Publisher routes
 // GET all publishers
 router.get('/publishers', publisher_controller.publisher_get_all);

@@ -1,6 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { IGame } from "../types/types";
 import { SERVER_URI } from "../constats";
 import logo from '../assets/images/logo.png'
 import cart from '../assets/images/shopping-cart-svgrepo-com.svg'
@@ -8,8 +7,8 @@ import useFetch from "../hooks/useFetch";
 import { CartContext } from "./CartContext";
 
 export default function NavBar() {
-	const url = `${SERVER_URI}catalog/games`;
-	const {data: games} = useFetch<Array<IGame>>(url);
+	const url = `${SERVER_URI}catalog/games-names`;
+	const {data: games} = useFetch<Array<{_id: string, title: string}>>(url);
 	const [searchString, setSearchString] = useState('');
 	const navigate = useNavigate();
 	const Cart = useContext(CartContext);
