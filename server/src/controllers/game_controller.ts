@@ -3,9 +3,6 @@ import Game, { IGame } from "../models/game.js";
 import Console from '../models/console.js';
 import Publisher from '../models/publisher.js';
 import Genre from '../models/genre.js';
-import url from 'url';
-import path from 'path';
-import { unlink } from 'fs';
 import { body, validationResult } from 'express-validator';
 
 // Get all games
@@ -126,9 +123,6 @@ export const game_update = [body('title').trim().isLength({min: 1}).escape(),
 
 // DELETE game
 export const game_delete = async (req: express.Request, res: express.Response): Promise<void> => {
-	const __filename = url.fileURLToPath(import.meta.url);
-	const __dirname = path.dirname(__filename);
-	const ROOT = path.join(__dirname, '../..');
 	const id = req.params.id;
 
 	const gameExists = await Game.findById(id).exec();
@@ -139,12 +133,6 @@ export const game_delete = async (req: express.Request, res: express.Response): 
 
 	await Game.findByIdAndDelete(id);
 	res.status(201).send('Deleted');
-
-	// Remove orphaned image if it exists
-	unlink(path.join(ROOT, `public/images/${id}.jpeg`),(err) => {
-		if(err) console.log(err);
-		console.log(`Removed ${id}.jpeg`);
-	});
 }
 
 type TAvailabilityStatus = 'NOT FOUND' | 'NO COPIES' | 'NOT ENOUGH COPIES' | 'OK';
