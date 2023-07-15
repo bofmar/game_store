@@ -5,7 +5,8 @@ import { IGame } from "../types/types";
 import AddToCartButton from "./AddToCartButton";
 import Carousel from "react-multi-carousel";
 import GameCard from "./GameCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GamesContext } from "./GamesContext";
 
 interface IGameRanked extends IGame {
 	score: number;
@@ -15,13 +16,13 @@ export default function GameDetail() {
 	const { gameId } = useParams();
 	const url = `${SERVER_URI}catalog/games/${gameId}`;
 	const { data: game } = useFetch<IGame>(url);
-	const {data: games} = useFetch<Array<IGame>>(`${SERVER_URI}catalog/games`);
+	const Games = useContext(GamesContext);
 	const [ranked,setRanked] = useState<Array<IGameRanked>>([]);
 	
 	useEffect(() => {
-		if(games && game) {
+		if(Games?.allGames && game) {
 			const temp: Array<IGameRanked> = [];
-			games.forEach(g => {
+			Games.allGames.forEach(g => {
 				const newGame: IGameRanked = {...g, score: 0};
 				if(newGame._id === game._id) {
 					return // don't add the current game to the list
@@ -48,7 +49,7 @@ export default function GameDetail() {
 			temp.sort((g1,g2) => g1.score > g2.score ? -1 : 1);
 			setRanked(temp);
 		}
-	},[games, game]);
+	},[Games, game]);
 
 	const gameResponsive = {
 		superLargeDesktop: {

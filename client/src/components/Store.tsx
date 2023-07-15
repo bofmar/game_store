@@ -1,13 +1,13 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { SERVER_URI } from "../constats";
 import useFetch from "../hooks/useFetch";
-import { IConsole, IFilters, IGame, IGenre, IPublisher } from "../types/types";
+import { IConsole, IFilters, IGenre, IPublisher } from "../types/types";
 import AllGames from "./AllGames";
 import { useSearchParams } from "react-router-dom";
+import { GamesContext } from "./GamesContext";
 
 export default function Store() {
-	// Fetch required data
-	const { data: allGames } = useFetch<Array<IGame>>(`${SERVER_URI}catalog/games`);
+	const Games = useContext(GamesContext);
 	const { data: publishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
 	const { data: genres} = useFetch<Array<IGenre>>(`${SERVER_URI}catalog/genres`);
 	const { data: consoles} = useFetch<Array<IConsole>>(`${SERVER_URI}catalog/consoles`);
@@ -45,7 +45,7 @@ export default function Store() {
 	return (
 		<div className="store">
 			<main className="store-games-area">
-				{allGames && <AllGames fromPanel={false} games={allGames} filters={filters} paginate={true} />}
+				{Games && Games.allGames && <AllGames fromPanel={false} games={Games.allGames} filters={filters} paginate={true} />}
 			</main>
 			<aside className="store-controls center-wrapper-column">
 				<h2>Filter Games</h2>

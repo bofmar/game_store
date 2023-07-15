@@ -17,7 +17,7 @@ import { PacmanLoader } from 'react-spinners';
 
 export default function Home() {
 	const url = `${SERVER_URI}catalog/games/15`;
-	const {data: featuredGame, loading} = useFetch<IGame>(url);
+	const {data: featuredGame} = useFetch<IGame>(url);
 	const Games = useContext(GamesContext);
 	const navigate = useNavigate();
 
