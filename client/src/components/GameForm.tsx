@@ -1,11 +1,10 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
 import GenreCheckbox from "./GenreCheckbox";
 import ConsoleCheckbox from "./ConsoleCheckbox";
 import { ChangeEvent } from "react";
 import defaultImage from '../assets/default.jpeg';
-import { GamesContext } from "./GamesContext";
 
 interface IFormProps {
 	url: string;
@@ -17,7 +16,6 @@ interface IFormProps {
 }
 
 export default function GameForm({url, handleSubmit, allPublishers, allGenres, allConsoles, game}: IFormProps) {
-	const Games = useContext(GamesContext);
 	const [formData, setData] = useState<IGameForm>({
 		_id: game?._id || '',
 		title: game?.title || '',
