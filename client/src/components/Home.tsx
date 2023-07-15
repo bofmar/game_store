@@ -11,8 +11,13 @@ import { useNavigate } from 'react-router-dom';
 import { FormEvent, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { GamesContext } from './GamesContext';
+import useFetch from '../hooks/useFetch';
+import { SERVER_URI } from '../constats';
+import { PacmanLoader } from 'react-spinners';
 
 export default function Home() {
+	const url = `${SERVER_URI}catalog/games/15`;
+	const {data: featuredGame} = useFetch<IGame>(url);
 	const Games = useContext(GamesContext);
 	const navigate = useNavigate();
 
@@ -81,11 +86,12 @@ export default function Home() {
 						<img className='carousel-image' src={carousel3} />
 					</div>
 					<div className='hero-carousel-item'>
-						{Games && Games.allGames && <FeaturedGame game={Games.allGames.find(g => g._id === '15') as IGame} />}
+						{featuredGame && <FeaturedGame game={featuredGame} />}
 						<img className='carousel-image' src={carousel4} />
 					</div>
 				</Carousel>
 			</section>
+			{Games && Games.allGames ?
 			<section className="home-games-section">
 				<h2>Browse our collection of games</h2>
 				<Carousel 
@@ -93,10 +99,20 @@ export default function Home() {
 				infinite={true}
 				keyBoardControl={true}
 				containerClass="game-carousel-container">
-					{Games && Games.allGames ? Games.allGames.slice(0,10).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
+					{Games.allGames.slice(0,10).map(g => <GameCard game={g} fromPanel={false} key={g._id} />)}
 				</Carousel>
 				<button className='orange-button' onClick={() => navigate('store')}>See More</button>
-			</section>
+			</section> :
+			<section className="home-games-section center-wrapper-column">
+				<PacmanLoader         
+				color={'#FF4136'}
+				loading={!(Games && Games.allGames)}
+				size={50}
+				aria-label="Loading Spinner"
+				data-testid="loader"
+				/>
+				<p>Loading....</p>
+			</section> }
 			<section className="home-subscribe-section" id="subscribe-section">
 				<h2>Still want more?</h2>
 				<p><span>Subscribe</span> to our newsletter and become a <span>GamesPlanet member</span> to receive news on all <span>new releases</span> as well as <span>special offers and discounts</span> on all our shops.</p>

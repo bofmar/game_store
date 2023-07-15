@@ -3,6 +3,7 @@ import { IGame } from "../types/types";
 import { SERVER_URI } from "../constats";
 import { handleDelete } from "../hooks/handleDelete";
 import AddToCartButton from "./AddToCartButton";
+import defaultImage from '../assets/default.jpeg';
 
 interface IGameProp {
 	game: IGame
@@ -14,7 +15,7 @@ export default function GameCard({game, fromPanel}: IGameProp) {
 
 	return (
 		<div className="game-card center-wrapper-column">
-			<img className="game-card-image" src={`data:image/jpeg;base64,${game.image}`}/>
+			<img className="game-card-image" src={game.image === 'none' ? defaultImage : `data:image/jpeg;base64,${game.image}`}/>
 			<h3 className="game-card-title"><Link to={`${fromPanel ? '/control-panel/games/' : '/store/'}${game._id}`}>{game.title}</Link></h3>
 			<section className="game-card-genres-section">
 				{game.genres.map(genre => <p key={genre._id}>{genre.name}</p>)}

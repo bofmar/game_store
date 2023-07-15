@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import url from 'url';
 import Game from "./models/game.js";
 import Publisher from "./models/publisher.js";
 import Console from "./models/console.js";
@@ -43,6 +46,10 @@ console.log(
 dotenv.config();
 
 const MONGOURI =  process.env.MONGO_PROD_URI; 
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT = path.join(__dirname, '..');
+const imagePath = path.join(ROOT, 'public/images');
 
 const genres: Array<IGenre> = [];
 const publishers: Array<IPublisher> = [];
@@ -99,6 +106,10 @@ async function consoleCreate(name: string, developer_name: string, description: 
 	console.log(`Added console: ${developer_name} ${name}`);
 }
 
+function getImage(name: string) {
+	return fs.readFileSync(path.join(imagePath, `${name}.jpeg`), 'base64');
+}
+
 async function gameCreate({_id, title, release_date, description, copies_in_stock, price, publisher, genres, consoles}: IGame) {
 	const gameDetail = {
 		_id: _id,
@@ -110,6 +121,7 @@ async function gameCreate({_id, title, release_date, description, copies_in_stoc
 		publisher: publisher,
 		genres: genres,
 		consoles: consoles,
+		image: getImage(_id),
 	};
 
 	const game = new Game(gameDetail);

@@ -6,6 +6,7 @@ type TFormData = IGenre | IPublisher | IConsole | FormData;
 export const handlePost = async (url: string, formData: TFormData) => {
 	const loadToast = toast.loading('Please wait...');
 	const delay = 2000;
+	console.log(formData);
 
 	const response = await fetch(url, {
 		method: 'POST',

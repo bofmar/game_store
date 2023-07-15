@@ -1,16 +1,18 @@
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import AllGames from "./AllGames";
 import { SERVER_URI } from "../constats";
 import { ToastContainer} from "react-toastify";
-import { IConsole, IGame, IGameForm, IGenre, IPublisher } from "../types/types";
+import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import useFetch from "../hooks/useFetch";
 import { v4 } from "uuid";
 import { handlePost } from "../hooks/handlePost";
 import GameForm from "./GameForm";
+import { GamesContext } from "./GamesContext";
+import { PacmanLoader } from "react-spinners";
 
 export default function GamePanel() {
 	const url = `${SERVER_URI}catalog/games`;
-	const {data: allGames} = useFetch<Array<IGame>>(`${SERVER_URI}catalog/games`);
+	const Games = useContext(GamesContext);
 	const {data: allPublishers} = useFetch<Array<IPublisher>>(`${SERVER_URI}catalog/publishers`);
 	const {data: allGenres} = useFetch<Array<IGenre>>(`${SERVER_URI}catalog/genres`);
 	const {data: allConsoles} = useFetch<Array<IConsole>>(`${SERVER_URI}catalog/consoles`);
@@ -38,9 +40,20 @@ export default function GamePanel() {
 	return (
 		<>
 			{allPublishers && allGenres && allConsoles && <GameForm url={url} handleSubmit={handleSubmit} allPublishers={allPublishers} allGenres={allGenres} allConsoles={allConsoles}/>}
+			{Games && Games.allGames ?
 			<div className="games-panel">
-				{allGames && <AllGames fromPanel={true} games={allGames} paginate={false} />}
+				{<AllGames fromPanel={true} games={Games.allGames} paginate={false} />}
 			</div>
+			: <div className="center-wrapper-column">
+				<PacmanLoader
+				color={'#FF4136'}
+				loading={!(Games && Games.allGames)}
+				size={50}
+				aria-label="Loading Spinner"
+				data-testid="loader"
+				/>
+				<p>Loading....</p>
+			</div>}
 			<ToastContainer theme="dark"/>
 		</>
 	);

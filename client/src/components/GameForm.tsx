@@ -1,10 +1,11 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { IConsole, IGameForm, IGenre, IPublisher } from "../types/types";
 import PublisherDropdown from "./PublisherDropdown";
 import GenreCheckbox from "./GenreCheckbox";
 import ConsoleCheckbox from "./ConsoleCheckbox";
 import { ChangeEvent } from "react";
 import defaultImage from '../assets/default.jpeg';
+import { GamesContext } from "./GamesContext";
 
 interface IFormProps {
 	url: string;
@@ -16,6 +17,7 @@ interface IFormProps {
 }
 
 export default function GameForm({url, handleSubmit, allPublishers, allGenres, allConsoles, game}: IFormProps) {
+	const Games = useContext(GamesContext);
 	const [formData, setData] = useState<IGameForm>({
 		_id: game?._id || '',
 		title: game?.title || '',
@@ -82,7 +84,7 @@ export default function GameForm({url, handleSubmit, allPublishers, allGenres, a
 					<input type="number" id="price" name="price" step='0.01' min='0' required value={formData.price} onChange={e => setData({...formData, price: e.target.value})}/>
 				</div>
 				<div>
-					{game ? <img src={`data:image/jpeg;base64,${game.image}`} id="image"/> : <img id="image" src={defaultImage} />}
+					{game ? <img src={typeof(game.image) === 'string' && game.image.length > 4 ? `data:image/jpeg;base64,${game.image}` : defaultImage} id="image"/> : <img id="image" src={defaultImage} />}
 					<input type="file" id="files" name="image" accept="image/*" onChange={e => { 
 						const imageDisplay = document.getElementById('image') as HTMLImageElement;
 						const src = URL.createObjectURL(e.target.files![0]);

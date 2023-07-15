@@ -2,9 +2,6 @@ import Game from "../models/game.js";
 import Console from '../models/console.js';
 import Publisher from '../models/publisher.js';
 import Genre from '../models/genre.js';
-import url from 'url';
-import path from 'path';
-import { unlink } from 'fs';
 import { body, validationResult } from 'express-validator';
 // Get all games
 export const game_get_all = async (_req, res) => {
@@ -20,6 +17,11 @@ export const game_get_detailed = async (req, res, next) => {
         return next(error);
     }
     res.json(game);
+};
+// Get all games titles
+export const games_get_titles_all = async (_req, res) => {
+    const allTitles = await Game.find({}).select('title').exec();
+    res.json(allTitles);
 };
 // POST new game
 export const game_post_new = [body('title').trim().isLength({ min: 1 }).escape(),
@@ -40,6 +42,7 @@ export const game_post_new = [body('title').trim().isLength({ min: 1 }).escape()
         const publisher = await Publisher.findById(publisherId._id, '_id').exec();
         const allGenres = await Genre.find({}, '_id').exec();
         const allConsoles = await Console.find({}, '_id').exec();
+        const imageBuffer = req.file === undefined ? 'none' : req.file.buffer.toString('base64');
         const game = new Game({
             _id: req.body._id,
             title: req.body.title,
@@ -49,7 +52,8 @@ export const game_post_new = [body('title').trim().isLength({ min: 1 }).escape()
             price: parseFloat(req.body.price),
             publisher: publisher,
             genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
-            consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
+            consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id))),
+            image: imageBuffer
         });
         const gameExists = await Game.findOne({ title: req.body.title }).exec();
         if (!gameExists) {
@@ -63,7 +67,7 @@ export const game_post_new = [body('title').trim().isLength({ min: 1 }).escape()
 ];
 // UPDATE game
 export const game_update = [body('title').trim().isLength({ min: 1 }).escape(),
-    body('_id').trim().isLength({ min: 12 }).escape(),
+    body('_id').trim().isLength({ min: 1 }).escape(),
     body('description').trim().isLength({ min: 1 }).escape(),
     body('copies_in_stock').trim().isLength({ min: 1 }).isNumeric(),
     body('price').trim().isLength({ min: 3 }).isNumeric(),
@@ -74,12 +78,17 @@ export const game_update = [body('title').trim().isLength({ min: 1 }).escape(),
             res.status(405).send('Invalid data');
             return;
         }
+        const prevGame = await Game.findById(req.body._id).exec();
+        if (!prevGame) {
+            res.status(405).send('No such game');
+        }
         const publisherId = JSON.parse(req.body.publisher);
         const genreId = [req.body.genres].map(g => JSON.parse(g)).flat();
         const consolesId = [req.body.consoles].map(c => JSON.parse(c)).flat();
         const publisher = await Publisher.findById(publisherId._id, '_id').exec();
         const allGenres = await Genre.find({}, '_id').exec();
         const allConsoles = await Console.find({}, '_id').exec();
+        const imageBuffer = req.file === undefined ? '' : req.file.buffer.toString('base64');
         const game = new Game({
             _id: req.body._id,
             title: req.body.title,
@@ -89,7 +98,8 @@ export const game_update = [body('title').trim().isLength({ min: 1 }).escape(),
             price: parseFloat(req.body.price),
             publisher: publisher,
             genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
-            consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
+            consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id))),
+            image: imageBuffer ? imageBuffer : prevGame?.image
         });
         const theGame = await Game.findByIdAndUpdate(game._id, game, {}).exec();
         res.status(201).json(theGame);
@@ -97,9 +107,6 @@ export const game_update = [body('title').trim().isLength({ min: 1 }).escape(),
 ];
 // DELETE game
 export const game_delete = async (req, res) => {
-    const __filename = url.fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const ROOT = path.join(__dirname, '../..');
     const id = req.params.id;
     const gameExists = await Game.findById(id).exec();
     if (!gameExists) { // No such game
@@ -108,12 +115,6 @@ export const game_delete = async (req, res) => {
     }
     await Game.findByIdAndDelete(id);
     res.status(201).send('Deleted');
-    // Remove orphaned image if it exists
-    unlink(path.join(ROOT, `public/images/${id}.jpeg`), (err) => {
-        if (err)
-            console.log(err);
-        console.log(`Removed ${id}.jpeg`);
-    });
 };
 const checkGameAvailability = async (gameId, allGames) => {
     const game = await Game.findById(gameId).exec();
