@@ -2,7 +2,7 @@
 
 ![Hero](./demo-images/hero.png)
 
-A full MERN stack website, meant to mimic an online videogame store. See it live [here](https://bofmar.github.io/game_store). To access the control panel, click the link on the footer, or navigate to [http://localhost:3000/game_store/control-panel](http://localhost:3000/game_store/control-panel).
+A full MERN stack website, meant to mimic an online videogame store. See it live [here](https://bofmar.github.io/game_store). To access the control panel, click the link on the footer, or navigate to [https://bofmar.github.io/game_store/#/control-panel](https://bofmar.github.io/game_store/#/control-panel).
 
 The website is deployed to render.com and uses the free tier. As such initial load time can reach up to a minute if you access this site while the backend has spun down. Please be patient.
 
