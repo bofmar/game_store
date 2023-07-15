@@ -11,8 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import { FormEvent, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { GamesContext } from './GamesContext';
+import useFetch from '../hooks/useFetch';
+import { SERVER_URI } from '../constats';
 
 export default function Home() {
+	const url = `${SERVER_URI}catalog/games/15`;
+	const {data: featuredGame} = useFetch<IGame>(url);
 	const Games = useContext(GamesContext);
 	const navigate = useNavigate();
 
@@ -81,7 +85,7 @@ export default function Home() {
 						<img className='carousel-image' src={carousel3} />
 					</div>
 					<div className='hero-carousel-item'>
-						{Games && Games.allGames && <FeaturedGame game={Games.allGames.find(g => g._id === '15') as IGame} />}
+						{featuredGame && <FeaturedGame game={featuredGame} />}
 						<img className='carousel-image' src={carousel4} />
 					</div>
 				</Carousel>
