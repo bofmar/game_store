@@ -45,6 +45,8 @@ export const game_post_new = [body('title').trim().isLength({ min: 1 }).escape()
         const publisher = await Publisher.findById(publisherId._id, '_id').exec();
         const allGenres = await Genre.find({}, '_id').exec();
         const allConsoles = await Console.find({}, '_id').exec();
+        console.log(req.file?.buffer);
+        const imageBuffer = req.file === undefined ? '' : req.file.buffer.toString('base64');
         const game = new Game({
             _id: req.body._id,
             title: req.body.title,
@@ -54,7 +56,8 @@ export const game_post_new = [body('title').trim().isLength({ min: 1 }).escape()
             price: parseFloat(req.body.price),
             publisher: publisher,
             genres: allGenres.filter(genre => genreId.some(g => genre._id.equals(g._id))),
-            consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id)))
+            consoles: allConsoles.filter(con => consolesId.some(c => con._id.equals(c._id))),
+            image: imageBuffer
         });
         const gameExists = await Game.findOne({ title: req.body.title }).exec();
         if (!gameExists) {
