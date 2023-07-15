@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-	<BrowserRouter basename='/game_store'>
+	<HashRouter basename='/game_store'>
 		<App />
-	</BrowserRouter>
+	</HashRouter>
   </React.StrictMode>,
 )

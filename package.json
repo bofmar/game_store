@@ -2,6 +2,7 @@
     "name": "gamesplanet",
     "version": "1.0.0",
     "description": "Demo site meant to demonstrate use of the full MERN stack",
+	"homepage": "https://bofmar.github.io/game_store/#",
     "main": "./server/dist/server.js",
     "scripts": {
       "start": "cd ./server/dist && node server.js"

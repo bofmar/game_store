@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://bofmar.github.io/game_store/",
+  "homepage": "https://bofmar.github.io/game_store/#",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
