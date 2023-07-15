@@ -7,6 +7,7 @@ import Carousel from "react-multi-carousel";
 import GameCard from "./GameCard";
 import { useContext, useEffect, useState } from "react";
 import { GamesContext } from "./GamesContext";
+import { PacmanLoader } from "react-spinners";
 
 interface IGameRanked extends IGame {
 	score: number;
@@ -71,36 +72,49 @@ export default function GameDetail() {
 	}
 
 	return (
-		<div className="game-details-body center-wrapper">
-			{game && <div className="game-details-wrapper">
-				<h2>{game.title}</h2>
-				<section className="game-details-image-section">
-					<img src={`data:image/jpeg;base64,${game.image}`}/>
-				</section>
-				<section className="game-details-details-section">
-					<p className="game-details-description">{game.description}</p>
-					<section className="game-details-genres-section">
-						<h3>Genres:{game.genres.map(g => <span key={g._id}> {g.name}</span>)}</h3>
+		<>
+		{Games && Games.allGames ?
+			<div className="game-details-body center-wrapper">
+				{game && <div className="game-details-wrapper">
+					<h2>{game.title}</h2>
+					<section className="game-details-image-section">
+						<img src={`data:image/jpeg;base64,${game.image}`}/>
 					</section>
-					<section className="game-details-consoles-section">
-						<h3>Available on:{game.consoles.map(c => <span key={c._id}> {c.name}</span>)}</h3>
+					<section className="game-details-details-section">
+						<p className="game-details-description">{game.description}</p>
+						<section className="game-details-genres-section">
+							<h3>Genres:{game.genres.map(g => <span key={g._id}> {g.name}</span>)}</h3>
+						</section>
+						<section className="game-details-consoles-section">
+							<h3>Available on:{game.consoles.map(c => <span key={c._id}> {c.name}</span>)}</h3>
+						</section>
+						{game.copies_in_stock > 0
+						? <p className="game-details-price">Price: <span className="price-span">{game.price}€</span></p> 
+						: <p className="sold-out">SOLD OUT</p>}
+						{game.copies_in_stock > 0 && <AddToCartButton game={game}/>}
 					</section>
-					{game.copies_in_stock > 0
-					? <p className="game-details-price">Price: <span className="price-span">{game.price}€</span></p> 
-					: <p className="sold-out">SOLD OUT</p>}
-					{game.copies_in_stock > 0 && <AddToCartButton game={game}/>}
-				</section>
-				<section className="rec-carousel-section">
-					<h2>You might also like</h2>
-					<Carousel
-					responsive={gameResponsive}
-					infinite={true}
-					keyBoardControl={true}
-					containerClass="game-carousel-container">
-						{ranked.length > 0 ? ranked.slice(0,5).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
-					</Carousel>
-				</section>
+					<section className="rec-carousel-section">
+						<h2>You might also like</h2>
+						<Carousel
+						responsive={gameResponsive}
+						infinite={true}
+						keyBoardControl={true}
+						containerClass="game-carousel-container">
+							{ranked.length > 0 ? ranked.slice(0,5).map(g => <GameCard game={g} fromPanel={false} key={g._id} />): <div></div> }
+						</Carousel>
+					</section>
+				</div>}
+			</div>
+			: <div className="center-wrapper-column">
+				<PacmanLoader
+				color={'#FF4136'}
+				loading={!(Games && Games.allGames)}
+				size={50}
+				aria-label="Loading Spinner"
+				data-testid="loader"
+				/>
+				<p>Loading....</p>
 			</div>}
-		</div>
+	</>
 	);
 }
